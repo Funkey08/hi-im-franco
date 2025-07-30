@@ -3,14 +3,15 @@ const AboutMe = () => {
     <section className="w-full px-4 md:px-10 pt-10 bg-neutral-900 text-white">
       <div className="max-w-6xl mx-auto text-left space-y-1">
         <h2 className="text-4xl font-semibold mb-2">
-          I still have much to learn.
+          I still have much to learn...
         </h2>
         <p className="text-lg leading-relaxed text-neutral-300">
           <span className="font-semibold">
             {" "}
             <br />
-            After all, my passion is using data to understand and improve the
-            human experience. <br />
+            ...because my passion is using data to understand and improve the
+            human experience. 💻
+            <br />
             <br />
           </span>
           Ever since I joined a neurocomputational lab in my freshman year, I’ve
@@ -21,8 +22,8 @@ const AboutMe = () => {
           to transform complex information into clear, actionable insights.{" "}
           <span className="font-semibold">
             Since then, I’ve pursued this passion beyond neuroscience
-          </span>
-          , across several domains — from computational social science and
+          </span>{" "}
+          across several domains — from computational social science and
           experimental design to biotechnology and digital health.
           <br />
           <br />

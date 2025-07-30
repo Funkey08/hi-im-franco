@@ -3,6 +3,8 @@ import AboutMe from "./components/AboutMe.tsx";
 import Header from "./components/Header.tsx";
 import ImageCarousel from "./components/ImageCarousel.tsx";
 import InstitutionGrid from "./components/InstitutionGrid.tsx";
+import ProjectShowcase from "./components/ProjectShowcase.tsx";
+import FavBooks from "./components/FavBooks.tsx";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 //import "./App.css";
@@ -30,6 +32,8 @@ function App() {
       </div>
       <InstitutionGrid />
       <AboutMe />
+      <ProjectShowcase />
+      <FavBooks />
     </main>
   );
 }

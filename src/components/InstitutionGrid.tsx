@@ -23,7 +23,7 @@ const InstitutionGrid = () => {
   return (
     <section className="w-full pt-24 px-4 bg-neutral-900 text-white">
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl pl-17 mb-8 text-left">I have worked at...</h2>
+        <h2 className="text-2xl pl-17 mb-8 text-left">I have worked at:</h2>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-60 gap-y-20 justify-items-center items-center">
           {companyLogos.map((src, idx) => (
