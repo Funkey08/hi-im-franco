@@ -1,0 +1,6 @@
+- [ ] Should be a hyperlink area above Header section
+- [x] Multiple carousel parts
+- [x] Carousel bugs out when it reaches the end, make sure circulation is seamless
+- [ ] Add campus biotech logo?
+- [ ] Make spacing overall cleaner
+- [ ] Infinite Conway's game of life in the "summary" section
