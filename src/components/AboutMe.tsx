@@ -1,7 +1,7 @@
 const AboutMe = () => {
   return (
-    <section className="w-full px-4 md:px-10 pt-10 bg-neutral-900 text-white">
-      <div className="max-w-6xl mx-auto text-left space-y-1">
+    <section className="w-full px-10 md:px-40 pt-10 bg-neutral-900 text-white">
+      <div className="max-w-8xl mx-auto text-left space-y-1">
         <h2 className="text-4xl font-semibold mb-2">
           I still have much to learn...
         </h2>

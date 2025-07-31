@@ -5,6 +5,7 @@ import ImageCarousel from "./components/ImageCarousel.tsx";
 import InstitutionGrid from "./components/InstitutionGrid.tsx";
 import ProjectShowcase from "./components/ProjectShowcase.tsx";
 import FavBooks from "./components/FavBooks.tsx";
+import ContactSection from "./components/ContactSection.tsx";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 //import "./App.css";
@@ -34,6 +35,7 @@ function App() {
       <AboutMe />
       <ProjectShowcase />
       <FavBooks />
+      <ContactSection />
     </main>
   );
 }
