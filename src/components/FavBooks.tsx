@@ -41,7 +41,7 @@ const booksData = books.map((book) => ({
 
 const BooksGrid = () => {
   return (
-    <section className="w-full pt-1 px-4 bg-neutral-900 text-white">
+    <section className="w-full px-4 bg-neutral-900 pt-10 text-white">
       <div className="max-w-7xl mx-auto">
         <h2 className="text-3xl font-semibold mb-10 text-center">
           My favourite books...

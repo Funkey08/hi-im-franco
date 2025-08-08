@@ -2,7 +2,7 @@ import { Mail, Github, Linkedin } from "lucide-react"; // Or from react-icons if
 
 const ContactSection = () => {
   return (
-    <footer className="w-full py-12 px-4 text-white">
+    <footer className="w-full pt-12 pb-8 px-4 text-white">
       <div className="max-w-5xl mx-auto flex flex-col items-center space-y-6">
         <h2 className="text-xl">Reach out to me!</h2>
 
@@ -29,7 +29,7 @@ const ContactSection = () => {
 
           {/* Email */}
           <a
-            href="francomiguel.valencia@gmail.com"
+            href="mailto:francomiguel.valencia@gmail.com"
             className="hover:text-pink-400 transition-colors duration-300"
           >
             <Mail size={32} />

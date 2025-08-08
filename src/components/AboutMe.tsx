@@ -27,6 +27,11 @@ const AboutMe = () => {
           experimental design to biotechnology and digital health.
           <br />
           <br />
+          <span className="text-2xl italic">
+            The process of exploration is what excites me the most!
+          </span>
+          <br />
+          <br />
           <span className="font-semibold">
             Technically, I work across the stack.
           </span>{" "}

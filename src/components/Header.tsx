@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import face from "../assets/face.JPG";
+import face_icon from "../assets/face_only_icon.png";
+import face_icon_blinking from "../assets/face_only_icon_blinking.png";
 
 const roleList = [
   { label: "🧠 data scientist...", color: "text-indigo-300" },
@@ -13,6 +15,7 @@ const roleList = [
 const delay = 3000;
 
 const Header = () => {
+  const [isHovered, setIsHovered] = useState(false);
   const [index, setIndex] = useState(0);
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,7 +29,16 @@ const Header = () => {
       <div className="w-full mx-auto flex flex-col md:flex-row items-center justify-between gap-8 px-30">
         {/* Text Section */}
         <div className="flex-[70%] text-left">
-          <h2 className="text-[50px] mb-1 leading-[1.5]">Hi! My name is</h2>
+          <h2 className="text-[50px] mb-1 leading-[1.5] flex items-center gap-3">
+            <img
+              src={isHovered ? face_icon_blinking : face_icon}
+              alt="Icon"
+              className="w-20 h-20 object-contain rounded-md ease-in-out hover:scale-110"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            />
+            Hi! My name is
+          </h2>
           <div className="text-[70px] font-bold mb-1 leading-[1.5]">
             Franco Miguel Valencia,
           </div>
@@ -60,7 +72,7 @@ const Header = () => {
           <img
             src={face}
             alt="Franco's portrait"
-            className="w-full max-w-md h-auto relative z-0 object-contain"
+            className="w-full max-w-md h-auto relative z-0 object-contain rounded-2xl"
           />
         </div>
       </div>
