@@ -8,6 +8,7 @@ import FavBooks from "./components/FavBooks.tsx";
 import ContactSection from "./components/ContactSection.tsx";
 import Timeline from "./components/TimelineBio.tsx";
 import Footer from "./components/Footer.tsx";
+import NavLinks from "./components/NavLinks.tsx";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 //import "./App.css";
@@ -36,6 +37,7 @@ const academicImages = Object.values(
 function App() {
   return (
     <main className="font-sans">
+      <NavLinks />
       <Header />
       <div className="space-y-4">
         <ImageCarousel images={personalImagesSort} speed={0.05} />

@@ -45,7 +45,7 @@ const CarouselRow = ({
   });
 
   return (
-    <div className="w-screen overflow-hidden bg-neutral-800">
+    <div id="ImageCarousel" className="w-screen overflow-hidden bg-neutral-800">
       <div
         ref={containerRef}
         className={`flex gap-8 w-max ${height}`}

@@ -39,30 +39,30 @@ const timelineData = [
         hands-on experience in a wet lab. While I enjoyed working at the bench,
         it solidified my belief that my greatest potential lies in computational
         research — where I realized data could scale insights beyond just the
-        lab.
+        physical lab.
       </>
     ),
     img: imgMap["../assets/timeline/stanford_pres.jpg"],
   },
   {
     year: "2024",
-    title: "I wanna try more of this!",
+    title: "I wanna try more of this...",
     description: (
       <>
-        Eager to see how my skills translated to industry, I joined{" "}
+        Wanting to see how my skills translated to industry, I joined{" "}
         <strong>Cove Neurosciences</strong> as an R&D Data Scientist intern.
         There, I developed data-driven biomarkers for cognitive disorders, using
         Python to create an end-to-end analytical pipeline for processing
-        thousands of patients in one go. My time here pushed me to think beyond
-        biotechnology, inspiring me to explore how advanced analytics and AI
-        could tacke problems across fields.
+        thousands of patients in one go. It was here that I was inspired to look
+        beyond biotechnology — how else could advanced analytics and AI could
+        tackle problems across fields?
       </>
     ),
     img: imgMap["../assets/timeline/cove_group.jpg"],
   },
   {
     year: "2025",
-    title: "A New Test Environment",
+    title: "{-m venv new_environment}",
     description: (
       <>
         Thus, with a strong desire to experience new perspectives and diversify
@@ -70,16 +70,16 @@ const timelineData = [
         <strong>EPFL Biotech</strong>. My work spanned designing online
         platforms and surveys for large-scale experiments, developing portable
         apps to enable global data collection, and running analyses on datasets
-        with tens of thousands of entries. I became not only more adaptable —
-        but more inspired and confident that I could bring ideas to life in a
-        more tangible way.
+        with tens of thousands of entries. I became not only more adaptable, but
+        more inspired and confident that I could bring ideas to life in a more
+        tangible way!
       </>
     ),
     img: imgMap["../assets/timeline/toblerone_1.jpg"],
   },
   {
     year: "infinity and beyond",
-    title: "So where do we go from here? 🤔",
+    title: "So...where do we go from here? 🤔",
     description: (
       <>
         I still enjoy exploring — but now, I'm focusing on applying my skills to
@@ -191,7 +191,10 @@ const Timeline = () => {
   }, [computePaths]);
 
   return (
-    <section className="w-full py-16 bg-neutral-950 text-white">
+    <section
+      id="TimelineBio"
+      className="w-full py-16 bg-neutral-950 text-white"
+    >
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
         <h2 className="text-4xl mb-12 text-center">But how did we get here?</h2>
 
@@ -261,7 +264,7 @@ const Timeline = () => {
                     {/* side scrim */}
                     <div
                       className={`
-                        absolute inset-y-0 w-[60%] md:w-[44%]
+                        absolute inset-y-0 w-[60%] md:w-[20%]
                         ${
                           leftSide
                             ? "left-0 bg-gradient-to-r"
@@ -297,8 +300,8 @@ const Timeline = () => {
                         relative z-10 p-6 md:p-8
                         ${
                           leftSide
-                            ? "max-w-[540px]"
-                            : "max-w-[540px] ml-auto text-right"
+                            ? "max-w-[560px]"
+                            : "max-w-[560px] ml-auto text-right"
                         }
                       `}
                     >

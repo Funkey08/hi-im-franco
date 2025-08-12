@@ -21,7 +21,10 @@ const companyLogos = companyOrder.map(
 
 const InstitutionGrid = () => {
   return (
-    <section className="w-full pt-24 px-4 bg-neutral-900 text-white">
+    <section
+      id="InstitutionGrid"
+      className="w-full pt-24 px-4 bg-neutral-900 text-white"
+    >
       <div className="max-w-7xl mx-auto">
         <h2 className="text-2xl pl-1 mb-8 text-left">I have worked at:</h2>
 
