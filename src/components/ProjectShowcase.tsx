@@ -1,16 +1,19 @@
-import eeg from "../assets/projects/eeg.png";
-import apathy from "../assets/projects/apathy.png";
-import mhPaper from "../assets/projects/mh_paper.png";
-import mhFigure from "../assets/projects/mh_figure.png";
-import numerosity from "../assets/projects/numerosity.png";
-import bibliolinguist from "../assets/projects/bibliolinguist.png";
-import breastShap from "../assets/projects/breast_shap.png";
+import eeg from "../assets/projects/eeg.avif";
+// import connectionsMap from "../assets/projects/connections_map.avif";
+import apathy from "../assets/projects/apathy.avif";
+import mhPaper from "../assets/projects/mh_paper.avif";
+import mhFigure from "../assets/projects/mh_figure.avif";
+import numerosity from "../assets/projects/numerosity.avif";
+import bibliolinguist from "../assets/projects/bibliolinguist.avif";
+import breastShap from "../assets/projects/breast_shap.avif";
 
 const projects = [
   {
     title: "Automated Connectivity Analysis Pipeline",
     image: eeg,
     image_height: "h-60",
+    // second_image: connectionsMap,
+    // second_image_height: "h-60",
     description:
       "An end-to-end pipeline for neuroimaging time-series analysis with built-in preprocessing, data wrangling, and analysis for classifying functional connectivity features from an EEG dataset.",
     tools: [

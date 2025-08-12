@@ -19,19 +19,25 @@ const collator = new Intl.Collator(undefined, {
 });
 
 const personalImages = Object.values(
-  import.meta.glob("./assets/carousel/personal/*.{jpg,JPG,jpeg,png,webp}", {
-    eager: true,
-    as: "url",
-  })
+  import.meta.glob(
+    "./assets/carousel/personal/*.{avif,jpg,JPG,jpeg,png,webp}",
+    {
+      eager: true,
+      as: "url",
+    }
+  )
 );
 
 const personalImagesSort = [...personalImages].sort(collator.compare);
 
 const academicImages = Object.values(
-  import.meta.glob("./assets/carousel/academic/*.{jpg,JPG,jpeg,png,webp}", {
-    eager: true,
-    as: "url",
-  })
+  import.meta.glob(
+    "./assets/carousel/academic/*.{avif,jpg,JPG,jpeg,png,webp}",
+    {
+      eager: true,
+      as: "url",
+    }
+  )
 );
 
 function App() {

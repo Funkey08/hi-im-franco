@@ -27,7 +27,7 @@ const books = [
 ];
 
 const booksCoversMap = import.meta.glob(
-  "../assets/books/*.{png,svg,jpg,jpeg}",
+  "../assets/books/*.{avif,png,svg,jpg,jpeg}",
   {
     eager: true,
     as: "url",

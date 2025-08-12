@@ -2,10 +2,13 @@ import { useRef, useLayoutEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
 // ---- your existing data ----
-const imgMap = import.meta.glob("../assets/timeline/*.{png,jpg,jpeg,webp}", {
-  eager: true,
-  as: "url",
-});
+const imgMap = import.meta.glob(
+  "../assets/timeline/*.{avif,png,jpg,jpeg,webp}",
+  {
+    eager: true,
+    as: "url",
+  }
+);
 
 const timelineData = [
   {
@@ -23,7 +26,7 @@ const timelineData = [
         of my studies and, eventually, a long-term goal.
       </>
     ),
-    img: imgMap["../assets/timeline/mouse_lab.jpg"],
+    img: imgMap["../assets/timeline/mouse_lab.avif"],
   },
   {
     year: "2023",
@@ -42,7 +45,7 @@ const timelineData = [
         physical lab.
       </>
     ),
-    img: imgMap["../assets/timeline/stanford_pres.jpg"],
+    img: imgMap["../assets/timeline/stanford_pres.avif"],
   },
   {
     year: "2024",
@@ -58,7 +61,7 @@ const timelineData = [
         tackle problems across fields?
       </>
     ),
-    img: imgMap["../assets/timeline/cove_group.jpg"],
+    img: imgMap["../assets/timeline/cove_group.avif"],
   },
   {
     year: "2025",
@@ -75,7 +78,7 @@ const timelineData = [
         tangible way!
       </>
     ),
-    img: imgMap["../assets/timeline/toblerone_1.jpg"],
+    img: imgMap["../assets/timeline/toblerone_1.avif"],
   },
   {
     year: "infinity and beyond",
@@ -91,7 +94,7 @@ const timelineData = [
         that benefits others.
       </>
     ),
-    img: imgMap["../assets/timeline/view.jpg"],
+    img: imgMap["../assets/timeline/view.avif"],
   },
 ];
 
