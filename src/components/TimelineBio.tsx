@@ -196,10 +196,10 @@ const Timeline = () => {
   return (
     <section
       id="TimelineBio"
-      className="w-full py-16 bg-neutral-950 text-white"
+      className="w-full py-12 bg-neutral-950 text-white"
     >
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-        <h2 className="text-4xl mb-12 text-center">But how did we get here?</h2>
+        <h2 className="text-4xl mb-12 font-semibold text-center">But how did we get here?</h2>
 
         <div ref={containerRef} className="relative w-full">
           {/* center spine (optional now) */}

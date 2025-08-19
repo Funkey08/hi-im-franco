@@ -9,6 +9,7 @@ import ContactSection from "./components/ContactSection.tsx";
 import Timeline from "./components/TimelineBio.tsx";
 import Footer from "./components/Footer.tsx";
 import NavLinks from "./components/NavLinks.tsx";
+import AwardsSection from "./components/AwardSection.tsx";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 //import "./App.css";
@@ -52,6 +53,7 @@ function App() {
       <InstitutionGrid />
       <AboutMe />
       <ProjectShowcase />
+      <AwardsSection />
       <Timeline />
       <FavBooks />
       <ContactSection />

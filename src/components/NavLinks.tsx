@@ -6,6 +6,7 @@ const links = [
   { id: "ImageCarousel", label: "📷 Cool Pics" },
   { id: "AboutMe", label: "🙃 About Me" },
   { id: "ProjectShowcase", label: "💻 Things I've Done" },
+  { id: "AwardSection", label: "🏆 What I've Got" },
   { id: "TimelineBio", label: "📅 Timeline Bio" },
   { id: "FavBooks", label: "📚 Fav Books" },
   { id: "ContactSection", label: "📧 Contact" },
