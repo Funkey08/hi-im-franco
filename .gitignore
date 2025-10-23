@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# re-add this later
+acceptance_apathy_das.avif
