@@ -13,35 +13,36 @@ const imgMap = import.meta.glob(
 const timelineData = [
   {
     year: "2022",
-    title: "Where It Began (feat. Mice 🐭)",
+    title: "Where It Began (feat. mice 🐭)",
     description: (
       <>
         In my first year, I had the privilege of stepping into a computational
         lab for the very first time. Working with Arduino, MATLAB, and Bonsai, I
         engineered an <strong>automated transitive inference paradigm</strong>{" "}
-        for mice — a system that could run experiments in their entirety without
-        human intervention. That experience opened my eyes to the immense
-        potential of data and computation in streamlining research, and set me
-        on the path to pursue computer science and statistical methods as part
-        of my studies and, eventually, a long-term goal.
+        for mice, designing quantitative metrics for mouse behaviour and
+        pipelines for data collection and analysis. This was my first time
+        programming in a real-world setting, and opened my eyes to the immense
+        potential of data and computation in streamlining research. This
+        inspired me to pursue computer science and statistical methods as part
+        of my studies and eventually as a long-term goal.
       </>
     ),
     img: imgMap["../assets/timeline/mouse_lab.avif"],
   },
   {
     year: "2023",
-    title: "Lab Coat by Day, Data by Night (literally...)",
+    title: "Lab coat by day, data by night...literally",
     description: (
       <>
         My curiosity for the power of data took me to{" "}
         <strong>Stanford Medicine</strong>, where I used R, Joinpoint
-        regression, and iterative model building to uncover trends in mental
+        regression, and iterative model building to identify trends in mental
         health and mortality among minority populations. During that same
         period, a scholarship brought me to the{" "}
         <strong>National University of Singapore</strong>, where I gained
         hands-on experience in a wet lab. While I enjoyed working at the bench,
         it solidified my belief that my greatest potential lies in computational
-        research — where I realized data could scale insights beyond just the
+        research, where I realized data could scale insights beyond just the
         physical lab.
       </>
     ),
@@ -49,16 +50,18 @@ const timelineData = [
   },
   {
     year: "2024",
-    title: "I wanna try more of this...",
+    title: "I'd like to try more of this...",
     description: (
       <>
         Wanting to see how my skills translated to industry, I joined{" "}
-        <strong>Cove Neurosciences</strong> as an R&D Data Scientist intern.
-        There, I developed data-driven biomarkers for cognitive disorders, using
-        Python to create an end-to-end analytical pipeline for processing
-        thousands of patients in one go. It was here that I was inspired to look
-        beyond biotechnology — how else could advanced analytics and AI could
-        tackle problems across fields?
+        <strong>Cove Neurosciences</strong> as an R&D Data Scientist and
+        Software Engineer. There, I developed data-driven biomarkers for
+        cognitive disorders, using Python to create an end-to-end analytical
+        pipeline for processing thousands of patients in one go. It was here
+        that I was inspired to look beyond biotechnology, and toward analytics
+        as a field. I found myself less focused on any single biological
+        mechanism and more interested in the analytic frameworks underlying
+        them.
       </>
     ),
     img: imgMap["../assets/timeline/cove_group.avif"],
@@ -68,21 +71,21 @@ const timelineData = [
     title: "{-m venv new_environment}",
     description: (
       <>
-        Thus, with a strong desire to experience new perspectives and diversify
-        my skills, I found myself in Geneva to intern at{" "}
-        <strong>EPFL Biotech</strong>. My work spanned designing online
-        platforms and surveys for large-scale experiments, developing portable
-        apps to enable global data collection, and running analyses on datasets
-        with tens of thousands of entries. I became not only more adaptable, but
-        more inspired and confident that I could bring ideas to life in a more
-        tangible way!
+        With a desire to experience new perspectives and understand how data
+        could be leveraged across fields, I found myself in Geneva for an
+        internship at <strong>EPFL Biotech</strong>. My work spanned designing
+        online platforms and surveys for large-scale experiments, developing
+        portable apps to enable global data collection, and running analyses on
+        datasets with tens of thousands of entries. I became not only more
+        adaptable, but more inspired and confident that I could bring ideas to
+        life in a more tangible way.
       </>
     ),
-    img: imgMap["../assets/timeline/toblerone_1.avif"],
+    img: imgMap["../assets/timeline/swiss_landscape.avif"],
   },
   {
     year: "infinity and beyond",
-    title: "So...where do we go from here? 🤔",
+    title: "So...where do we go from here?",
     description: (
       <>
         I still enjoy exploring — but now, I'm focusing on applying my skills to
@@ -199,7 +202,9 @@ const Timeline = () => {
       className="w-full py-12 bg-neutral-950 text-white"
     >
       <div className="max-w-[1400px] mx-auto px-4 md:px-8">
-        <h2 className="text-4xl mb-12 font-semibold text-center">But how did we get here?</h2>
+        <h2 className="text-4xl mb-12 font-semibold text-center">
+          How did we get here?
+        </h2>
 
         <div ref={containerRef} className="relative w-full">
           {/* center spine (optional now) */}

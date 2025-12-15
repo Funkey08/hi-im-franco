@@ -39,7 +39,7 @@ const Header = () => {
             />
             Hi! My name is
           </h2>
-          <div className="text-[70px] font-bold mb-1 leading-[1.5]">
+          <div className="text-[90px] font-bold mb-1 leading-[1.5]">
             Franco Miguel Valencia,
           </div>
           <h2 className="text-[50px] text-white leading-[1.5] flex gap-2 items-center">
@@ -67,12 +67,12 @@ const Header = () => {
         </div>
 
         {/* Image Section */}
-        <div className="relative flex-[30%] hidden md:flex justify-end relative">
+        <div className="relative flex-shrink-0 hidden md:flex justify-end relative">
           <div className="absolute inset-0 bg-gradient-to-r from-neutral-900 via-neutral-900/80 to-transparent z-10" />
           <img
             src={face}
             alt="Franco's portrait"
-            className="w-full max-w-md h-auto relative z-0 object-contain rounded-2xl"
+            className="w-96 h-auto relative z-0 object-contain rounded-2xl"
           />
         </div>
       </div>

@@ -89,10 +89,11 @@ const projects = [
 const ProjectShowcase = () => {
   return (
     <section id="ProjectShowcase" className="w-full pt-10 mt-10 pb-10 px-4">
-      <h2 className="text-white text-4xl pl-30 pb-6 text-left">
-        Some things I've done...
-      </h2>
-      <div className="grid grid-cols-3 grid-rows-3 gap-4 max-w-[90rem] mx-auto">
+      <div className="max-w-[90rem] mx-auto">
+        <h2 className="text-white text-4xl pb-6 text-left">
+          Some things I've done...
+        </h2>
+        <div className="grid grid-cols-3 grid-rows-3 gap-4">
         {projects.map((proj, idx) => (
           <div
             key={idx}
@@ -127,11 +128,12 @@ const ProjectShowcase = () => {
             </div>
           </div>
         ))}
+        </div>
+        <h2 className="text-white text-1 pt-10 text-center">
+          ...with more on the way 😄
+        </h2>
       </div>
-      <h2 className="text-white text-1 pt-10 text-center">
-        ...with more on the way 😄
-      </h2>
-    </section>
+      </section>
   );
 };
 
