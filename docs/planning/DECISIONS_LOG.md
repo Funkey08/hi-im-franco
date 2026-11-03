@@ -1,0 +1,77 @@
+# Design decisions log
+
+Every design round of the Nov 2026 overhaul, oldest first. Later rounds override earlier ones where they conflict.
+The current state is summarised in `TODO.md` → "Current design (home page)". Prototype: `docs/mockups/nixie_home.html`.
+
+## Round 1 · Nov 3, 2026
+- **Theme: "The Lab" (dark only).** The site is your lab: Home = terminal, Work = experiment write-ups, Proud Of = achievement log, Life = field notes. Dark background, terminal-green accent (`#57e389`), Inter for text, JetBrains Mono for labels and code. Reference mockup: `docs/mockups/archive/theme_mockup.html`. No light-mode toggle.
+- **Layouts (proposed, as shown in the mockup):** Home B (terminal hero), Work A (case-study list), Proud Of B (achievements unlocked), Life B (scrapbook). Wireframes: `docs/mockups/archive/wireframes_v2.html`.
+- **Positioning:** "Data scientist & quantitative researcher", with health research as part of the story. Matches the resume.
+- **Dates:** the FACT_SHEET is right. Takehara Lab May 2023 – Jan 2024; Stanford CARE Apr 2024 (with SC² to Apr 2026); NUS May – Aug 2024. The site's 2022/2023 dates are wrong.
+- **Projects:** include all of them, in tiers: flagships (VeriSkeptic, λ Lambda, CHIS paper) → compact cards → one-line archive.
+- **Institutions:** include all (NUS stays). Relabel the row so it covers studying, working and research.
+- **BiblioLinguist:** team project, equal contribution (FACT_SHEET corrected).
+- **Books:** same 5 for now; must be easy to edit/add (data file, §6).
+- **URSA line:** confirmed accurate (URSA is the largest in Canada).
+
+## Round 2 · Nov 3, 2026
+- The first mockup read as generic / "vibe-coded". New direction: **the hero itself is the signature** — a huge name built by a live, interactive quantitative animation. Much less text.
+- **Home first screen = name + one role line + 4 links + orbiting work carousel. Nothing else.** No stats, no paragraphs.
+- **Metrics move to `/projects` (Work):** 7 manuscripts, 5 conference presentations, $30k+ awards, 1 of 24 CARE fellows, publications list.
+- **Featured work = slow 3D orbiting carousel** (pause on hover, click opens case study, swipe row on mobile), replacing the single featured card.
+- **Hero concepts prototyped** in `docs/mockups/archive/hero_concepts.html` (all working, interactive): 1 Fit (particles trained into the name, live loss), 2 Descent (SGD with momentum over a loss surface, click to drop particles), 3 Life (name inside Conway's Game of Life), 4 Nixie (name in glowing nixie tubes, divergence-meter roll). ❓ Pick one.
+- **Cursor options prototyped** (same file): A reticle + coordinates, B regression trail with live r, C terminal block, D sophon. ❓ Pick one.
+- ❓ **Does the separate intro animation survive?** If the hero is already animated (esp. Fit or Life), a 3-second CRT intro before it becomes redundant. Options: drop it, shrink it to a ~1s CRT flicker that hands off to the hero, or keep it as the hero's first act.
+
+## Round 3 · Nov 3, 2026
+Prototype: **`docs/mockups/nixie_home.html`** (working: home, measurements, channel transitions, Work and Life stubs).
+- **Theme: "Nixie Lab"** (replaces green "The Lab"). Warm near-black, nixie amber (`#ffb35c` / glow `#ffd29a`) as the main accent, film grain, vignette, dust drifting in the tube light, glass reflections, engraved mono labels, a red Dymo label. Fonts: Oswald (tube glyphs, big headings), JetBrains Mono (labels), Inter (body).
+- **Section colours as phosphor channels:** Work = CH 1, green oscilloscope phosphor (`#7dffb0`). Life = CH 2, amber. Each section keeps its channel colour on its own page.
+- **Hero = the name in six nixie tubes**, ~136px wide on desktop. **The tubes are the intro:** they power on one at a time and roll into FRANCO (~1.5s). ✅ The separate 3s "Worldline Boot" intro is dropped; the CRT/divergence ideas live on as the tube roll and the channel sweeps.
+- **The name is a measuring instrument:** click the tubes (or the readout plate) to "take a measurement". The tubes roll to a verified number with a caption, cycling back to FRANCO after the last one: GPA 3.94 · 48,600 decisions modelled (EPFL) · 4,366 adolescents (first-author study) · p = 0.002 (VeriSkeptic self-repair) · 1,342/1,342 checksums (Lambda) · 2,100 Duolingo days. Readings live in one data array; every value must trace to the FACT_SHEET.
+- **Role line:** "data scientist · applied researcher".
+- **Slogan:** "I love experiencing things I know nothing about." on a Dymo label under the name, repeated as the Life page header. The Life channel is framed as a *random walk* to match it.
+- **Work / Life = two oscilloscope "channel" buttons** with live traces (Work: noisy data with a fitted signal; Life: a random walk). Hover lights them in their channel colour.
+- **Section transition:** tubes roll to WORK/LIFE → full-screen oscilloscope sweep draws that channel's waveform (~1s) → flash → page powers on like a CRT. Back = CRT power-off, then the tubes roll back to FRANCO.
+- **Resume / GitHub / LinkedIn / email:** small links top-right and in the footer.
+- **Below the fold on Home:** "recent experiments" orbit carousel (restyled warm), then footer with Lab Mem 008.
+- Credentials on Work are shown as mini nixie counters (7 · 5 · 30K · 24).
+- Accessibility kept: tubes are keyboard-operable (Enter/Space), readout is `aria-live`, reduced-motion skips rolls/sweeps.
+
+## Round 4 · Nov 3, 2026
+Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
+- **Readings are now a front-panel instrument:** a big MEASURE button (pulses until first use), a lit unit column beside the tubes (NAME / GPA / DECISIONS / PEOPLE / P-VALUE / CHECKSUMS / DAYS, each clickable), progress pips, a status LED, and a larger typed caption.
+- **Slogan:** the Dymo label now *prints itself* letter by letter after the tubes power on, bigger and centred.
+- **Work vs Life = artificial vs real neurons.** Work card: a feed-forward net doing forward passes + a faint backprop wave (green). Life card: branching biological neurons firing action potentials along curved axons (amber). Transitions: full-screen forward pass (Work) / a wave of action potentials crossing the screen (Life). Same visuals as banners on each sub-page.
+- **Carousel cards:** no "Chapter", no status/source/date header. Each card = photo (tinted amber, full colour on hover) + title + one line. Missing photos for now: λ Lambda, Intact, Vera.
+- **Kurisu (bottom-right of Home):** amber/colour ASCII version types itself in when you scroll to the footer; hover/focus cross-fades to the real art with a small caption. Assets: `kurisu_pose.png` (clean pixel-art source, user-supplied), `kurisu_pose_web.webp` (534px, 90 KB, rendered pixelated), `kurisu_ascii.json` (64 cols, colour runs). Old Okabe-cutout versions deleted.
+- **Name:** MIGUEL VALENCIA sits directly under the tubes in large Oswald. When the tubes leave FRANCO (any reading, or WORK/LIFE), the letters F-R-A-N-C-O drop in one by one and join it as FRANCO MIGUEL VALENCIA; they leave again when the tubes return to FRANCO.
+
+## Round 5 · Nov 3, 2026
+- **Slogan** is plain sentence-case text (Inter, ~27px), typed with a caret after power-on; "know nothing about" in amber. No Dymo label anywhere.
+- **Firing is causal/ordered.** Work net: strict forward pass, one layer at a time left to right; nodes light only when pulses arrive; the path taken stays lit; pause, fade, next pass. Life neurons: one neuron starts a wave, spikes travel along axons, a neuron fires only when a spike reaches it; refractory period so waves die out before the next starts.
+- **Kurisu:** new clean flat-colour art (`kurisu_pose.png` + `kurisu_pose_web.webp`, 520px, 69 KB), shown as-is bottom-right. Hover/focus pops the caption instantly; no fades. ASCII version retired.
+
+## Round 6 · Nov 3, 2026
+- **Kurisu is ASCII again** (66 cols, colour runs, generated from the new flat art; prints row by row on reaching the footer). Hover/focus pops a "// lab note" bubble (spring scale-in) that types: "This website was inspired by Steins;Gate. It made me realize that determination precedes intelligence." + "El Psy Kongroo."
+- **Slogan font:** Instrument Serif italic, ~42px; "know nothing about" in amber.
+- **Role line:** data scientist · applied researcher · human being.
+- **More breathing room** on the bench (bigger gaps between tubes / name / meter / role / slogan / channels).
+- **Light:** faint graph-paper grid revealed by a soft light around the cursor and under the tubes; dust motes lit by tubes and cursor, and motes near the cursor link up with thin lines (a live graph). Each MEASURE press flares the tube glow.
+- **Carousel:** header is just "// recent experiments" (scroll cue is a bobbing arrow); slower orbit; cards 330×300 on a tighter ring; pauses only while the cursor is on a card. Projects without a figure get generated on-theme cover art (Lambda: order-book depth chart, Intact: documents → extracted fields, Vera: city grid with ranked pins); swap for real images when available.
+
+## Round 7 · Nov 3, 2026
+- **Kurisu message** (exact, italic Instrument Serif, plain text to her left, no bubble; two lines slide in on hover): "This website was inspired by Steins;Gate." / "For making me realize that determination precedes intelligence."
+- **Role line** sits directly under the name. **Prompt** above the channels: "Click on a section to learn more about me."
+- **Readings = real work metrics only** (GPA removed). Label shows the quantity, not "Reading 0X". Order: 48,600 decisions modelled (EPFL) · 4,366 adolescents (first-author) · 2.4M death records (mortality study) · 2,000+ client records (Intact) · 4,628 restaurants (Vera) · p = 0.002 (VeriSkeptic) · $3.74 total study cost (VeriSkeptic) · 1,342 checksums (Lambda) · 2,100 Duolingo days (❓ keep or move to Life). All [V] in the FACT_SHEET.
+- **Carousel is draggable** (mouse/touch, with inertia); a drag never triggers a card click; auto-rotation resumes after.
+- ❓ Custom cursor: options proposed (probe dot + ring, reticle, phosphor trail); not chosen yet.
+
+## Round 8 · Nov 3, 2026
+- **Kurisu ASCII softened** (CSS filter saturate .78 / brightness .86).
+- **Kurisu message:** small plain Inter (13.5px, muted), two lines exactly as written, then "El Psy Kongroo." in Instrument Serif italic, amber. Lines stagger in on hover.
+- **Round 9 update:** cursor-fit regression switched OFF (too noisy); code kept behind `SHOW_FIT = false` in the probe block. Top-left now shows a plain, unhighlighted page-coordinate readout "x 0536 · y 0482".
+- **Cursor = probe + regression** (mouse/trackpad only; touch keeps native behaviour):
+  - Amber dot + lagging ring. Ring grows and labels the target: MEASURE (tubes/button), READ (unit lamps/pips), OPEN · DRAG (cards), DRAG (carousel), WORK (green) / LIFE (amber) on the channels; shrinks on press.
+  - Your last ~0.65s of movement is drawn as fading points with residual ticks to a dashed fitted line (principal axis).
+  - Top-left readout, always on: "cursor fit · r² 0.991 ▬ n 16" (r² = squared Pearson correlation of the recent path).
