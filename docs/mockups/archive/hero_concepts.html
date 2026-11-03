@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0b0d0c; --ink:#e8efe9; --dim:#7d8c82; --acc:#57e389; --line:#1f2823; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font-family: Inter, system-ui, sans-serif; }
+  .bar { position:sticky; top:0; z-index:50; display:flex; gap:6px; flex-wrap:wrap; padding:10px 16px; background:#060807; border-bottom:1px solid var(--line); font:12px 'JetBrains Mono', monospace; align-items:center; }
+  .bar span { color: var(--dim); margin-right: 6px; }
+  .bar button { background:none; border:1px solid var(--line); color:var(--dim); padding:6px 11px; border-radius:999px; cursor:pointer; font:inherit; }
+  .bar button.on { color:#000; background:var(--acc); border-color:var(--acc); }
+  .view { display:none; } .view.on { display:block; }
+  .stage { position:relative; height:560px; overflow:hidden; }
+  .stage canvas { position:absolute; inset:0; width:100%; height:100%; display:block; }
+  .hud { position:absolute; top:14px; left:16px; font:11px/1.65 'JetBrains Mono', monospace; color:var(--dim); pointer-events:none; white-space:pre; }
+  .hud b { color: var(--acc); font-weight: 400; }
+  .under { position:absolute; left:0; right:0; bottom:26px; text-align:center; pointer-events:none; }
+  .role { font:13px 'JetBrains Mono', monospace; color:var(--dim); letter-spacing:.04em; }
+  .links { pointer-events:auto; margin-top:12px; display:flex; gap:20px; justify-content:center; font:12.5px 'JetBrains Mono', monospace; }
+  .links a { color:var(--ink); text-decoration:none; border-bottom:1px solid #2c3a32; padding-bottom:1px; }
+  .links a:hover { color: var(--acc); border-color: var(--acc); }
+  .explain { max-width: 980px; margin: 0 auto; padding: 18px 22px 34px; font-size: 14px; line-height: 1.65; color: #c3cec7; }
+  .explain h3 { color: var(--ink); margin: 0 0 6px; font-size: 16px; }
+  .explain b { color: var(--acc); font-weight: 600; }
+  .explain .con { color: var(--dim); }
+  .bigname { position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; pointer-events:none; }
+  .bigname .first { font-weight:900; font-size: clamp(64px, 15vw, 190px); letter-spacing:-.045em; line-height:.9; text-shadow: 0 0 40px rgba(11,13,12,.9); }
+  .bigname .rest { font: 700 clamp(12px, 1.6vw, 19px) 'JetBrains Mono', monospace; letter-spacing:.42em; color: var(--ink); margin-top: 14px; opacity:.9; }
+
+  /* nixie */
+  .nixie { height:560px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:26px; background: radial-gradient(ellipse at 50% 55%, #1c130a 0%, #0b0d0c 62%); position: relative; }
+  .tubes { display:flex; gap: clamp(6px, 1.2vw, 16px); }
+  .tube { width: clamp(52px, 11vw, 128px); height: clamp(96px, 20vw, 228px); border-radius: 64px 64px 14px 14px; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden;
+    background: linear-gradient(90deg, rgba(255,255,255,.06), rgba(255,255,255,.012) 28%, rgba(255,255,255,.012) 70%, rgba(255,255,255,.07)); border:1px solid rgba(255,190,140,.14); box-shadow: inset 0 0 34px rgba(0,0,0,.7), 0 18px 40px rgba(0,0,0,.5); cursor: default; }
+  .tube::after { content:''; position:absolute; inset:0; background-image: radial-gradient(circle, rgba(255,255,255,.08) 1px, transparent 1.7px); background-size: 7px 7px; pointer-events:none; }
+  .tube::before { content:''; position:absolute; left:12%; right:12%; bottom:6%; height:3px; background: #3a2a1c; border-radius: 2px; }
+  .tube .ghost { position:absolute; font-weight:200; font-size: clamp(60px, 13vw, 150px); color: rgba(255,170,100,.06); }
+  .tube .lit { position:relative; font-weight:200; font-size: clamp(60px, 13vw, 150px); color:#ffbd6e; text-shadow: 0 0 4px #ffa040, 0 0 14px #ff7a10, 0 0 38px rgba(255,90,0,.65); animation: flick 5s infinite; }
+  .tube:nth-child(2n) .lit { animation-delay: -1.7s; } .tube:nth-child(3n) .lit { animation-delay: -3.1s; }
+  @keyframes flick { 0%,100%{opacity:1} 61%{opacity:1} 62%{opacity:.78} 63%{opacity:1} 64%{opacity:.9} 65%{opacity:1} }
+  .nixie .rest { font: 700 clamp(12px,1.6vw,18px) 'JetBrains Mono', monospace; letter-spacing:.42em; color:#ffbd6e; text-shadow: 0 0 10px rgba(255,120,20,.5); }
+  .nixie .role { color: #a08770; }
+  .nixie .links a { border-color: #4a3524; } .nixie .links a:hover { color:#ffbd6e; border-color:#ffbd6e; }
+
+  /* ring carousel */
+  .ringstage { position:relative; height: 380px; perspective: 1100px; overflow:hidden; }
+  .ringlabel { position:absolute; top: 18px; left: 0; right: 0; text-align:center; font: 11.5px 'JetBrains Mono', monospace; color: var(--dim); letter-spacing:.1em; }
+  .ringlabel b { color: var(--acc); font-weight: 400; }
+  .ring { position:absolute; left:50%; top:55%; transform-style: preserve-3d; }
+  .card { position:absolute; width: 230px; margin-left:-115px; margin-top:-80px; height: 160px; border:1px solid #26332c; border-radius: 12px; background: linear-gradient(160deg, #141a16, #0e1210); padding: 14px 16px; cursor:pointer; transition: border-color .2s; }
+  .card:hover { border-color: var(--acc); }
+  .card .k { font: 10.5px 'JetBrains Mono', monospace; color: var(--acc); letter-spacing:.08em; }
+  .card h4 { margin: 6px 0 6px; font-size: 18px; letter-spacing: -.01em; }
+  .card p { margin: 0; font-size: 12.5px; color: #9fb0a5; line-height: 1.45; }
+  .card .open { position:absolute; bottom: 12px; right: 14px; font: 11px 'JetBrains Mono', monospace; color: var(--dim); }
+  .toast { position:absolute; bottom: 16px; left:0; right:0; text-align:center; font: 12px 'JetBrains Mono', monospace; color: var(--acc); opacity: 0; transition: opacity .3s; }
+
+  /* cursors */
+  .cgrid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 14px 16px; }
+  .cbox { position:relative; height: 250px; border:1px solid var(--line); border-radius: 12px; overflow:hidden; cursor:none; background: #0d100e; }
+  .cbox canvas { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; }
+  .cbox .t { position:absolute; top: 12px; left: 14px; font: 12px 'JetBrains Mono', monospace; color: var(--ink); pointer-events:none; }
+  .cbox .t small { display:block; color: var(--dim); margin-top: 3px; font-size: 11px; max-width: 360px; line-height: 1.5; }
+  .cbox .fake { position:absolute; right: 18px; bottom: 16px; font: 12.5px 'JetBrains Mono', monospace; color: var(--ink); border: 1px solid #2c3a32; padding: 6px 12px; border-radius: 7px; }
+  .blockcur { position:absolute; width: 11px; height: 20px; background: var(--acc); pointer-events:none; animation: bl 1s steps(1) infinite; font: 12px 'JetBrains Mono', monospace; color: #000; white-space: nowrap; display:flex; align-items:center; padding: 0 2px; transition: width .15s; }
+  @keyframes bl { 50% { opacity: .25; } }
+</style>
+</head>
+<body>
+<div class="bar">
+  <span>hero concepts →</span>
+  <button class="on" data-v="vA">1 · Fit</button>
+  <button data-v="vD">2 · Descent</button>
+  <button data-v="vB">3 · Life</button>
+  <button data-v="vC">4 · Nixie</button>
+  <span style="margin-left:10px">pieces →</span>
+  <button data-v="vR">Work carousel</button>
+  <button data-v="vK">Cursors</button>
+  <button data-v="vH">Assembled home</button>
+</div>
+
+<!-- 1. FIT -->
+<section class="view on" id="vA">
+  <div class="stage"><canvas id="cA"></canvas><div class="hud" id="hA"></div>
+    <div class="under"><div class="role">data scientist · quantitative researcher</div><div class="links"><a href="#">work</a><a href="#">life</a><a href="#">resume</a><a href="#">github</a></div></div></div>
+  <div class="explain"><h3>1 · Fit: your name is the model</h3>
+  Thousands of points start as a random Gaussian cloud and are <b>trained</b> into your name. The loss counter in the corner is real: it's the actual mean squared distance of the points from their targets, so it rises when you <b>move your mouse through the letters</b> and falls as they re-converge. The message: "this person fits models", told without a single word of copy.
+  <br><span class="con">Watch out for: a few particle-text effects exist on the web; the live loss counter and the "training" framing are what make this one yours.</span></div>
+</section>
+
+<!-- 2. DESCENT -->
+<section class="view" id="vD">
+  <div class="stage"><canvas id="cD0"></canvas><canvas id="cD"></canvas><div class="hud" id="hD"></div>
+    <div class="bigname"><div class="first">Franco</div><div class="rest">MIGUEL VALENCIA</div></div>
+    <div class="under"><div class="role">data scientist · quantitative researcher</div><div class="links"><a href="#">work</a><a href="#">life</a><a href="#">resume</a><a href="#">github</a></div></div></div>
+  <div class="explain"><h3>2 · Descent: an optimizer running behind your name</h3>
+  Hundreds of particles run <b>stochastic gradient descent with momentum</b> on a real loss surface (faint contour bands). The surface slowly drifts, so they never stop searching. <b>Click anywhere</b> to drop a batch of new particles and watch them roll into the minima. It reads as "optimization, statistics, markets" and ties straight to your MIT Optimization course.
+  <br><span class="con">Watch out for: the most "ambient" of the four. Beautiful, but the name itself is static text.</span></div>
+</section>
+
+<!-- 3. LIFE -->
+<section class="view" id="vB">
+  <div class="stage"><canvas id="cB"></canvas><div class="hud" id="hB"></div>
+    <div id="lifeRest" style="position:absolute;left:0;right:0;text-align:center;pointer-events:none;font:700 clamp(12px,1.6vw,19px) 'JetBrains Mono',monospace;letter-spacing:.42em;color:#e8efe9;text-shadow:0 0 12px #0b0d0c,0 0 4px #0b0d0c">MIGUEL VALENCIA</div>
+    <div class="under"><div class="role">data scientist · quantitative researcher</div><div class="links"><a href="#">work</a><a href="#">life</a><a href="#">resume</a><a href="#">github</a></div></div></div>
+  <div class="explain"><h3>3 · Life: your name inside Conway's Game of Life</h3>
+  Your name assembles out of cells, then sits inside a live cellular automaton. The letters count as living cells, so patterns <b>grow, collide and die</b> around them. <b>Move your mouse</b> to seed new life. It reads as "computer scientist who likes systems and emergence" and connects to the intro animation.
+  <br><span class="con">Watch out for: if the intro also uses Game of Life, this one should <i>be</i> the intro's ending (they'd be one continuous animation, not two).</span></div>
+</section>
+
+<!-- 4. NIXIE -->
+<section class="view" id="vC">
+  <div class="nixie" id="nixie">
+    <div class="tubes" id="tubes"></div>
+    <div class="rest">MIGUEL VALENCIA</div>
+    <div class="role">data scientist · quantitative researcher</div>
+    <div class="links"><a href="#">work</a><a href="#">life</a><a href="#">resume</a><a href="#">github</a></div>
+  </div>
+  <div class="explain"><h3>4 · Nixie: your name on a vintage lab instrument</h3>
+  Your name in glowing <b>nixie tubes</b>, the 1960s lab display that Steins;Gate's divergence meter uses. On load each tube <b>rolls through characters</b> like the meter does, then settles. <b>Hover a tube</b> to re-roll it. Non-fans see a beautiful retro scientific instrument; fans recognize it instantly. This is the most "this is exactly who Franco is" option: lab nerd, anime, and craft.
+  <br><span class="con">Watch out for: it changes the theme's accent from green to warm orange. It says less about "quantitative" by itself, so the work carousel underneath has to carry that.</span></div>
+</section>
+
+<!-- RING -->
+<section class="view" id="vR">
+  <div class="ringstage" id="ringstage"><div class="ringlabel">// <b>selected work</b> · hover to pause · click to open</div><div class="ring" id="ring"></div><div class="toast" id="toast"></div></div>
+  <div class="explain"><h3>Work carousel</h3>
+  Replaces the single featured project. Cards orbit slowly on a 3D ring, with cards at the back dimmed and the front card bright. <b>Hovering pauses it</b>, and clicking a card opens its case study. It's slow on purpose: it should feel like something drifting in a lab, not a slideshow.
+  <br>On mobile it becomes a simple swipe row.</div>
+</section>
+
+<!-- CURSORS -->
+<section class="view" id="vK">
+  <div class="cgrid">
+    <div class="cbox" data-c="reticle"><canvas></canvas><div class="t">A · Reticle + coordinates<small>Measurement crosshair with live (x, y). Feels like an instrument. Snaps into [ brackets ] over links.</small></div><div class="fake">link</div></div>
+    <div class="cbox" data-c="regress"><canvas></canvas><div class="t">B · Regression trail<small>Your path leaves data points, and a best-fit line with a live r runs through the last 30. Draw a straight stroke and r → 1.00.</small></div><div class="fake">link</div></div>
+    <div class="cbox" data-c="block"><canvas></canvas><div class="t">C · Terminal block<small>A blinking █ that lags slightly behind the mouse. Over links it expands to "&gt; open".</small></div><div class="fake" id="blink-link">link</div></div>
+    <div class="cbox" data-c="sophon"><canvas></canvas><div class="t">D · Sophon<small>A tiny rotating wireframe (the "sophon" from Three-Body) that unfolds when you hover a link.</small></div><div class="fake">link</div></div>
+  </div>
+  <div class="explain"><h3>Cursor ideas</h3>
+  All four: desktop only (touch screens keep the normal behaviour), the normal text cursor stays over text you can select, and every one is a small canvas overlay, so it's cheap. My pick is <b>B</b> for the quant signal and humour, or <b>A</b> if you want it quieter.
+  More ideas not built here: a cursor that "samples" whatever it hovers (shows the colour hex / element name like a probe); a tiny "Upa" (Steins;Gate) that follows on the 404 page only; a magnifying glass on <code>/life</code> photos (Professor Layton).</div>
+</section>
+
+<!-- ASSEMBLED -->
+<section class="view" id="vH">
+  <div class="stage" style="height:600px"><canvas id="cH"></canvas><div class="hud" id="hH"></div>
+    <div class="under" style="bottom:34px"><div class="role">data scientist · quantitative researcher</div><div class="links"><a href="#">work</a><a href="#">life</a><a href="#">resume</a><a href="#">github</a></div></div></div>
+  <div class="ringstage" id="ringstage2"><div class="ringlabel">// <b>selected work</b></div><div class="ring" id="ring2"></div><div class="toast" id="toast2"></div></div>
+  <div class="explain"><h3>Assembled home (concept 1 + carousel)</h3>
+  That's the whole first screen: <b>your name, one line, four links, and the orbiting work</b>. No stats, no paragraphs. Achievements and Proud Of go below the fold, and metrics live on /work.</div>
+</section>
+
+<script>
+const dpr = Math.min(2, window.devicePixelRatio || 1);
+const ACC = '#57e389';
+function gauss(){ let u=0,v=0; while(!u)u=Math.random(); while(!v)v=Math.random(); const r=Math.sqrt(-2*Math.log(u)); return [r*Math.cos(2*Math.PI*v), r*Math.sin(2*Math.PI*v)]; }
+function fit(cv){ const W = cv.width = Math.max(1, cv.clientWidth*dpr), H = cv.height = Math.max(1, cv.clientHeight*dpr); return [W,H]; }
+function nameMask(W,H,withRest=true){
+  const c = document.createElement('canvas'); c.width=W; c.height=H; const x = c.getContext('2d');
+  x.fillStyle='#fff'; x.textAlign='center'; x.textBaseline='middle';
+  const s = Math.min(W*0.2, H*0.36);
+  x.font = `900 ${s}px Inter, system-ui, sans-serif`; x.fillText('Franco', W/2, H*0.40);
+  if (!withRest) return x.getImageData(0,0,W,H).data;
+  x.font = `800 ${s*0.16}px Inter, system-ui, sans-serif`;
+  if ('letterSpacing' in x) x.letterSpacing = `${s*0.05}px`;
+  x.fillText('MIGUEL VALENCIA', W/2, H*0.40 + s*0.66);
+  return x.getImageData(0,0,W,H).data;
+}
+function trackMouse(el, m){
+  el.addEventListener('mousemove', e => { const r = el.getBoundingClientRect(); m.x=(e.clientX-r.left)*dpr; m.y=(e.clientY-r.top)*dpr; });
+  el.addEventListener('mouseleave', () => { m.x=-1e9; m.y=-1e9; });
+}
+
+/* ---------- 1. FIT ---------- */
+function makeFit(cv, hud){
+  const ctx = cv.getContext('2d'); const m={x:-1e9,y:-1e9}; trackMouse(cv.parentElement, m);
+  let W,H,P=[],t0;
+  function setup(){
+    [W,H] = fit(cv); const d = nameMask(W,H); const step = Math.round(3.6*dpr); let T=[];
+    for(let y=0;y<H;y+=step) for(let x=0;x<W;x+=step) if(d[(y*W+x)*4+3]>128) T.push([x,y]);
+    for(let i=T.length-1;i>0;i--){ const j=(Math.random()*(i+1))|0; [T[i],T[j]]=[T[j],T[i]]; }
+    T = T.slice(0, 7500);
+    P = T.map(([tx,ty]) => { const [a,b]=gauss(); return {x:W/2+a*W*.15, y:H*.45+b*H*.2, vx:0, vy:0, tx, ty, d:Math.random()}; });
+    t0 = performance.now();
+  }
+  function tick(now){
+    const e = now - t0; ctx.fillStyle='#0b0d0c'; ctx.fillRect(0,0,W,H);
+    const R = 95*dpr; let loss = 0, moving = 0;
+    ctx.fillStyle = ACC;
+    for(const p of P){
+      const s = Math.min(1, Math.max(0, (e-500-p.d*1500)/1500));
+      let ax = (p.tx-p.x)*0.014*s + (Math.random()-.5)*.5*dpr*(1-s);
+      let ay = (p.ty-p.y)*0.014*s + (Math.random()-.5)*.5*dpr*(1-s);
+      const dx=p.x-m.x, dy=p.y-m.y, d2=dx*dx+dy*dy;
+      if(d2<R*R){ const dd=Math.sqrt(d2)||1, f=(1-dd/R)*2.6*dpr; ax+=dx/dd*f; ay+=dy/dd*f; }
+      p.vx=(p.vx+ax)*.87; p.vy=(p.vy+ay)*.87; p.x+=p.vx; p.y+=p.vy;
+      const ex=p.x-p.tx, ey=p.y-p.ty; loss += ex*ex+ey*ey;
+      const sp = Math.abs(p.vx)+Math.abs(p.vy); if (sp>0.6*dpr) moving++;
+      ctx.globalAlpha = sp>0.6*dpr ? .55 : .95;
+      ctx.fillRect(p.x, p.y, 1.7*dpr, 1.7*dpr);
+    }
+    ctx.globalAlpha = 1;
+    loss = loss / P.length / (W*W) * 100;
+    const epoch = Math.floor(e/22);
+    hud.innerHTML = `model   <b>fit(name)</b>\nparams  ${P.length.toLocaleString()} points\nepoch   ${epoch}\nloss    <b>${loss.toFixed(4)}</b>\nstatus  ${loss<0.002 ? 'converged ✓' : 'training…'}`;
+  }
+  return { setup, tick };
+}
+
+/* ---------- 2. DESCENT ---------- */
+function makeDescent(cv0, cv, hud){
+  const bg = cv0.getContext('2d'), ctx = cv.getContext('2d');
+  let W,H,S,P=[],frame=0,t=0;
+  const wells = [
+    {x:.30,y:.35,a:.55,s:.11,p:0},{x:.72,y:.30,a:.45,s:.09,p:1.7},{x:.55,y:.72,a:.6,s:.12,p:3.1},
+    {x:.18,y:.75,a:.35,s:.08,p:4.4},{x:.88,y:.70,a:.4,s:.1,p:5.6}];
+  const AR = () => W/H;
+  function cur(w){ return {x: w.x*AR() + .05*Math.sin(t*.00025+w.p), y: w.y + .04*Math.cos(t*.0003+w.p*1.3), a:w.a, s:w.s}; }
+  function f(x,y,ws){ let v = .35*((x-AR()/2)**2 + (y-.5)**2); for(const w of ws){ v -= w.a*Math.exp(-((x-w.x)**2+(y-w.y)**2)/(2*w.s*w.s)); } return v; }
+  function g(x,y,ws){ let gx=.7*(x-AR()/2), gy=.7*(y-.5); for(const w of ws){ const e=w.a*Math.exp(-((x-w.x)**2+(y-w.y)**2)/(2*w.s*w.s))/(w.s*w.s); gx+=e*(x-w.x); gy+=e*(y-w.y);} return [gx,gy]; }
+  function spawn(x,y){ return {x: x ?? Math.random()*AR(), y: y ?? Math.random(), vx:0, vy:0, age:0, life: 140+Math.random()*260}; }
+  function setup(){ [W,H] = fit(cv); fit(cv0); S = H; P = Array.from({length: 360}, () => spawn()); }
+  cv.parentElement.addEventListener('click', e => { const r = cv.getBoundingClientRect(); const x=(e.clientX-r.left)*dpr/S, y=(e.clientY-r.top)*dpr/S; for(let i=0;i<60;i++) P.push(spawn(x+(Math.random()-.5)*.06, y+(Math.random()-.5)*.06)); });
+  function contours(ws){
+    const k = 3; const w = Math.ceil(W/k), h = Math.ceil(H/k);
+    const off = contours.off || (contours.off = document.createElement('canvas')); off.width = w; off.height = h;
+    const oc = off.getContext('2d'); const img = oc.createImageData(w, h);
+    for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+      const v = f(x*k/S, y*k/S, ws) * 16; const fr = v - Math.floor(v); const dline = Math.min(fr, 1-fr);
+      const a = Math.max(0, 1 - dline/0.07) * 0.16 + Math.max(0, -v/16) * 0.05;
+      const i = (y*w+x)*4; img.data[i]=87; img.data[i+1]=227; img.data[i+2]=137; img.data[i+3]=Math.min(255, a*255);
+    }
+    oc.putImageData(img, 0, 0);
+    bg.clearRect(0,0,W,H); bg.imageSmoothingEnabled = true; bg.imageSmoothingQuality = 'high'; bg.drawImage(off, 0, 0, W, H);
+  }
+  function tick(now){
+    t = now; frame++; const ws = wells.map(cur);
+    if (frame % 30 === 1) contours(ws);
+    ctx.globalCompositeOperation = 'destination-out'; ctx.fillStyle='rgba(0,0,0,.07)'; ctx.fillRect(0,0,W,H);
+    ctx.globalCompositeOperation = 'source-over'; ctx.strokeStyle = 'rgba(87,227,137,.7)'; ctx.lineWidth = 1.1*dpr; ctx.beginPath();
+    for (let i=P.length-1;i>=0;i--){
+      const p = P[i]; const [gx,gy] = g(p.x,p.y,ws);
+      p.vx = .92*p.vx - .0009*gx + (Math.random()-.5)*.0005; p.vy = .92*p.vy - .0009*gy + (Math.random()-.5)*.0005;
+      const ox=p.x, oy=p.y; p.x+=p.vx; p.y+=p.vy; p.age++;
+      ctx.moveTo(ox*S, oy*S); ctx.lineTo(p.x*S, p.y*S);
+      if (p.age > p.life) { if (P.length > 420) P.splice(i,1); else P[i] = spawn(); }
+    }
+    ctx.stroke();
+    hud.innerHTML = `optimizer  <b>SGD + momentum</b> (β = 0.92)\nf(x)       ‖x‖² − Σ aᵢ·φ(x; μᵢ, σᵢ)\nparticles  ${P.length}\n<b>click anywhere</b> to drop more`;
+  }
+  return { setup, tick };
+}
+
+/* ---------- 3. LIFE ---------- */
+function makeLife(cv, hud){
+  const ctx = cv.getContext('2d'); const m={x:-1e9,y:-1e9}; trackMouse(cv.parentElement, m);
+  let W,H,cs,C,R,g,nx,mask,reveal,t0,last=0,gen=0;
+  function setup(){
+    [W,H] = fit(cv); cs = Math.round(6*dpr); C = Math.ceil(W/cs); R = Math.ceil(H/cs);
+    const d = nameMask(W,H,false); g = new Uint8Array(C*R); nx = new Uint8Array(C*R); mask = new Uint8Array(C*R); reveal = new Float32Array(C*R);
+    const rest = document.getElementById('lifeRest'); if (rest) rest.style.top = (H*0.40 + Math.min(W*0.2, H*0.36)*0.62)/dpr + 'px';
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){ const px = Math.min(W-1, c*cs+cs/2|0), py = Math.min(H-1, r*cs+cs/2|0); const i=r*C+c;
+      if (d[(py*W+px)*4+3]>110) { mask[i]=1; reveal[i] = 250 + (c/C)*1300 + Math.random()*350; }
+      if (Math.random()<.06) g[i]=1; }
+    t0 = performance.now(); gen = 0;
+  }
+  function step(e){
+    for(let r=0;r<R;r++) for(let c=0;c<C;c++){
+      let n=0; for(let dy=-1;dy<=1;dy++) for(let dx=-1;dx<=1;dx++){ if(!dx&&!dy) continue; n += g[((r+dy+R)%R)*C + (c+dx+C)%C]; }
+      const i=r*C+c; nx[i] = (n===3 || (n===2 && g[i])) ? 1 : 0;
+      if (mask[i] && e>reveal[i]) nx[i]=1;
+    }
+    [g,nx] = [nx,g]; gen++;
+    let pop=0; for(let i=0;i<g.length;i++) pop+=g[i];
+    if (pop < C*R*0.035) for(let k=0;k<C*R*0.02;k++) g[(Math.random()*C*R)|0]=1;
+    if (m.x>0){ const c=(m.x/cs)|0, r=(m.y/cs)|0; const glider=[[0,1],[1,2],[2,0],[2,1],[2,2]]; const fx=Math.random()<.5?1:-1, fy=Math.random()<.5?1:-1;
+      for(const [a,b] of glider){ const rr=(r+a*fy+R)%R, cc=(c+b*fx+C)%C; g[rr*C+cc]=1; } }
+    return pop;
+  }
+  let pop=0;
+  function tick(now){
+    const e = now - t0;
+    if (now - last > 75) { pop = step(e); last = now; }
+    ctx.fillStyle = '#0b0d0c'; ctx.fillRect(0,0,W,H);
+    for(let i=0;i<g.length;i++){ if(!g[i]) continue; const c=i%C, r=(i/C)|0;
+      if (mask[i] && e>reveal[i]) { ctx.fillStyle = '#e8efe9'; } else { ctx.fillStyle = 'rgba(87,227,137,.22)'; }
+      ctx.fillRect(c*cs, r*cs, cs-1, cs-1); }
+    hud.innerHTML = `rule        <b>B3/S23</b> (Conway)\ngeneration  ${gen}\npopulation  ${pop}\n<b>move your mouse</b> to seed gliders`;
+  }
+  return { setup, tick };
+}
+
+/* ---------- 4. NIXIE ---------- */
+function makeNixie(){
+  const box = document.getElementById('tubes'); const word = 'FRANCO'; const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  box.innerHTML = word.split('').map(() => `<div class="tube"><span class="ghost">8</span><span class="lit"> </span></div>`).join('');
+  const tubes = [...box.children];
+  function roll(i, dur){
+    const lit = tubes[i].querySelector('.lit'); const end = performance.now() + dur;
+    const iv = setInterval(() => { if (performance.now() > end) { lit.textContent = word[i]; clearInterval(iv); } else lit.textContent = chars[(Math.random()*chars.length)|0]; }, 45);
+  }
+  function setup(){ tubes.forEach((t,i) => roll(i, 600 + i*260)); }
+  tubes.forEach((t,i) => t.addEventListener('mouseenter', () => roll(i, 520)));
+  setInterval(() => { if (document.getElementById('vC').classList.contains('on') && Math.random()<.5) roll((Math.random()*word.length)|0, 300); }, 6000);
+  return { setup, tick(){} };
+}
+
+/* ---------- RING ---------- */
+const WORK = [
+  ['01 · LLM AGENTS','VeriSkeptic','Self-checking agent for hardware code. An honest null result.'],
+  ['02 · QUANT','λ Lambda','Does order-flow imbalance predict crypto prices? In progress.'],
+  ['03 · FIRST AUTHOR','CHIS mental health','Survey-weighted inference on 4,366 adolescents. Under review.'],
+  ['04 · INDUSTRY','Intact Financial','LLM extraction pipeline for 2,000+ clients.'],
+  ['05 · EPFL','Decisions under effort','Mixed-effects models on 48,600 choices.'],
+  ['06 · NEURO','EEG connectivity','Open-source MNE pipeline for depression EEG.'],
+  ['07 · HACKATHON','BetterYears','Vision Pro "movement age" via a biological-age model.'],
+  ['08 · STARTUP','Vera','Restaurant ranking for 4,628 places. U of T Innovation Lab.'],
+];
+function makeRing(ringId, stageId, toastId){
+  const ring = document.getElementById(ringId), stage = document.getElementById(stageId), toast = document.getElementById(toastId);
+  ring.innerHTML = WORK.map(([k,h,p]) => `<div class="card"><div class="k">${k}</div><h4>${h}</h4><p>${p}</p><div class="open">open →</div></div>`).join('');
+  const cards = [...ring.children]; let ang = 0, paused = false;
+  stage.addEventListener('mouseenter', () => paused = true); stage.addEventListener('mouseleave', () => paused = false);
+  cards.forEach((c,i) => c.addEventListener('click', () => { toast.textContent = `→ would open /projects/${WORK[i][1].toLowerCase().replace(/[^a-z]+/g,'-').replace(/^-|-$/g,'')}`; toast.style.opacity = 1; setTimeout(() => toast.style.opacity = 0, 1600); }));
+  function tick(){
+    if (!paused) ang += 0.0022;
+    const n = cards.length, Rr = Math.min(stage.clientWidth*0.46, 520);
+    cards.forEach((c,i) => {
+      let th = (ang + i*2*Math.PI/n) % (2*Math.PI); if (th > Math.PI) th -= 2*Math.PI;
+      const x = Math.sin(th)*Rr, z = Math.cos(th)*Rr*0.6 - 80;
+      const front = (Math.cos(th)+1)/2;
+      c.style.transform = `translate3d(${x}px, ${(1-front)*-26}px, ${z}px) rotateY(${-Math.sin(th)*0.5}rad)`;
+      const vis = Math.max(0, Math.min(1, (front-0.38)/0.62));
+      c.style.opacity = Math.pow(vis, 1.4).toFixed(3);
+      c.style.filter = `blur(${((1-vis)*2.5).toFixed(2)}px)`;
+      c.style.zIndex = Math.round(front*100);
+      c.style.pointerEvents = front > .55 ? 'auto' : 'none';
+    });
+  }
+  return { setup(){}, tick };
+}
+
+/* ---------- CURSORS ---------- */
+function makeCursors(){
+  const boxes = [...document.querySelectorAll('.cbox')];
+  const st = boxes.map(b => {
+    const cv = b.querySelector('canvas'); const s = { b, cv, ctx: cv.getContext('2d'), m:null, trail:[], lx:0, ly:0, overLink:false, block:null, rot:0, unf:0 };
+    b.addEventListener('mousemove', e => { const r=b.getBoundingClientRect(); s.m={x:e.clientX-r.left, y:e.clientY-r.top}; s.overLink = e.target.classList.contains('fake'); });
+    b.addEventListener('mouseleave', () => { s.m=null; s.trail=[]; });
+    if (b.dataset.c==='block'){ s.block = document.createElement('div'); s.block.className='blockcur'; b.appendChild(s.block); }
+    return s;
+  });
+  function setup(){ st.forEach(s => { s.cv.width = s.cv.clientWidth*dpr; s.cv.height = s.cv.clientHeight*dpr; s.ctx.setTransform(dpr,0,0,dpr,0,0); }); }
+  function tick(){
+    for(const s of st){
+      const {ctx,cv,m} = s; const w = cv.clientWidth, h = cv.clientHeight; ctx.clearRect(0,0,w,h);
+      const type = s.b.dataset.c;
+      if (type==='block'){ if(!m){ s.block.style.display='none'; continue; } s.block.style.display='flex'; s.lx += (m.x-s.lx)*.35; s.ly += (m.y-s.ly)*.35; s.block.style.left = s.lx+'px'; s.block.style.top = (s.ly-10)+'px'; if (s.overLink){ s.block.style.width='64px'; s.block.textContent='> open'; s.block.style.animation='none'; } else { s.block.style.width='11px'; s.block.textContent=''; s.block.style.animation=''; } continue; }
+      if (!m) continue;
+      if (type==='reticle'){
+        ctx.strokeStyle='rgba(87,227,137,.22)'; ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(m.x,0); ctx.lineTo(m.x,h); ctx.moveTo(0,m.y); ctx.lineTo(w,m.y); ctx.stroke();
+        ctx.strokeStyle=ACC; ctx.lineWidth=1.4;
+        if (s.overLink){ const L=14; ctx.beginPath(); ctx.moveTo(m.x-L,m.y-9); ctx.lineTo(m.x-L-5,m.y-9); ctx.lineTo(m.x-L-5,m.y+9); ctx.lineTo(m.x-L,m.y+9); ctx.moveTo(m.x+L,m.y-9); ctx.lineTo(m.x+L+5,m.y-9); ctx.lineTo(m.x+L+5,m.y+9); ctx.lineTo(m.x+L,m.y+9); ctx.stroke(); }
+        else { ctx.beginPath(); ctx.arc(m.x,m.y,7,0,7); ctx.stroke(); ctx.fillStyle=ACC; ctx.fillRect(m.x-1,m.y-1,2,2); }
+        ctx.font='10.5px JetBrains Mono, monospace'; ctx.fillStyle='rgba(232,239,233,.75)'; ctx.fillText(`x ${(m.x/w).toFixed(3)}  y ${(1-m.y/h).toFixed(3)}`, m.x+12, m.y-12);
+      }
+      if (type==='regress'){
+        const last = s.trail[s.trail.length-1];
+        if (!last || Math.hypot(m.x-last.x, m.y-last.y) > 7) { s.trail.push({x:m.x,y:m.y}); if (s.trail.length>30) s.trail.shift(); }
+        const n = s.trail.length;
+        s.trail.forEach((p,i) => { ctx.fillStyle = `rgba(87,227,137,${0.15 + 0.85*i/n})`; ctx.beginPath(); ctx.arc(p.x,p.y,2.4,0,7); ctx.fill(); });
+        if (n >= 5){
+          let mx=0,my=0; s.trail.forEach(p=>{mx+=p.x;my+=p.y}); mx/=n; my/=n;
+          let sxx=0,syy=0,sxy=0; s.trail.forEach(p=>{const a=p.x-mx,b=p.y-my; sxx+=a*a; syy+=b*b; sxy+=a*b;});
+          const ang = 0.5*Math.atan2(2*sxy, sxx-syy), dx=Math.cos(ang), dy=Math.sin(ang);
+          const r = Math.abs(sxy)/Math.sqrt(sxx*syy || 1);
+          ctx.strokeStyle='rgba(232,239,233,.55)'; ctx.setLineDash([5,4]); ctx.beginPath(); ctx.moveTo(mx-dx*900,my-dy*900); ctx.lineTo(mx+dx*900,my+dy*900); ctx.stroke(); ctx.setLineDash([]);
+          ctx.font='10.5px JetBrains Mono, monospace'; ctx.fillStyle=ACC; ctx.fillText(`|r| = ${r.toFixed(2)}   n = ${n}`, m.x+12, m.y+20);
+        }
+        ctx.strokeStyle=ACC; ctx.lineWidth=1.5; ctx.beginPath(); ctx.arc(m.x,m.y,s.overLink?11:4,0,7); ctx.stroke();
+      }
+      if (type==='sophon'){
+        s.rot += .03; s.unf += ((s.overLink?1:0) - s.unf)*.12; const sc = 9 + s.unf*14;
+        const V = [[1,0,0],[-1,0,0],[0,1,0],[0,-1,0],[0,0,1],[0,0,-1]];
+        const E = [[0,2],[0,3],[0,4],[0,5],[1,2],[1,3],[1,4],[1,5],[2,4],[2,5],[3,4],[3,5]];
+        const ca=Math.cos(s.rot), sa=Math.sin(s.rot), cb=Math.cos(s.rot*.7), sb=Math.sin(s.rot*.7);
+        const Pp = V.map(([x,y,z]) => { let X=x*ca-z*sa, Z=x*sa+z*ca; let Y=y*cb-Z*sb; Z=y*sb+Z*cb; const k = 3/(3+Z); return [m.x + X*sc*k*(1+s.unf*0.6*Math.sin(s.rot*2+x)), m.y + Y*sc*k]; });
+        ctx.strokeStyle=ACC; ctx.lineWidth=1.1; ctx.beginPath(); E.forEach(([a,b]) => { ctx.moveTo(...Pp[a]); ctx.lineTo(...Pp[b]); }); ctx.stroke();
+      }
+    }
+  }
+  return { setup, tick };
+}
+
+/* ---------- wiring ---------- */
+const views = {
+  vA: [makeFit(document.getElementById('cA'), document.getElementById('hA'))],
+  vD: [makeDescent(document.getElementById('cD0'), document.getElementById('cD'), document.getElementById('hD'))],
+  vB: [makeLife(document.getElementById('cB'), document.getElementById('hB'))],
+  vC: [makeNixie()],
+  vR: [makeRing('ring','ringstage','toast')],
+  vK: [makeCursors()],
+  vH: [makeFit(document.getElementById('cH'), document.getElementById('hH')), makeRing('ring2','ringstage2','toast2')],
+};
+let active = 'vA', ready = false;
+function activate(id){
+  active = id; ready = false;
+  document.querySelectorAll('.view').forEach(v => v.classList.toggle('on', v.id===id));
+  document.querySelectorAll('.bar button').forEach(b => b.classList.toggle('on', b.dataset.v===id));
+  requestAnimationFrame(() => { views[id].forEach(x => x.setup()); ready = true; });
+}
+document.querySelectorAll('.bar button').forEach(b => b.onclick = () => activate(b.dataset.v));
+function loop(now){
+  requestAnimationFrame(loop);
+  if (!ready) return;
+  try { (views[active]||[]).forEach(x => x.tick(now)); } catch (err) { console.error(err); }
+}
+(document.fonts && document.fonts.load ? Promise.all([document.fonts.load('900 100px Inter'), document.fonts.load('800 20px Inter'), document.fonts.load('200 100px Inter')]).catch(()=>{}) : Promise.resolve())
+  .then(() => { activate('vA'); requestAnimationFrame(loop); });
+let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => views[active].forEach(x => x.setup()), 200); });
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; }
+  body { color: var(--foreground); padding: 20px 24px 40px; max-width: 980px; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: var(--muted-foreground); font-size: 13px; margin-bottom: 20px; line-height: 1.5; }
+  .series { margin-bottom: 22px; }
+  .series h2 { font-size: 15px; margin: 0 0 10px; padding-bottom: 6px; border-bottom: 1px solid var(--border); }
+  .idea { border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; margin-bottom: 8px; font-size: 12.5px; line-height: 1.5; }
+  .idea b { display: block; margin-bottom: 3px; font-size: 13px; }
+  .tag { font-size: 10px; padding: 1px 7px; border-radius: 999px; border: 1px solid var(--border); margin-left: 6px; font-weight: 400; color: var(--muted-foreground); }
+  .rec { background: var(--accent); border-color: var(--accent); color: var(--foreground); font-weight: 600; }
+</style>
+</head>
+<body>
+  <h1>Easter Egg Brainstorm — Across Your Fandoms</h1>
+  <div class="sub">Grouped by series. Not all of these should ship — pick what resonates, treat the rest as a menu.</div>
+
+  <div class="series">
+    <h2>Steins;Gate (more beyond what we discussed)</h2>
+    <div class="idea"><b>Lab Mem number badge<span class="tag">tiny, free</span></b>Footer credit styled as "Future Gadget Lab Member 008" — a one-line nod instead of a whole visual.</div>
+    <div class="idea"><b>D-Mail contact form<span class="tag">functional reuse</span></b>Style your actual contact form as a retro "D-Mail" terminal (monospace, green text, "SEND TO PAST" button label) — reuses a thing you need anyway (contact form) as a themed moment instead of a separate easter egg.</div>
+    <div class="idea"><b>Fake "reading error" glitch<span class="tag">playful, small risk</span></b>Very rare (1-in-N page loads), a 200ms CRT-glitch flicker across the whole page like a worldline hiccup, then normal — subtle, almost subliminal, only noticed by attentive visitors.</div>
+  </div>
+
+  <div class="series">
+    <h2>Three-Body Problem</h2>
+    <div class="idea"><b>Actual N-body gravity sim as background art<span class="tag rec">Recommended</span></b>A small canvas running a real (simplified) 3-body gravitational simulation — genuinely chaotic, mathematically accurate, visually mesmerizing — as a subtle animated background on the Gallery or a loading/transition screen. This is the one idea here that's a legitimate math/physics flex, not just a reference.</div>
+    <div class="idea"><b>"Sophon" loading cursor<span class="tag">small</span></b>Custom loading spinner styled as an unfolding/rotating polyhedron (nod to the sophon unfolding from higher dimensions) instead of a generic spinner.</div>
+    <div class="idea"><b>Hidden countdown easter egg<span class="tag">niche, maybe too obscure</span></b>If someone stays on a page an unusually long time, a tiny corner counter appears/disappears quickly (reference to the countdown in people's vision) — cute for fans, invisible/meaningless to everyone else, but risks reading as a bug if not telegraphed well.</div>
+  </div>
+
+  <div class="series">
+    <h2>Zelda</h2>
+    <div class="idea"><b>"Secret found" chime on easter-egg discovery<span class="tag rec">Recommended, cheap</span></b>The iconic 2-note Zelda "secret found" jingle plays (muted by default, opt-in sound) whenever a visitor triggers any easter egg on the site — a satisfying unifying sound cue across all the hidden stuff.</div>
+    <div class="idea"><b>Triforce via Game of Life<span class="tag">reuses GoL engine</span></b>A third seed pattern for your existing GoL engine (alongside initials, alongside Kurisu) that stabilizes into a Triforce — cheap since the engine already exists, just a new seed array.</div>
+    <div class="idea"><b>Gamified sitemap / 404 page<span class="tag">nice utility</span></b>Render your site's sections as a tiny Hyrule-overworld-style map (simple pixel-art icons for each section) on your 404 page or an "explore the site" page — turns a usually-wasted page into something memorable.</div>
+  </div>
+
+  <div class="series">
+    <h2>Persona (5)</h2>
+    <div class="idea"><b>"All-Out Attack" 404 page<span class="tag rec">Recommended, contained</span></b>Style just the 404 error page with P5's iconic red/black diagonal slash UI and bold hand-drawn-style type ("THIS PAGE DOESN'T EXIST") — confined to one low-stakes page so it doesn't clash with the professional tone everywhere else.</div>
+    <div class="idea"><b>"Item Get!" reveal for Proud-Of cards<span class="tag">playful micro-interaction</span></b>Clicking a "Things I'm Most Proud Of" card plays a quick Persona-style item-acquisition flourish (flash + rising icon) before revealing the fact — adds delight to a section that's otherwise just a list.</div>
+    <div class="idea"><b>Calling card easter egg<span class="tag">higher risk</span></b>A mock "calling card" graphic hidden somewhere, styled like the Phantom Thieves' — fun but easy to read as too cute/unprofessional if a recruiter stumbles into it without context; best kept deep/optional, not a main interaction.</div>
+  </div>
+
+  <div class="series">
+    <h2>Professor Layton</h2>
+    <div class="idea"><b>Numbered hidden puzzles — umbrella mechanic<span class="tag rec">Strongest unifying idea</span></b>Frame <i>all</i> your easter eggs as collectible numbered "Puzzles" (Layton's whole shtick) with a tiny unobtrusive counter somewhere ("Puzzles found: 3/8"). Konami-code Kurisu flash = Puzzle #1, scroll-to-bottom ASCII resolve = Puzzle #2, console.log art = Puzzle #3, GoL triforce = Puzzle #4, etc. This turns a pile of unrelated gimmicks into one coherent, intentional "hidden layer" of the site — which is itself a nice signal of structured thinking.</div>
+    <div class="idea"><b>One real logic/math mini-puzzle<span class="tag">most build effort, most payoff</span></b>Somewhere on the site, an actual small interactive puzzle (a riddle, a logic grid, a simple cipher) styled as "Puzzle #001", that unlocks a genuinely fun fact or the Kurisu reveal when solved. The one idea on this whole list that's actually interactive problem-solving, not just a visual trigger — strongest "I built something clever" signal, but also the most work.</div>
+  </div>
+
+</body>
+</html>
