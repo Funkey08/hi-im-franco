@@ -126,7 +126,7 @@ These rules keep the site from looking chaotic and keep it readable for recruite
 ## 6. Technical / infra
 - [ ] ⚙️ **Contact form backend.** GitHub Pages is static, so the D-Mail form needs a form service (Formspree, Web3Forms, etc.) or it falls back to `mailto:`. Pick one before styling it.
 - [ ] ⚙️ **Content as data.** Move projects, Proud Of items, countries, books and timeline entries into typed data files (e.g. `src/data/*.ts`) so updating content never means editing components.
-- [ ] ⚙️ Remove dead code: `AltAwardSection.tsx` isn't imported anywhere.
+- [x] ⚙️ Remove dead code: `AltAwardSection.tsx` (removed; build still passes).
 - [ ] ⚙️ Resume PDF: visible link, and a reminder to replace it each time the resume changes.
 - [ ] ⚙️ Lightweight analytics (e.g. Plausible / GA).
 - [ ] ⚙️ robots.txt / sitemap.
