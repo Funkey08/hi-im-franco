@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { EXPERIMENTS, type Experiment } from "../../data/experiments";
+import { useInstrument } from "../../instrument/context";
 import { reducedMotion } from "../../lib/util";
-import { COVER_ART } from "./coverArt";
+import { COVER_ART } from "../../lib/coverArt";
 
 function Cover({ exp }: { exp: Experiment }) {
   const svg = useMemo(() => ("art" in exp.cover ? COVER_ART[exp.cover.art]() : null), [exp]);
@@ -157,19 +158,13 @@ const useWide = () => {
 
 export default function Experiments() {
   const wide = useWide();
-  const [toast, setToast] = useState<string | null>(null);
-  const timer = useRef(0);
-  // Case-study pages don't exist yet; say where the card will go.
-  const open = (exp: Experiment) => {
-    setToast(`case study coming soon: /work/${exp.slug}`);
-    window.clearTimeout(timer.current);
-    timer.current = window.setTimeout(() => setToast(null), 1800);
-  };
+  const { enter } = useInstrument();
+  // a card opens its entry on the Work page, through the Work transition
+  const open = (exp: Experiment) => enter("work", exp.slug);
   return (
     <section className="experiments" aria-labelledby="experiments-title">
       <h2 className="section-head" id="experiments-title">// <b>recent experiments</b></h2>
       {wide ? <Orbit onOpen={open} /> : <Strip onOpen={open} />}
-      <p className={`toast${toast ? " show" : ""}`} role="status">{toast}</p>
     </section>
   );
 }

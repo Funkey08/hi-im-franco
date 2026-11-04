@@ -42,6 +42,7 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
   const indexRef = useRef(0);
   const phaseRef = useRef<Phase>("off");
   const warpRef = useRef<Section | null>(null);
+  const warpHash = useRef<string | undefined>(undefined);
   const sectionShownRef = useRef(false);
   const showSection = useCallback((v: boolean) => { sectionShownRef.current = v; setSectionShown(v); }, []);
   // The provider lives as long as the app, so its timers are never cancelled. (Clearing them in an
@@ -98,8 +99,9 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
     }, 180 + sweepMs);
   }, [nixie, display, later, setPhaseBoth]);
 
-  const enter = useCallback((section: Section) => {
+  const enter = useCallback((section: Section, hash?: string) => {
     if (busy.current) return;
+    warpHash.current = hash;
     busy.current = true;
     interacted.current = true;
     showSection(true);
@@ -113,7 +115,7 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
     warpRef.current = null;
     setWarp(null);
     busy.current = false;
-    if (s) navigate(`/${s}`);
+    if (s) navigate(`/${s}${warpHash.current ? `#${warpHash.current}` : ""}`);
   }, [navigate]);
 
   const back = useCallback(() => {

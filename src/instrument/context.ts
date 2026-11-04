@@ -27,7 +27,8 @@ export interface Instrument {
   measure: () => void;
   /** Return the tubes to the name (FRANCO), e.g. when the clock docks into the header. */
   rest: () => void;
-  enter: (section: Section) => void;
+  /** Play the section transition, then open it (optionally scrolled to `#hash`). */
+  enter: (section: Section, hash?: string) => void;
   finishWarp: () => void;
   back: () => void;
 }

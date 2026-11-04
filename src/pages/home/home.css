@@ -381,16 +381,6 @@
 .strip::-webkit-scrollbar { display: none; }
 .strip .card { position: relative; flex: none; width: min(78vw, 330px); margin: 0; scroll-snap-align: center; }
 
-.toast {
-  margin: 4px 0 0;
-  min-height: 1.4em;
-  text-align: center;
-  font: 11.5px var(--font-mono);
-  color: var(--amber);
-  opacity: 0;
-  transition: opacity 0.3s;
-}
-.toast.show { opacity: 1; }
 
 /* ---------------------------------------------------------------- contact */
 .contact { position: relative; padding: 70px 20px 30px; display: flex; flex-direction: column; align-items: center; }
