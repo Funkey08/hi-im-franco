@@ -22,6 +22,11 @@ import topomap from "../assets/carousel/academic/topomap.avif";
 import betterYears from "../assets/projects/betteryears.avif";
 import cvd from "../assets/projects/cvd-heart-failure-asmr.avif";
 import tiRig from "../assets/projects/ti-task-rig.avif";
+import awEpfl from "../assets/awards/epfl.png";
+import awStanford from "../assets/awards/stanford.png";
+import awYale from "../assets/awards/yale.svg";
+import awUtcs from "../assets/awards/utcs.png";
+import awTrinity from "../assets/awards/trinity.png";
 import type { CoverArt } from "./experiments";
 
 /* ------------------------------------------------------------------ statement */
@@ -56,7 +61,7 @@ export interface Institution {
 }
 
 export const INSTITUTIONS: Institution[] = [
-  { name: "Harvard University", logo: harvard, plate: "walnut", role: "SM Data Science", where: "Cambridge, MA · 2026 – Dec 2027", x: 15, y: 17, tilt: -2.5, roleId: "harvard" },
+  { name: "Harvard University", logo: harvard, plate: "bone", role: "SM Data Science", where: "Cambridge, MA · 2026 – Dec 2027", x: 15, y: 17, tilt: -2.5, roleId: "harvard" },
   { name: "MIT", logo: mit, plate: "bone", role: "Cross-enrolled (CS, Statistics)", where: "Cambridge, MA · 2026", x: 41, y: 9, tilt: 1.5, roleId: "harvard" },
   { name: "Harvard Innovation Labs", logo: ilab, plate: "bone", role: "Founder, stealth AI startup", where: "Cambridge, MA · 2026 –", x: 70, y: 13, tilt: -1, roleId: "ilab" },
   { name: "Intact Financial", logo: intact, plate: "bone", role: "Data Scientist I", where: "Toronto · Jan – Apr 2026", x: 89, y: 37, tilt: 2.5, roleId: "intact" },
@@ -112,6 +117,90 @@ export const ROLES: Role[] = [
     line: "Extended the Arduino control code of an automated transitive-inference task for mice: 6.25× more trials per session than the manual design." },
   { id: "uoft", when: "to Jun 2026 · Toronto", org: "University of Toronto", title: "BSc Hons · Computer Science, Neuroscience, Psychology",
     line: "High Distinction." },
+];
+
+/* ------------------------------------------------------------------ awards */
+
+export interface Award { name: string; from: string; logo: string; note?: string }
+
+/** A selection (FACT_SHEET "Awards ($30k+)"; the Jan 2026 CV names 10). Years omitted until verified. */
+export const AWARDS: Award[] = [
+  { name: "Excellence Research Award", from: "EPFL", logo: awEpfl, note: "funded the summer in Geneva" },
+  { name: "Chi-Li Pao Foundation Award", from: "Stanford", logo: awStanford },
+  { name: "Yale Research Fund", from: "Yale", logo: awYale },
+  { name: "Computer Science Engagement Award", from: "University of Toronto", logo: awUtcs },
+  { name: "Eric Jackman Scholarship", from: "Trinity College, U of T", logo: awTrinity },
+  { name: "Experiential Learning Award", from: "Trinity College, U of T", logo: awTrinity },
+];
+export const AWARDS_MORE = "+ 4 more · $30k+ in total";
+
+/* ------------------------------------------------------------------ tech stack */
+
+export interface Tool {
+  name: string;
+  /** Project tool names that count as this tool (case-insensitive). Defaults to [name]. */
+  match?: string[];
+  /** Where else it was used (roles, coursework), shown in the hover note. */
+  also?: string;
+}
+export interface StackGroup { id: string; label: string; tools: Tool[] }
+
+/**
+ * Everything in the FACT_SHEET Skills section, grouped. Each tool's hover note lists the projects
+ * below that use it (computed from PROJECTS[].tools), so the stack doubles as a legend.
+ */
+export const STACK: StackGroup[] = [
+  { id: "lang", label: "languages", tools: [
+    { name: "Python" },
+    { name: "R" },
+    { name: "SQL", also: "Intact" },
+    { name: "TypeScript", also: "EPFL experiment apps, this site" },
+    { name: "Java" },
+    { name: "C++", match: ["C++ / Arduino"] },
+    { name: "Swift" },
+    { name: "Julia", also: "MIT 6.C571 (optimization)" },
+  ] },
+  { id: "stats", label: "statistics", tools: [
+    { name: "mixed-effects models", match: ["lme4"] },
+    { name: "survey-weighted inference", match: ["survey"] },
+    { name: "causal inference", also: "Harvard STAT 289; SC² treatment-effect work", match: [] },
+    { name: "Bayesian estimation", match: ["Bayesian regression"] },
+    { name: "bootstrap & hypothesis tests", match: ["bootstrap CIs", "likelihood-ratio tests"] },
+    { name: "age standardization" },
+    { name: "time series", match: [], also: "Harvard coursework; λ Lambda's design" },
+    { name: "optimization (LP, convex)", match: [], also: "MIT 6.C571 with JuMP" },
+  ] },
+  { id: "ml", label: "machine learning & AI", tools: [
+    { name: "PyTorch" },
+    { name: "scikit-learn", also: "Intact (random-forest importance)" },
+    { name: "vision transformers", match: ["ViT"] },
+    { name: "tree ensembles", match: ["random forests"], also: "Intact" },
+    { name: "LLM APIs", match: ["OpenAI API", "Gemini API"] },
+    { name: "LangChain" },
+    { name: "interpretability", match: ["integrated gradients"] },
+    { name: "MNE-Python" },
+  ] },
+  { id: "data", label: "data & infrastructure", tools: [
+    { name: "asyncio" },
+    { name: "Polars / pyarrow", match: ["Polars", "pyarrow"] },
+    { name: "tidyverse", match: ["tidyverse", "tidyr", "haven", "ggplot2"] },
+    { name: "Databricks" },
+    { name: "Snowflake" },
+    { name: "Airflow" },
+    { name: "GCP", match: ["GCP Cloud Run", "Firestore"] },
+    { name: "AWS", match: [], also: "EPFL (S3 + CloudFront deploys)" },
+    { name: "GitHub Actions", match: [], also: "EPFL, Vera CI" },
+    { name: "Docker", match: [], also: "Harvard AC 215 (MLOps)" },
+  ] },
+  { id: "build", label: "apps & hardware", tools: [
+    { name: "React", match: [], also: "EPFL experiment apps (jsPsych), this site" },
+    { name: "FastAPI" },
+    { name: "Flutter" },
+    { name: "Apple Vision Pro" },
+    { name: "Arduino", match: ["C++ / Arduino"] },
+    { name: "Bonsai / pyControl", match: ["Bonsai", "pyControl"] },
+    { name: "pytest / mypy", match: ["pytest", "mypy"] },
+  ] },
 ];
 
 /* ------------------------------------------------------------------ projects */

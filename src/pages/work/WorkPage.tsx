@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Footer from "../../components/layout/Footer";
 import { useInstrument } from "../../instrument/context";
 import { clamp, reducedMotion } from "../../lib/util";
 import { useSeen } from "../../lib/useSeen";
@@ -8,7 +7,9 @@ import SimCanvas from "../../sims/SimCanvas";
 import { COUNTERS, ROLES, STATEMENT } from "../../data/work";
 import InstitutionMap from "./InstitutionMap";
 import { useHashScroll } from "../../lib/useHashScroll";
+import Awards from "./Awards";
 import Projects from "./Projects";
+import Stack from "./Stack";
 import "../section.css";
 import "./work.css";
 
@@ -98,9 +99,10 @@ export default function WorkPage() {
         </section>
         <Counters />
         <Experience />
+        <Awards />
+        <Stack />
         <Projects />
       </div>
-      <Footer eot="— end of channel —" />
     </main>
   );
 }
