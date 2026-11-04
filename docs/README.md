@@ -5,6 +5,7 @@ Planning material for the 2026 site overhaul. Nothing in here ships with the sit
 | Path | What it is |
 |---|---|
 | `mockups/nixie_home.html` | Prototype the React home page was built from (Nixie Lab theme; the React version in `src/` is now the reference). Open it directly in a browser. It reads images from `../../src/assets/`, so keep the folder layout intact. |
+| `mockups/work_wireframes.html` | Work page wireframes: shared top of page + three project-list options (tabs A/B/C). |
 | `mockups/archive/` | Earlier explorations, kept for reference: wireframes, the green "The Lab" theme, the four hero concepts, the Worldline intro storyboard, the easter-egg brainstorm. Superseded by `nixie_home.html`. |
 | `planning/DECISIONS_LOG.md` | Every design decision, round by round, in order. `TODO.md` holds only the current state. |
 | `planning/CONTENT.md` | Copy drafts (the "Proud Of" list) with fact-check flags. |

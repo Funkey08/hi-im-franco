@@ -100,3 +100,12 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - **Docking:** one clock instance, portalled between the hero slot and a fixed layer; flies into the bar over 300 px of scroll.
 - **MEASURE** pings until first use (persisted).
 
+## Round 12 · Nov 3, 2026 — intro, footer, contact, Work wireframes
+- **Worldline boot is back** as a short pre-roll (it also hides font/figure loading): amber phosphor CRT (not green, to match the theme), real loading log, divergence meter locking on 1.048596, CRT power-off. Game-of-Life initials and manga wipe stay dropped (too long).
+- **Docked clock defaults to FRANCO**; a click on it while docked on Home scrolls back up instead of measuring.
+- **Self-portrait moved** from beside the hero to the footer (left), mirroring Kurisu (right).
+- **Contact box** at the bottom of Home: mailto compose + copy address (Franco chose this over Formspree).
+- **Duolingo** = 2128 on Nov 3 2026, counted up nightly in America/New_York.
+- **Work wireframes** (`docs/mockups/work_wireframes.html`): statement (Franco's wording, fact-checked: ~10 institutions, 3 continents) + 2–3 sentence intro (not 1–2 paragraphs); logos wired to a DATA hub; counters; one-line roles; three project-list options (A tiered notebook, B worldline lanes, C sortable index); publications. Recommendation: A's flagships + C's index.
+- Logos: Intact added (Wikimedia SVG render). Harvard, MIT, Harvard i-lab PNGs to come from Franco.
+
