@@ -70,8 +70,22 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 ## Round 8 · Nov 3, 2026
 - **Kurisu ASCII softened** (CSS filter saturate .78 / brightness .86).
 - **Kurisu message:** small plain Inter (13.5px, muted), two lines exactly as written, then "El Psy Kongroo." in Instrument Serif italic, amber. Lines stagger in on hover.
-- **Round 9 update:** cursor-fit regression switched OFF (too noisy); code kept behind `SHOW_FIT = false` in the probe block. Top-left now shows a plain, unhighlighted page-coordinate readout "x 0536 · y 0482".
 - **Cursor = probe + regression** (mouse/trackpad only; touch keeps native behaviour):
   - Amber dot + lagging ring. Ring grows and labels the target: MEASURE (tubes/button), READ (unit lamps/pips), OPEN · DRAG (cards), DRAG (carousel), WORK (green) / LIFE (amber) on the channels; shrinks on press.
   - Your last ~0.65s of movement is drawn as fading points with residual ticks to a dashed fitted line (principal axis).
   - Top-left readout, always on: "cursor fit · r² 0.991 ▬ n 16" (r² = squared Pearson correlation of the recent path).
+
+## Round 9 · Nov 3, 2026
+- Cursor-fit regression switched OFF (too noisy); code kept behind `SHOW_FIT = false` in the probe block. Top-left now shows a plain, unhighlighted page-coordinate readout "x 0536 · y 0482".
+
+## Round 10 · Nov 3, 2026 — cleanup, review, and the brief for the real home page
+- Repo cleanup: planning docs to `docs/planning/`, old mockups to `docs/mockups/archive/`, source art to `docs/source-art/`, ASCII generator in `scripts/`. Work happens on branch `overhaul`; `main` stays the live site.
+- "Oomph" review of the prototype found: one climax (the boot) and then a flat page; no human presence; the readings feature waits to be discovered; low contrast on dim labels; mobile carousel broken.
+- **Chosen for the real build (React, on its own branch off `overhaul`):**
+  - Tubes **dock into the header** when you scroll past the hero, and keep working there.
+  - **Opening animation** upgraded; the instrument demonstrates itself if the visitor doesn't click.
+  - **ASCII self-portrait** of Franco on the left of the hero (from his own flat-colour art, same pose family as Kurisu).
+  - **Background a tad lighter**, so the site reads less like a generic dark programmer page; Kurisu's ASCII colours retuned to match.
+  - **MEASURE button** sends out a few signal pulses until it's pressed the first time.
+  - **Tube display polished to "as good as it can look"**, with an implicit hover cue that says "click me".
+- Not chosen (for now): optional sound, the "currently" line, the scroll-signal line, carousel duotone.

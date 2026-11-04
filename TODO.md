@@ -1,7 +1,8 @@
 # Website Overhaul TODO
 
 Stack: React + Vite + TypeScript + Tailwind, deployed to GitHub Pages at `/hi-im-franco/`.
-Current sections (in `App.tsx`): NavLinks → Header → ImageCarousel(x2) → InstitutionGrid → AboutMe → ProjectShowcase → AwardsSection → Timeline → FavBooks → ContactSection → Footer.
+Branches: `main` = live site · `overhaul` = redesign base · feature branches off `overhaul` (e.g. the home page build).
+Legacy sections still in `App.tsx` (to be replaced): NavLinks → Header → ImageCarousel(x2) → InstitutionGrid → AboutMe → ProjectShowcase → AwardsSection → Timeline → FavBooks → ContactSection → Footer.
 Planning docs live in `docs/` (see `docs/README.md`). Copy drafts (Proud Of list, etc.): `docs/planning/CONTENT.md`.
 
 Legend: 🐛 bug fix · 🧱 structure · ✨ new section · 🎨 visual · ✍️ copy · ⚙️ infra · 🖼️ asset hunting · 🥚 easter egg · ❓ open decision
@@ -21,7 +22,7 @@ Prototype: **`docs/mockups/nixie_home.html`** (open in a browser). Full history 
 - **Cursor:** probe (amber dot + lagging ring; ring grows and labels MEASURE / READ / OPEN · DRAG / DRAG / WORK / LIFE). Faint page-coordinate readout top-left. Cursor-fit regression exists but is off (`SHOW_FIT = false`). Mouse/trackpad only.
 - **Resume / GitHub / LinkedIn / email:** small links top-right and in the footer.
 - **Accessibility:** tubes keyboard-operable, readout `aria-live`, ASCII `aria-hidden` with a real label, `prefers-reduced-motion` skips rolls/sweeps/typing.
-- **Next:** design the Work and Life pages (currently stubs in the prototype).
+- **Next:** build the real home page in React (brief: `docs/planning/DECISIONS_LOG.md` round 10), then design the Work and Life pages.
 
 ---
 
@@ -110,7 +111,7 @@ These rules keep the site from looking chaotic and keep it readable for recruite
 - [ ] 🧱 Reuse the academic carousel figures (`carousel/academic`, 17 images) as visuals inside the matching project cards instead of a separate scrolling strip.
 
 ## 4. Visual design overhaul
-- [ ] 🎨 Base palette + type scale + spacing scale in Tailwind config, following the rules in §B.
+- [ ] 🎨 Base palette + type scale + spacing scale as Tailwind v4 `@theme` tokens in CSS (v4 has no `tailwind.config.js`), following the rules in §B.
 - [ ] 🎨 Fewer emoji in headings; let personality show in the copy instead.
 - [x] 🎨 ~~Dark/light mode toggle~~ → decided: dark only ("Nixie Lab"). Check contrast of the dim labels.
 
@@ -126,7 +127,10 @@ These rules keep the site from looking chaotic and keep it readable for recruite
 ## 6. Technical / infra
 - [ ] ⚙️ **Contact form backend.** GitHub Pages is static, so the D-Mail form needs a form service (Formspree, Web3Forms, etc.) or it falls back to `mailto:`. Pick one before styling it.
 - [ ] ⚙️ **Content as data.** Move projects, Proud Of items, countries, books and timeline entries into typed data files (e.g. `src/data/*.ts`) so updating content never means editing components.
-- [x] ⚙️ Remove dead code: `AltAwardSection.tsx` (removed; build still passes).
+- [x] ⚙️ Remove dead code: `AltAwardSection.tsx`, `App.css`, unused template assets (`react.svg`, `vite.svg`, `icon.png`).
+- [x] ⚙️ Dependency cleanup: removed unused `react-icons`, `react-type-animation`, `vite-plugin-gh-pages`, `autoprefixer`, `postcss`; fixed `homepage` placement in `package.json`; migrated `import.meta.glob` off the deprecated `as: 'url'`.
+- [ ] ⚙️ `src/index.css` still carries the Vite starter styles (light-mode media query, blue link colours, button resets). Replace with the Nixie base styles during the home page build.
+- [ ] ⚙️ Self-host the fonts (Oswald, JetBrains Mono, Inter, Instrument Serif) instead of Google Fonts, for speed and no layout shift.
 - [ ] ⚙️ Resume PDF: visible link, and a reminder to replace it each time the resume changes.
 - [ ] ⚙️ Lightweight analytics (e.g. Plausible / GA).
 - [ ] ⚙️ robots.txt / sitemap.
