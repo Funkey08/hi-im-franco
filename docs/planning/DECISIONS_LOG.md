@@ -109,3 +109,8 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - **Work wireframes** (`docs/mockups/work_wireframes.html`): statement (Franco's wording, fact-checked: ~10 institutions, 3 continents) + 2–3 sentence intro (not 1–2 paragraphs); logos wired to a DATA hub; counters; one-line roles; three project-list options (A tiered notebook, B worldline lanes, C sortable index); publications. Recommendation: A's flagships + C's index.
 - Logos: Intact added (Wikimedia SVG render). Harvard, MIT, Harvard i-lab PNGs to come from Franco.
 
+## Round 13 · Nov 4, 2026 — logos, assets, Work wireframe v2
+- **Logos** live in `src/assets/logos/` (kebab-case): Harvard and MIT SVGs from Franco; Harvard i-lab "Hi" mark pulled from innovationlabs.harvard.edu (+ wordmark); Intact without its three colour bars. Shown **in full colour** on cream plaques (dark-on-light logos were illegible on the brown). All other assets renamed to kebab-case.
+- **Facts:** Harvard i-lab role = founder of a stealth AI startup; awards = $30k+; breast-cancer project verified from local terminal summaries (CNN/ResNet-18/ViT ensemble on BreakHis + RCL-7500 tiles, test AUC 0.98); repo is private. Added to the FACT_SHEET.
+- **Work wireframe v2:** statement with three amber-highlighted phrases and a phosphor-green glowing "data"; intro is a placeholder; hub reads just DATA; counters swap "1/24 CARE fellows" for "2.4M records in my largest dataset"; publications removed; projects = **lab notebook** (every entry: figure, 2+ sentence description, tools, GitHub link or honest "private"/"proprietary"). Ordered by strength for a quant/ML reader.
+

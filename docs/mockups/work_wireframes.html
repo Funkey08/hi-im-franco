@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Work page wireframes · Nixie Lab</title>
+<title>Work page wireframe · Nixie Lab</title>
 <!--
-  Work (/work) wireframes, round 12. Mid-fidelity: real copy (FACT_SHEET-checked), real logos,
-  dashed boxes where figures/screens will go. Shared top of page + three options for the project list.
-  Open directly in a browser; logos load from ../../src/assets/companies/.
+  Work (/work) wireframe, round 13. Mid-fidelity: real copy (FACT_SHEET-checked), real logos and
+  figures from ../../src/assets/, dashed boxes where a figure still has to be made.
+  Projects use the "lab notebook" layout (chosen in round 13); the A/B/C comparison is in git history.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Oswald:wght@200;300;500&display=swap" rel="stylesheet">
@@ -17,130 +17,105 @@
 body{margin:0;background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(255,140,50,.08),transparent 70%),var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:inherit}
 .wrap{max-width:1180px;margin:0 auto;padding:0 5vw}
-.mono{font-family:"JetBrains Mono",monospace}
-.note{border-left:2px solid var(--amber);background:rgba(255,179,92,.06);padding:10px 14px;margin:14px 0;font:12.5px/1.6 "JetBrains Mono",monospace;color:var(--ink2)}
+.note{border-left:2px solid var(--amber);background:rgba(255,179,92,.06);padding:10px 14px;margin:16px 0 0;font:12.5px/1.6 "JetBrains Mono",monospace;color:var(--ink2)}
 .note b{color:var(--glow)}
-.wf-label{font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 10px;display:flex;align-items:center;gap:10px}
+.wf-label{font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 14px;display:flex;align-items:center;gap:10px}
 .wf-label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#5a4632,transparent)}
-section.wf{padding:46px 0;border-bottom:1px dashed #3a2c20}
-.ph{border:1.5px dashed #5a4632;border-radius:8px;display:grid;place-items:center;color:var(--faint);font:11px "JetBrains Mono",monospace;letter-spacing:.08em;text-align:center;padding:8px;background:rgba(0,0,0,.12)}
+section.wf{padding:50px 0;border-bottom:1px dashed #3a2c20}
+.ph{border:1.5px dashed #5a4632;border-radius:8px;display:grid;place-items:center;color:var(--faint);font:11px "JetBrains Mono",monospace;letter-spacing:.06em;text-align:center;padding:10px;background:rgba(0,0,0,.14)}
 
-/* top bar (as on the real site) */
 .bar{position:sticky;top:0;z-index:10;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(30,23,17,.92);border-bottom:1px solid rgba(90,70,50,.45);font:11px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
 .bar .tubes{display:flex;gap:3px}
 .bar .tubes span{width:20px;height:34px;border-radius:9px 9px 3px 3px;border:1px solid rgba(255,214,170,.17);background:rgba(24,16,11,.8);display:grid;place-items:center;font:300 22px Oswald;color:#ffdcae;text-shadow:0 0 6px #ff7612}
-.tabs{display:flex;gap:6px}
-.tabs button{all:unset;cursor:pointer;padding:6px 10px;border:1px solid var(--edge);border-radius:4px;color:var(--dim)}
-.tabs button.on{color:#2a1606;background:var(--amber);border-color:var(--amber)}
 
-/* 1. header */
-.head{padding-top:40px}
+.order{counter-reset:o;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.order li{counter-increment:o;border:1px solid var(--edge);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--ink2)}
+.order li::before{content:counter(o,decimal-leading-zero);display:block;font:600 11px "JetBrains Mono",monospace;color:var(--amber);margin-bottom:3px}
+
+/* 01 header */
 .kicker{font:11px "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
 .head h1{margin:4px 0 0;font:200 clamp(80px,12vw,150px)/.9 Oswald;letter-spacing:.04em;color:#d8ffe8;text-shadow:0 0 6px #7dffb0,0 0 24px rgba(60,255,150,.45)}
 .banner{height:120px;margin-top:18px;border-radius:12px;background:radial-gradient(ellipse at center,#0f2418,#060d09);position:relative;overflow:hidden}
 .banner svg{position:absolute;inset:0;width:100%;height:100%}
 
-/* 2. statement */
-.statement{font:italic 400 clamp(28px,3.3vw,46px)/1.28 "Instrument Serif",serif;color:#f6eadb;max-width:980px;margin:0}
-.statement em{color:#ffcf95;text-shadow:0 0 18px rgba(255,130,40,.55)}
-.statement .data{font-style:italic;color:#d8ffe8;text-shadow:0 0 8px #7dffb0,0 0 22px rgba(60,255,150,.5)}
-.intro{margin:22px 0 0;max-width:720px;color:var(--ink2);font-size:16.5px;line-height:1.65}
-.alt{margin-top:10px;font:12px "JetBrains Mono",monospace;color:var(--faint)}
+/* 02 statement */
+.statement{font:italic 400 clamp(30px,3.4vw,48px)/1.3 "Instrument Serif",serif;color:#efe1cf;max-width:1000px;margin:0}
+.hl{font-style:italic;color:#ffd9a8;background:linear-gradient(transparent 62%,rgba(255,150,50,.22) 62%,rgba(255,150,50,.22) 92%,transparent 92%);padding:0 .06em;text-shadow:0 0 14px rgba(255,130,40,.35)}
+.data{position:relative;display:inline-block;font-style:italic;color:#eafff2;padding:0 .08em;
+  text-shadow:0 0 2px #fff,0 0 8px #7dffb0,0 0 22px #3cff96,0 0 48px rgba(60,255,150,.55);
+  animation:data-hum 4.5s ease-in-out infinite}
+.data::after{content:"";position:absolute;left:-.25em;right:-.25em;top:20%;bottom:5%;z-index:-1;border-radius:50%;background:radial-gradient(closest-side,rgba(60,255,150,.22),transparent);filter:blur(6px)}
+@keyframes data-hum{0%,100%{filter:brightness(1)}45%{filter:brightness(1.25)}47%{filter:brightness(.85)}48%{filter:brightness(1.2)}}
+.intro-ph{margin-top:26px;max-width:720px;height:86px}
 
-/* 3. logo network */
-.net{position:relative;height:500px;margin:10px 0 0}
-.net svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
-.net .hub{position:absolute;left:50%;top:50%;translate:-50% -50%;width:150px;height:150px;border-radius:50%;display:grid;place-items:center;text-align:center;border:1px solid #3d6b52;background:radial-gradient(circle,#13281c,#0a130d);box-shadow:0 0 40px -6px rgba(60,255,150,.45)}
-.net .hub b{font:300 34px/1 Oswald;letter-spacing:.12em;color:#d8ffe8;text-shadow:0 0 6px #7dffb0}
-.net .hub small{display:block;margin-top:4px;font:10px "JetBrains Mono",monospace;color:#7fae93;letter-spacing:.14em}
-.logo{position:absolute;translate:-50% -50%;width:150px;height:76px;border-radius:10px;border:1px solid var(--edge);background:linear-gradient(170deg,#2b2119,#1f1812);display:grid;place-items:center;padding:12px;cursor:pointer;transition:border-color .2s,box-shadow .2s,transform .2s}
-.logo img{max-width:100%;max-height:44px;object-fit:contain;filter:grayscale(1) brightness(0) invert(.86) sepia(.35);opacity:.8;transition:filter .25s,opacity .25s}
-.logo .ph{width:100%;height:100%;font-size:10px}
-.logo:hover,.logo.on{border-color:var(--phos);box-shadow:0 0 0 1px var(--phos),0 0 26px -6px var(--phos);transform:translateY(-2px)}
-.logo:hover img,.logo.on img{filter:none;opacity:1}
-.logo .tip{position:absolute;top:calc(100% + 8px);left:50%;translate:-50% 0;width:230px;padding:9px 11px;border:1px solid var(--edge2);border-radius:6px;background:#211912;font:11px/1.5 "JetBrains Mono",monospace;color:var(--ink2);opacity:0;pointer-events:none;transition:opacity .15s;z-index:3}
-.logo .tip b{display:block;color:var(--glow);font-weight:600}
+/* 03 logos */
+.net{position:relative;height:600px;margin-top:6px}
+.net svg.lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.hub{position:absolute;left:50%;top:50%;translate:-50% -50%;width:150px;height:150px;border-radius:50%;display:grid;place-items:center;border:1px solid #3d6b52;background:radial-gradient(circle,#13281c,#0a130d);box-shadow:0 0 50px -6px rgba(60,255,150,.5),inset 0 0 30px rgba(60,255,150,.12);z-index:1}
+.hub b{font:300 36px/1 Oswald;letter-spacing:.14em;padding-left:.14em;color:#eafff2;text-shadow:0 0 2px #fff,0 0 8px #7dffb0,0 0 22px #3cff96}
+.logo{position:absolute;translate:-50% -50%;width:178px;height:92px;border-radius:9px;background:linear-gradient(180deg,#f6ecdc,#e9dcc6);border:1px solid #b8a487;box-shadow:inset 0 1px 0 #fffaf0,inset 0 -2px 0 rgba(0,0,0,.08),0 10px 22px rgba(0,0,0,.45);display:grid;place-items:center;padding:14px 16px;cursor:pointer;transition:transform .2s,box-shadow .2s;z-index:2}
+.logo::before,.logo::after{content:"";position:absolute;top:7px;width:5px;height:5px;border-radius:50%;background:radial-gradient(circle at 35% 35%,#c9b089,#7d6240)}
+.logo::before{left:7px}.logo::after{right:7px}
+.logo img{max-width:100%;max-height:58px;object-fit:contain}
+.logo:hover{transform:translateY(-3px);box-shadow:inset 0 1px 0 #fffaf0,0 0 0 2px var(--phos),0 0 30px -4px var(--phos),0 14px 26px rgba(0,0,0,.5)}
+.tip{position:absolute;top:calc(100% + 10px);left:50%;translate:-50% 0;width:240px;padding:9px 11px;border:1px solid var(--edge2);border-radius:6px;background:#211912;font:11px/1.5 "JetBrains Mono",monospace;color:var(--ink2);opacity:0;pointer-events:none;transition:opacity .15s;z-index:5}
+.tip b{display:block;color:var(--glow);font-weight:600}
 .logo:hover .tip{opacity:1}
-.continents{display:flex;gap:18px;justify-content:center;margin-top:46px;font:11px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
+.continents{display:flex;gap:22px;justify-content:center;flex-wrap:wrap;margin-top:22px;font:11px "JetBrains Mono",monospace;letter-spacing:.14em;color:var(--faint);text-transform:uppercase}
 .continents b{color:var(--glow);font-weight:600}
 
-/* 4. counters */
+/* 04 counters */
 .counters{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .counter{border:1px solid var(--edge);border-radius:10px;background:linear-gradient(180deg,#2a2118,#211912);padding:16px 18px}
 .counter b{display:block;font:300 44px/1 Oswald;color:#ffdcae;text-shadow:0 0 10px rgba(255,120,30,.6)}
 .counter span{font:11px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
 
-/* 5. experience timeline */
+/* 05 experience */
 .timeline{position:relative;margin-left:8px;padding-left:28px;border-left:1px solid #4a3a2c}
 .role{position:relative;padding:0 0 22px}
 .role::before{content:"";position:absolute;left:-33px;top:6px;width:9px;height:9px;border-radius:50%;background:var(--amber);box-shadow:0 0 8px #ff7a1a}
 .role .when{font:11px "JetBrains Mono",monospace;letter-spacing:.1em;color:var(--faint)}
-.role h3{margin:2px 0 2px;font:500 21px/1.2 Oswald;letter-spacing:.02em}
+.role h3{margin:2px 0;font:500 21px/1.2 Oswald;letter-spacing:.02em}
 .role h3 small{font:400 13px Inter;color:var(--dim);letter-spacing:0}
-.role p{margin:0;color:var(--ink2);font-size:14.5px;max-width:760px}
+.role p{margin:0;color:var(--ink2);font-size:14.5px;max-width:780px}
 
-/* 6. projects, shared */
-.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 18px}
+/* 06 projects: lab notebook */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 20px}
 .chip{all:unset;cursor:pointer;padding:5px 11px;border:1px solid var(--edge);border-radius:99px;font:11px "JetBrains Mono",monospace;letter-spacing:.06em;color:var(--dim)}
 .chip.on{border-color:var(--phos);color:#d8ffe8;box-shadow:0 0 14px -4px var(--phos)}
-.status{font:10px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid}
-.status.live{color:var(--phos);border-color:rgba(125,255,176,.4)}
-.status.prog{color:var(--amber);border-color:rgba(255,179,92,.45)}
-.status.pub{color:#c8b3ff;border-color:rgba(200,179,255,.35)}
-.variant{display:none}.variant.on{display:block}
+.status{font:10px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;padding:2px 7px;border-radius:3px;border:1px solid;white-space:nowrap}
+.s-live{color:var(--phos);border-color:rgba(125,255,176,.4)}
+.s-prog{color:var(--amber);border-color:rgba(255,179,92,.45)}
+.s-pub{color:#c8b3ff;border-color:rgba(200,179,255,.35)}
+.entry{border:1px solid var(--edge);border-radius:12px;background:linear-gradient(170deg,#2b2119,#1f1812);overflow:hidden;display:flex;flex-direction:column}
+.fig{position:relative;background:#15100b;overflow:hidden}
+.fig img{display:block;width:100%;height:100%;object-fit:cover}
+.fig .ph{height:100%;border-radius:0;border:0}
+.fig.contain img{object-fit:contain;background:#f4efe6}
+.ebody{padding:16px 18px 16px;display:flex;flex-direction:column;gap:9px;flex:1}
+.meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font:11px "JetBrains Mono",monospace;color:var(--faint)}
+.entry h3{margin:0;font:500 24px/1.1 Oswald;letter-spacing:.02em}
+.q{margin:0;font:italic 19px/1.35 "Instrument Serif",serif;color:#f0e2cf}
+.desc{margin:0;color:var(--ink2);font-size:14.5px;line-height:1.6}
+.stats{display:flex;gap:18px;flex-wrap:wrap;padding:8px 0 2px;border-top:1px dashed #3e3025}
+.stats div{font:11px "JetBrains Mono",monospace;color:var(--dim);letter-spacing:.04em}
+.stats b{display:block;font:300 26px/1.1 Oswald;color:#ffdcae;text-shadow:0 0 8px rgba(255,120,30,.45);letter-spacing:.02em}
+.tools{display:flex;gap:6px;flex-wrap:wrap}
+.tools span{font:10.5px "JetBrains Mono",monospace;padding:3px 8px;border-radius:4px;background:#2f241a;border:1px solid #45352a;color:#d9c6ae}
+.links{display:flex;gap:16px;margin-top:auto;padding-top:4px;font:12px "JetBrains Mono",monospace}
+.links a{color:var(--amber);text-decoration:none}
+.links .off{color:var(--faint)}
+.flag{display:grid;grid-template-columns:46% 1fr;margin-bottom:18px}
+.flag .fig{min-height:340px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.grid2 .fig{aspect-ratio:16/8}
+.more{margin-top:18px;text-align:center}
+.more button{all:unset;cursor:pointer;font:11px "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;color:var(--dim);border:1px solid var(--edge);border-radius:4px;padding:8px 14px}
 
-/* A. tiered notebook */
-.flag{display:grid;grid-template-columns:1.1fr 1fr;gap:22px;border:1px solid var(--edge);border-radius:12px;background:linear-gradient(170deg,#2b2119,#1f1812);padding:18px;margin-bottom:16px}
-.flag .ph{height:230px}
-.flag h3{margin:0;font:500 30px/1.1 Oswald}
-.flag .q{margin:6px 0 10px;font:italic 19px/1.35 "Instrument Serif",serif;color:#f0e2cf}
-.flag ul{margin:0 0 12px;padding-left:18px;color:var(--ink2);font-size:14px}
-.flag .meta{display:flex;gap:10px;align-items:center;flex-wrap:wrap;font:11px "JetBrains Mono",monospace;color:var(--faint)}
-.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:8px}
-.card{border:1px solid var(--edge);border-radius:10px;background:linear-gradient(170deg,#2b2119,#1f1812);overflow:hidden}
-.card .ph{height:120px;border-radius:0;border-width:0 0 1.5px}
-.card div.b{padding:12px 14px}
-.card h4{margin:0 0 4px;font:500 19px Oswald}
-.card p{margin:0 0 8px;font-size:13.5px;color:#b8a38b}
-.archive{margin-top:20px;border-top:1px solid #3a2c20}
-.archive div{display:grid;grid-template-columns:2fr 3fr 1fr 70px;gap:14px;padding:10px 4px;border-bottom:1px solid #2f241a;font-size:13.5px;color:var(--ink2)}
-.archive div span:last-child{text-align:right;color:var(--faint);font:12px "JetBrains Mono",monospace}
-
-/* B. worldlines (timeline matrix) */
-.lanes{position:relative;border:1px solid var(--edge);border-radius:12px;padding:16px 16px 34px;background:#1f1812;overflow:hidden}
-.lane{display:grid;grid-template-columns:130px 1fr;align-items:center;height:78px;border-bottom:1px dashed #33271d}
-.lane>span{font:11px "JetBrains Mono",monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--dim)}
-.track{position:relative;height:100%}
-.pill{position:absolute;top:50%;translate:0 -50%;height:28px;border-radius:14px;padding:0 10px;display:flex;align-items:center;font:12px Inter;white-space:nowrap;cursor:pointer;border:1px solid;overflow:hidden;text-overflow:ellipsis}
-.pill.r{background:rgba(125,255,176,.08);border-color:rgba(125,255,176,.45);color:#d8ffe8}
-.pill.i{background:rgba(255,179,92,.1);border-color:rgba(255,179,92,.5);color:#ffe2bd}
-.pill.p{background:rgba(200,179,255,.08);border-color:rgba(200,179,255,.4);color:#e6dcff}
-.years{position:absolute;left:146px;right:16px;bottom:8px;display:flex;justify-content:space-between;font:10.5px "JetBrains Mono",monospace;color:var(--faint)}
-.detail{margin-top:14px;display:grid;grid-template-columns:260px 1fr;gap:18px;border:1px solid var(--edge2);border-radius:10px;padding:14px;background:#241c15}
-.detail .ph{height:150px}
-
-/* C. dataset index */
-.table{border:1px solid var(--edge);border-radius:10px;overflow:hidden;background:#1f1812}
-.trow{display:grid;grid-template-columns:28px 1.6fr 1.1fr 2fr .7fr .8fr;gap:12px;align-items:center;padding:11px 14px;border-bottom:1px solid #2f241a;font-size:13.5px;color:var(--ink2);cursor:pointer}
-.trow:hover{background:rgba(255,179,92,.05)}
-.trow.h{cursor:default;background:#261e16;font:10.5px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--dim)}
-.trow.h span::after{content:" ↕";color:var(--faint)}
-.trow .n{font:11px "JetBrains Mono",monospace;color:var(--faint)}
-.trow b{color:var(--ink);font-weight:600}
-.peek{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:14px;background:#241c15;border-bottom:1px solid #2f241a}
-.peek .ph{height:140px}
-
-.pros{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:16px;font-size:13.5px}
-.pros div{border:1px solid var(--edge);border-radius:8px;padding:10px 14px;color:var(--ink2)}
-.pros b{font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.16em;text-transform:uppercase;display:block;margin-bottom:4px}
-.pros .y b{color:var(--phos)}.pros .n b{color:#ff9d7a}
-
-.pubs li{margin-bottom:8px;color:var(--ink2);font-size:14px}
-.pubs li span{font:11px "JetBrains Mono",monospace;color:var(--faint)}
-.order{counter-reset:o;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.order li{counter-increment:o;border:1px solid var(--edge);border-radius:8px;padding:10px 12px;font-size:13px;color:var(--ink2)}
-.order li::before{content:counter(o,decimal-leading-zero);display:block;font:600 11px "JetBrains Mono",monospace;color:var(--amber);margin-bottom:3px}
-@media (max-width:900px){.counters,.grid3,.order{grid-template-columns:1fr 1fr}.flag,.detail,.peek,.pros{grid-template-columns:1fr}.net{height:auto}.logo{position:relative;translate:none;left:auto!important;top:auto!important;display:inline-grid;margin:6px}.net svg.lines,.net .hub{display:none}.trow{grid-template-columns:1fr 1fr}}
+.agents{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:16px}
+.agents div{border:1px solid var(--edge);border-radius:8px;padding:12px 14px;font-size:13px;color:var(--ink2)}
+.agents b{display:block;font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--phos);margin-bottom:5px}
+@media (max-width:900px){.order{grid-template-columns:1fr 1fr 1fr}.counters,.grid2,.agents{grid-template-columns:1fr}.flag{grid-template-columns:1fr}.flag .fig{min-height:220px}.net{height:auto;display:grid;grid-template-columns:1fr 1fr;gap:12px}.logo{position:relative;translate:none;left:auto!important;top:auto!important;width:auto}.net svg.lines,.hub{display:none}}
 </style>
 </head>
 <body>
@@ -148,26 +123,21 @@ section.wf{padding:46px 0;border-bottom:1px dashed #3a2c20}
 <div class="bar">
   <span>FMV-08 · 170 V DC</span>
   <span class="tubes"><span>F</span><span>R</span><span>A</span><span>N</span><span>C</span><span>O</span></span>
-  <span class="tabs" role="tablist" aria-label="Project list option">
-    <button class="on" data-v="A">A · notebook</button><button data-v="B">B · worldlines</button><button data-v="C">C · index</button>
-  </span>
+  <span>github · linkedin · email</span>
 </div>
 
 <div class="wrap">
 
-<section class="wf head" style="border:0;padding-bottom:10px">
+<section class="wf" style="border:0;padding-bottom:10px">
   <p class="wf-label">00 · page map</p>
   <ol class="order">
     <li>Header: WORK + forward-pass banner</li>
-    <li>Statement + 2–3 sentence intro</li>
-    <li>Institutions: logos wired to "data"</li>
-    <li>Counters (one row)</li>
-    <li>Experience: roles, newest first</li>
-    <li>Projects (3 options below)</li>
-    <li>Publications &amp; talks</li>
-    <li>Footer: contact + résumé link</li>
+    <li>Statement + short intro</li>
+    <li>Institutions wired to DATA</li>
+    <li>Counters</li>
+    <li>Experience, newest first</li>
+    <li>Projects (lab notebook)</li>
   </ol>
-  <div class="note">Reading order follows how a recruiter scans: <b>who / how broad</b> (statement + logos) → <b>proof</b> (counters, roles) → <b>depth</b> (projects, papers). Everything above the projects fits in ~1.5 screens.</div>
 </section>
 
 <section class="wf head">
@@ -179,22 +149,19 @@ section.wf{padding:46px 0;border-bottom:1px dashed #3a2c20}
 
 <section class="wf">
   <p class="wf-label">02 · statement + intro</p>
-  <p class="statement">I've worked for nearly a dozen different institutions, across three continents, in distinctly unrelated fields. But they've all been connected by one thing, and that's <span class="data">data</span>.</p>
-  <p class="intro">Insurance underwriting in Toronto, decision-making in Geneva, adolescent mental health at Stanford, crypto order books in my own code. The questions change; the work is the same: get messy data into shape, model it honestly, and say what the numbers do and don't support.</p>
-  <p class="alt">copy alt for line 2 → "But one thing has connected all of them: <i>data</i>."</p>
-  <div class="note"><b>Paragraphs?</b> Recommend <b>one short intro (2–3 sentences, ≤ 60 words)</b>, not 1–2 paragraphs. The statement already does the "who I am"; the intro adds the <i>how</i>. Longer bios get skipped. Put depth into the role and project entries, where it's attached to evidence.<br>
-  <b>Fact check:</b> 10 institutions on the fact sheet / your list: Harvard, MIT, U of T, Stanford Medicine, Stanford SC², EPFL (at Campus Biotech), NUS, Cove, Intact, Harvard i-lab (+ Takehara Lab inside U of T). <b>"Nearly a dozen" ✓. Three continents ✓</b> (N. America · Europe · Asia). ❓ The Harvard i-lab isn't on the fact sheet yet: what was the role?</div>
+  <p class="statement">I've worked for nearly <span class="hl">a dozen different institutions</span>, across <span class="hl">three different continents</span>, in <span class="hl">distinctly unrelated fields</span>. But they've all been connected by one thing, and that's <span class="data">data</span>.</p>
+  <div class="ph intro-ph">[ short intro: 2–3 sentences, ≤ 60 words. To write. ]</div>
+  <div class="note">The three phrases get a warm highlighter stroke; <b>data</b> alone glows phosphor-green (the Work channel's colour) with a slow tube-like hum, so it reads as the word the whole page is about. In the build, the highlights sweep in left to right when the sentence scrolls into view.</div>
 </section>
 
 <section class="wf">
-  <p class="wf-label">03 · institutions, wired to "data"</p>
+  <p class="wf-label">03 · institutions, wired to data</p>
   <div class="net" id="net">
     <svg class="lines" id="lines"></svg>
-    <div class="hub"><div><b>DATA</b><small>the common thread</small></div></div>
+    <div class="hub"><b>DATA</b></div>
   </div>
   <div class="continents"><span><b>N. America</b> · Toronto · Palo Alto · Cambridge</span><span><b>Europe</b> · Geneva</span><span><b>Asia</b> · Singapore</span></div>
-  <div class="note">Logos are monochrome cream by default (one visual weight, on-theme), full colour on hover. A pulse travels from the hovered logo along its wire to <b>DATA</b> (the same forward-pass motion as the banner). The tooltip gives role · place · dates, and clicking scrolls to that role in 05. On phones: a plain 3-column logo grid.<br>
-  <b>Assets:</b> ✅ U of T, Stanford, EPFL, Campus Biotech, NUS, Cove; ✅ Intact (added, from Wikimedia); ⏳ Harvard, MIT, Harvard i-lab (you'll send PNGs). All need resizing to ~300 px wide for the real build (NUS is 3000 px).</div>
+  <div class="note">Logos in full colour on cream enamel plaques (brass screws, like the clock's nameplate), evenly spaced on an ellipse around DATA. Idle: a faint pulse runs along a random wire every couple of seconds. Hover: the wire lights up, a pulse travels to DATA, and a tooltip gives role · place · dates. Click jumps to that role in 05. On phones: a 2-column plaque grid, no wires.</div>
 </section>
 
 <section class="wf">
@@ -203,178 +170,126 @@ section.wf{padding:46px 0;border-bottom:1px dashed #3a2c20}
     <div class="counter"><b>7</b><span>manuscripts · 1 first-author</span></div>
     <div class="counter"><b>5</b><span>conference talks &amp; posters</span></div>
     <div class="counter"><b>$30k+</b><span>research awards</span></div>
-    <div class="counter"><b>1 / 24</b><span>Stanford CARE fellows</span></div>
+    <div class="counter"><b>2.4M</b><span>records in my largest dataset</span></div>
   </div>
-  <div class="note">Digits roll in like the tubes when the row scrolls into view. ❓ Awards: the fact sheet says <b>$30k+</b>; an older note said $20k+. And is it USD or CAD?</div>
+  <div class="note">Replaces "1 / 24 CARE fellows". Other verified options for the 4th slot: <b>48,600</b> decisions modelled · <b>~50k</b> test events captured (EPFL apps) · <b>6</b> experiment apps shipped, 3 months early · <b>$300K</b> projected annual upside (Intact, "projected" must stay). Digits roll in like the tubes on scroll.</div>
 </section>
 
 <section class="wf">
   <p class="wf-label">05 · experience</p>
   <div class="timeline">
     <div class="role"><div class="when">2026 – DEC 2027 · CAMBRIDGE, MA</div><h3>Harvard University <small>· SM Data Science · MIT cross-enrolled (CS, Statistics)</small></h3><p>Causal inference, linear models, optimization, MLOps.</p></div>
+    <div class="role"><div class="when">2026 – · CAMBRIDGE, MA</div><h3>Harvard Innovation Labs <small>· Founder, stealth AI startup</small></h3><p>Building an AI product in stealth.</p></div>
     <div class="role"><div class="when">JAN – APR 2026 · TORONTO</div><h3>Intact Financial <small>· Data Scientist I</small></h3><p>Async LLM pipeline that recovered an inconsistently recorded underwriting variable from 2,000+ client records; profitability drivers in Airflow; a life-event detection engine with up to $300K projected annual upside.</p></div>
     <div class="role"><div class="when">MAY – AUG 2025 · GENEVA</div><h3>EPFL, Laboratory of Cognitive Neuroscience <small>· Quantitative Neuroscience Researcher</small></h3><p>Mixed-effects models of 48,600 accept/reject decisions; six experiment apps shipped three months early.</p></div>
     <div class="role"><div class="when">APR 2024 – APR 2026 · PALO ALTO</div><h3>Stanford Medicine &amp; Stanford SC² <small>· Data Science Research Fellow</small></h3><p>First author on a survey-weighted study of 4,366 adolescents; co-author on 2.4M-record mortality studies; data harmonization for the Item Response Warehouse.</p></div>
     <div class="role" style="padding-bottom:0"><div class="when">… COVE · NUS · TAKEHARA LAB · U OF T</div><h3 style="color:var(--dim)">+ 4 more <small>· expand</small></h3></div>
   </div>
-  <div class="note">One line per role (the logo network already carries the "where"). Each entry links to its project(s). Older roles collapse behind "+ 4 more" so the list stays scannable.</div>
-</section>
-
-<section class="wf">
-  <p class="wf-label">06 · projects · <span id="vname">option A: lab notebook (tiered)</span></p>
-  <div class="chips" id="chips">
-    <button class="chip on">all</button><button class="chip">ML &amp; LLM agents</button><button class="chip">statistics</button><button class="chip">quant</button><button class="chip">health &amp; neuro</button><button class="chip">engineering</button>
-  </div>
-
-  <!-- A -->
-  <div class="variant on" id="vA">
-    <div class="flag">
-      <div class="ph">figure: pass rate by mode (A / C / D)<br>+ "10 fixed · 0 broken"</div>
-      <div>
-        <div class="meta"><span class="status live">public repo</span><span>Oct 2026 · solo</span></div>
-        <h3>VeriSkeptic</h3>
-        <p class="q">Can an LLM check its own hardware code? A little, and I measured exactly how little.</p>
-        <ul>
-          <li>Self-verifying agent on 152 VerilogEval problems.</li>
-          <li>Its own fixes: 10 fixed, 0 broken (p = 0.002). Versus a single call: +1.3 pp, not significant.</li>
-          <li>Whole study cost $3.74.</li>
-        </ul>
-        <div class="meta"><a href="#">case study →</a><a href="#">GitHub ↗</a></div>
-      </div>
-    </div>
-    <div class="flag">
-      <div class="ph">figure: order-book recorder diagram<br>(no results yet, so no chart)</div>
-      <div>
-        <div class="meta"><span class="status prog">in progress</span><span>Oct 2026 – · solo</span></div>
-        <h3>λ Lambda</h3>
-        <p class="q">Does order-flow imbalance predict crypto prices after costs? Pre-registered, so a "no" counts.</p>
-        <ul><li>Multi-venue L2 recorder (Coinbase, Kraken); 1,342 / 1,342 checksums matched.</li><li>Walk-forward design with purge, embargo and a held-out week, written before any data.</li></ul>
-        <div class="meta"><a href="#">case study →</a><a href="#">GitHub ↗</a></div>
-      </div>
-    </div>
-    <div class="grid3">
-      <div class="card"><div class="ph">weighted ORs figure</div><div class="b"><span class="status pub">under review</span><h4>CHIS mental health</h4><p>First author: 4,366 adolescents, survey-weighted inference.</p></div></div>
-      <div class="card"><div class="ph">documents → fields art</div><div class="b"><span class="status live">industry</span><h4>Intact LLM extraction</h4><p>One underwriting variable, recovered from 2,000+ client records.</p></div></div>
-      <div class="card"><div class="ph">acceptance-rate figure</div><div class="b"><span class="status pub">in prep</span><h4>Decisions under effort</h4><p>Mixed-effects models of 48,600 choices at EPFL.</p></div></div>
-      <div class="card"><div class="ph">topomap figure</div><div class="b"><span class="status live">open source</span><h4>EEG connectivity</h4><p>MNE pipeline for depression EEG; ~60% vs 50% chance.</p></div></div>
-      <div class="card"><div class="ph">map art</div><div class="b"><span class="status live">venture</span><h4>Vera</h4><p>Ranks 4,628 Toronto restaurants; 1 of 8 U of T Innovation Lab ventures.</p></div></div>
-      <div class="card"><div class="ph">Vision Pro screenshot</div><div class="b"><span class="status live">hackathon</span><h4>BetterYears</h4><p>Klemera–Doubal biological-age model for a Vision Pro physio app.</p></div></div>
-    </div>
-    <div class="archive">
-      <div><b>Mortality trends</b><span>2.4M death records, 6 Asian American subgroups</span><span>Stanford</span><span>2025</span></div>
-      <div><b>Item Response Warehouse</b><span>RCT data harmonization (~175k responses)</span><span>SC²</span><span>2025</span></div>
-      <div><b>Transitive-inference task</b><span>6.25× more trials per session than the manual design</span><span>U of T</span><span>2023</span></div>
-      <div><b>BiblioLinguist</b><span>Java reading app (team)</span><span>U of T</span><span>—</span></div>
-      <div><b>Breast-cancer detection ❓</b><span>not on the fact sheet yet: needs a source</span><span>—</span><span>—</span></div>
-    </div>
-    <div class="pros"><div class="y"><b>Strengths</b>Clear hierarchy: the strongest work is unmissable and weaker projects can't dilute it. Same card language as the home carousel. Easiest to build.</div><div class="n"><b>Weaknesses</b>Most conventional of the three. Doesn't show how the projects relate to the roles.</div></div>
-  </div>
-
-  <!-- B -->
-  <div class="variant" id="vB">
-    <div class="lanes">
-      <div class="lane"><span>research</span><div class="track">
-        <div class="pill r" style="left:2%;width:16%">TI task · U of T</div>
-        <div class="pill r" style="left:26%;width:44%;translate:0 -115%">CHIS · mortality · IRW · Stanford</div>
-        <div class="pill r" style="left:52%;width:12%;translate:0 15%;z-index:1">EPFL decisions</div></div></div>
-      <div class="lane"><span>industry</span><div class="track">
-        <div class="pill i" style="left:33%;width:21%">Cove EEG</div>
-        <div class="pill i" style="left:72%;width:10%">Intact</div></div></div>
-      <div class="lane"><span>builds</span><div class="track">
-        <div class="pill p" style="left:64%;width:9%">Vera</div>
-        <div class="pill p" style="left:86%;translate:0 -125%">BetterYears</div>
-        <div class="pill p" style="left:87%;translate:0 -15%">VeriSkeptic</div>
-        <div class="pill p" style="left:90%;translate:0 95%">λ Lambda →</div></div></div>
-      <div class="years"><span>2023</span><span>2024</span><span>2025</span><span>2026</span></div>
-    </div>
-    <div class="detail">
-      <div class="ph">figure for the selected bar</div>
-      <div><div class="meta mono" style="font-size:11px;color:var(--faint)">SELECTED · OCT 2026 · SOLO</div><h3 style="margin:4px 0;font:500 26px Oswald">VeriSkeptic</h3><p style="margin:0;color:var(--ink2)">Self-verifying LLM agent on 152 VerilogEval problems; 10 fixed, 0 broken (p = 0.002); +1.3 pp vs a single call, not significant. Total cost $3.74.</p></div>
-    </div>
-    <div class="note">Each project is a bar on its own "worldline" (research / industry / builds) across 2023 → 2026; click a bar to open the panel below. Hidden Steins;Gate wink: the lanes literally are worldlines. Reads well to non-fans as a timeline.</div>
-    <div class="pros"><div class="y"><b>Strengths</b>Shows breadth and parallelism at a glance (you really did Stanford + NUS + Cove at once). Merges experience and projects, so 05 could shrink.</div><div class="n"><b>Weaknesses</b>2026 gets crowded (four builds in three months). Weak on phones (needs a vertical fallback). Hides the figures until you click.</div></div>
-  </div>
-
-  <!-- C -->
-  <div class="variant" id="vC">
-    <div class="table">
-      <div class="trow h"><span>#</span><span>project</span><span>field</span><span>method</span><span>year</span><span>status</span></div>
-      <div class="trow"><span class="n">01</span><b>VeriSkeptic</b><span>LLM agents</span><span>self-verification, McNemar test</span><span>2026</span><span class="status live">public</span></div>
-      <div class="peek"><div class="ph">figure</div><div style="font-size:13.5px;color:var(--ink2)">152 problems · 10 fixed, 0 broken (p = 0.002) · +1.3 pp vs single call (n.s.) · $3.74 total.<br><br><a href="#">case study →</a> · <a href="#">GitHub ↗</a></div></div>
-      <div class="trow"><span class="n">02</span><b>λ Lambda</b><span>quant</span><span>order-flow imbalance, walk-forward</span><span>2026</span><span class="status prog">in progress</span></div>
-      <div class="trow"><span class="n">03</span><b>Intact LLM extraction</b><span>insurance</span><span>async LLM pipeline, random forests</span><span>2026</span><span class="status live">industry</span></div>
-      <div class="trow"><span class="n">04</span><b>BetterYears</b><span>health</span><span>Klemera–Doubal, robust Bayes</span><span>2026</span><span class="status live">hackathon</span></div>
-      <div class="trow"><span class="n">05</span><b>Vera</b><span>recommendation</span><span>LLM ranking, geo-search</span><span>2025</span><span class="status live">venture</span></div>
-      <div class="trow"><span class="n">06</span><b>Decisions under effort</b><span>cognitive neuro</span><span>mixed-effects logistic</span><span>2025</span><span class="status pub">in prep</span></div>
-      <div class="trow"><span class="n">07</span><b>CHIS mental health</b><span>public health</span><span>survey-weighted GLMs</span><span>2024–25</span><span class="status pub">under review</span></div>
-      <div class="trow"><span class="n">08</span><b>Mortality trends</b><span>epidemiology</span><span>age standardisation</span><span>2025</span><span class="status pub">under review</span></div>
-      <div class="trow"><span class="n">09</span><b>EEG connectivity</b><span>neuroscience</span><span>MNE, connectivity, RF</span><span>2024–25</span><span class="status live">open source</span></div>
-      <div class="trow"><span class="n">10</span><b>Transitive-inference task</b><span>behavioural neuro</span><span>Arduino, Bonsai</span><span>2023</span><span class="status pub">accepted</span></div>
-    </div>
-    <div class="note">The project list as a sortable dataset: click a header to sort, a row to peek (figure + key numbers), the chips filter by field. Very on-message ("connected by data") and the densest option.</div>
-    <div class="pros"><div class="y"><b>Strengths</b>Scans fastest: a recruiter can sort by field or year. Scales to any number of projects. Feels like a data scientist made it.</div><div class="n"><b>Weaknesses</b>Figures only appear on peek, so it's less visual. A long table can feel dry without the flagship cards above it.</div></div>
-  </div>
-
-  <div class="note"><b>Recommendation: A + C hybrid.</b> Two or three flagship cards from option A (VeriSkeptic, Lambda, CHIS), then everything else as option C's sortable index instead of A's small cards and archive. You get the visual punch of A and the "this person thinks in data" signal of C. B's lanes could appear on <code>/life</code> instead, as a life timeline.</div>
 </section>
 
 <section class="wf" style="border:0">
-  <p class="wf-label">07 · publications &amp; talks</p>
-  <ol class="pubs">
-    <li><b>Valencia, F.M.</b>, et al. Acculturation and Mental Health Challenges in California's Youth. <span>under review · JAACAP · 3 posters</span></li>
-    <li>Yang, D., <b>Valencia, F.M.</b>, et al. Trends in Cardiovascular Mortality Among Disaggregated Asian American Subgroups. <span>under review · AJPC · ACC.25 talk</span></li>
-    <li style="color:var(--faint)">+ 5 more · <span>expand</span></li>
-  </ol>
-  <div class="note">Compact citation list, your name in bold, status tags. Collapsed after two.</div>
+  <p class="wf-label">06 · projects · lab notebook</p>
+  <div class="chips">
+    <button class="chip on">all</button><button class="chip">ML &amp; LLM agents</button><button class="chip">statistics</button><button class="chip">quant</button><button class="chip">health &amp; neuro</button><button class="chip">engineering</button>
+  </div>
+  <div id="projects"></div>
+  <div class="more"><button>+ 4 more · transitive-inference task · item response warehouse · bibliolinguist · numerosity app</button></div>
+
+  <div class="note">Every entry carries the four things you asked for: <b>figure</b>, <b>description of 2+ sentences</b>, <b>tools</b>, and <b>GitHub link</b> (or an honest "private repo" / "proprietary" when there isn't a public one). Flagships also get a one-line research question and three key numbers. Order is by strength for a quant / ML reader, not by date. Each card links to a case-study page later.</div>
+  <div class="agents" id="agents">
+    <div><b>Reviewer 1 · recruiter</b>pending</div>
+    <div><b>Reviewer 2 · UX designer</b>pending</div>
+    <div><b>Reviewer 3 · quant hiring manager</b>pending</div>
+  </div>
 </section>
 </div>
 
 <script>
-// tabs
-const names={A:"option A: lab notebook (tiered)",B:"option B: worldlines (timeline)",C:"option C: dataset index (sortable)"};
-document.querySelectorAll(".tabs button").forEach(b=>b.onclick=()=>{
-  document.querySelectorAll(".tabs button").forEach(x=>x.classList.toggle("on",x===b));
-  document.querySelectorAll(".variant").forEach(v=>v.classList.toggle("on",v.id==="v"+b.dataset.v));
-  document.getElementById("vname").textContent=names[b.dataset.v];
-});
-document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===c)));
-
-// logo network
-const A="../../src/assets/companies/";
+const ASSETS="../../src/assets/";
+// ------------------------------------------------------------------ logos
 const LOGOS=[
-  ["Harvard",null,"SM Data Science","Cambridge, MA · to Dec 2027",.16,.18],
-  ["MIT",null,"Cross-enrolled (CS, Stats)","Cambridge, MA · 2026",.50,.08],
-  ["Harvard i-lab",null,"❓ role to confirm","Cambridge, MA",.84,.18],
-  ["Intact","intact.png","Data Scientist I","Toronto · Jan–Apr 2026",.92,.52],
-  ["EPFL","epfl.png","Quantitative Neuroscience Researcher","Geneva · May–Aug 2025",.82,.86],
-  ["Campus Biotech","campus_biotech.png","LNCO's home (EPFL)","Geneva · 2025",.58,.95],
-  ["Stanford","stanford.png","Data Science Research Fellow (CARE, SC²)","Palo Alto · 2024–26",.34,.95],
-  ["NUS","nus.png","Research role","Singapore · May–Aug 2024",.12,.84],
-  ["Cove","cove_neurosciences.png","R&D Data Science Intern","Toronto · 2024–25",.06,.52],
-  ["U of T","uoft.png","BSc Hons · Takehara Lab","Toronto · BSc Jun 2026",.27,.50],
+  ["Harvard","logos/harvard.svg","SM Data Science","Cambridge, MA · to Dec 2027"],
+  ["MIT","logos/mit.svg","Cross-enrolled (CS, Statistics)","Cambridge, MA · 2026"],
+  ["Harvard Innovation Labs","logos/harvard-i-lab.svg","Founder, stealth AI startup","Cambridge, MA · 2026"],
+  ["Intact Financial","logos/intact.svg","Data Scientist I","Toronto · Jan – Apr 2026"],
+  ["EPFL","logos/epfl.png","Quantitative Neuroscience Researcher","Geneva · May – Aug 2025"],
+  ["Campus Biotech","logos/campus-biotech.png","Home of EPFL's LNCO lab","Geneva · 2025"],
+  ["NUS","logos/nus.png","Research role","Singapore · May – Aug 2024"],
+  ["Stanford","logos/stanford.png","Data Science Research Fellow (CARE, SC²)","Palo Alto · 2024 – 26"],
+  ["Cove Neurosciences","logos/cove.png","R&D Data Science Intern","Toronto · 2024 – 25"],
+  ["University of Toronto","logos/uoft.png","BSc Hons · Takehara Lab","Toronto · BSc Jun 2026"],
 ];
 const net=document.getElementById("net"),svg=document.getElementById("lines");
-LOGOS.forEach(([n,f,role,where,x,y])=>{
-  const d=document.createElement("div");d.className="logo";d.style.left=x*100+"%";d.style.top=y*100+"%";
-  d.innerHTML=(f?`<img src="${A+f}" alt="${n}">`:`<div class="ph">${n}<br>PNG coming</div>`)+`<div class="tip"><b>${n}</b>${role}<br>${where}</div>`;
-  d.dataset.x=x;d.dataset.y=y;net.appendChild(d);
-});
-function wires(){
-  const W=net.clientWidth,H=net.clientHeight;svg.setAttribute("viewBox",`0 0 ${W} ${H}`);
-  svg.innerHTML=LOGOS.map(([,, , ,x,y],i)=>{const x1=x*W,y1=y*H,cx=W/2,cy=H/2,mx=(x1+cx)/2,my=(y1+cy)/2-30;
-    return `<path id="w${i}" d="M${x1},${y1} Q${mx},${my} ${cx},${cy}" fill="none" stroke="rgba(125,255,176,.18)" stroke-width="1" stroke-dasharray="3 5"/><circle r="3" fill="#7dffb0" opacity="0"><animateMotion dur="1.2s" repeatCount="indefinite" begin="indefinite"><mpath href="#w${i}"/></animateMotion></circle>`}).join("");
+const els=LOGOS.map(([n,f,role,where])=>{const d=document.createElement("div");d.className="logo";
+  d.innerHTML=`<img src="${ASSETS+f}" alt="${n}"><div class="tip"><b>${n}</b>${role}<br>${where}</div>`;net.appendChild(d);return d});
+function layout(){
+  if(innerWidth<900)return;
+  const W=net.clientWidth,H=net.clientHeight,cx=W/2,cy=H/2,rx=W/2-100,ry=H/2-56,n=els.length;
+  svg.setAttribute("viewBox",`0 0 ${W} ${H}`);let o="";
+  els.forEach((d,i)=>{const a=-Math.PI/2+i*2*Math.PI/n,x=cx+rx*Math.cos(a),y=cy+ry*Math.sin(a);
+    d.style.left=x+"px";d.style.top=y+"px";
+    const mx=(x+cx)/2+(y-cy)*.12,my=(y+cy)/2-(x-cx)*.12;
+    o+=`<path id="w${i}" d="M${x},${y} Q${mx},${my} ${cx},${cy}" fill="none" stroke="rgba(125,255,176,.2)" stroke-width="1.2" stroke-dasharray="3 5"/><circle id="p${i}" r="3.5" fill="#b9ffd6" opacity="0" style="filter:drop-shadow(0 0 4px #7dffb0)"><animateMotion id="m${i}" dur="0.9s" begin="indefinite" fill="freeze" keyPoints="0;1" keyTimes="0;1"><mpath href="#w${i}"/></animateMotion></circle>`;});
+  svg.innerHTML=o;
 }
-wires();addEventListener("resize",wires);
-net.querySelectorAll(".logo").forEach((l,i)=>{
-  l.onmouseenter=()=>{const w=svg.querySelector("#w"+i),c=w.nextElementSibling;w.setAttribute("stroke","rgba(125,255,176,.75)");w.removeAttribute("stroke-dasharray");c.setAttribute("opacity","1");c.firstElementChild.beginElement();};
-  l.onmouseleave=()=>{const w=svg.querySelector("#w"+i),c=w.nextElementSibling;w.setAttribute("stroke","rgba(125,255,176,.18)");w.setAttribute("stroke-dasharray","3 5");c.setAttribute("opacity","0");};
+layout();addEventListener("resize",layout);
+const pulse=(i)=>{const c=svg.querySelector("#p"+i),m=svg.querySelector("#m"+i);if(!c)return;c.setAttribute("opacity","1");m.beginElement();setTimeout(()=>c.setAttribute("opacity","0"),900)};
+els.forEach((d,i)=>{
+  d.onmouseenter=()=>{const w=svg.querySelector("#w"+i);w.setAttribute("stroke","rgba(125,255,176,.8)");w.removeAttribute("stroke-dasharray");pulse(i)};
+  d.onmouseleave=()=>{const w=svg.querySelector("#w"+i);w.setAttribute("stroke","rgba(125,255,176,.2)");w.setAttribute("stroke-dasharray","3 5")};
 });
+setInterval(()=>pulse((Math.random()*els.length)|0),1800);
 
-// banner: tiny static forward-pass net
+// ------------------------------------------------------------------ projects (all claims from the FACT_SHEET)
+const P=[
+ {flag:1,title:"VeriSkeptic",status:["s-live","public repo"],meta:"Oct 2026 · solo",fig:"projects/veriskeptic-pass-vs-attempts.png",contain:1,
+  q:"Can an LLM check its own hardware code? A little, and I measured exactly how little.",
+  desc:"An LLM agent that writes Verilog from a spec, then writes and simulates its own testbench and revises before submitting. On 152 VerilogEval problems its self-checks fixed 10 of its own drafts and broke none, but against a plain single call the gain was +1.3 points and not significant. I report that null result as the headline, with the cost of every call.",
+  stats:[["0.002","McNemar p, own fixes"],["+1.3 pp","vs single call (n.s.)"],["$3.74","whole study"]],
+  tools:["Python","Gemini API","Icarus Verilog","pytest","bootstrap CIs"],links:[["GitHub ↗","https://github.com/Funkey08/VeriSkeptic"],["case study →","#"]]},
+ {flag:1,title:"λ Lambda",status:["s-prog","in progress"],meta:"Oct 2026 – · solo",fig:null,figText:"generated cover: order-book depth chart<br>(no results yet, so no result chart)",
+  q:"Does order-flow imbalance predict crypto prices once you pay for it?",
+  desc:"A pre-registered study of whether order-flow imbalance predicts mid-price moves seconds ahead, net of fees, spread, latency and queue position. The multi-venue L2 recorder is built and verified; the walk-forward design, leakage tests and cost model were written down before looking at any data, so a clean \"no\" counts as success.",
+  stats:[["1,342 / 1,342","checksums matched"],["2 venues","Coinbase · Kraken"],["49","tests passing"]],
+  tools:["Python","asyncio","websockets","Polars","pyarrow","zstd","mypy"],links:[["GitHub ↗","https://github.com/Funkey08/Lambda"],["case study →","#"]]},
+ {flag:1,title:"Acculturation & adolescent mental health",status:["s-pub","under review · JAACAP"],meta:"Stanford · 2024 – 25 · first author",fig:"carousel/academic/weighted-ors.avif",contain:1,
+  q:"Which factors predict serious distress in California's teenagers, and does it differ by race?",
+  desc:"First-author analysis of the California Health Interview Survey: 4,366 adolescents, weighted to represent about 3.1 million. I pooled two survey cycles into a 160-replicate-weight design and fit survey-weighted logistic regressions across six nested specifications with design-based tests.",
+  stats:[["4,366","adolescents (≈3.1M weighted)"],["aOR 1.97","female vs male"],["3","posters"]],
+  tools:["R","survey","tidyverse","ggplot2"],links:[["paper: under review","",1],["case study →","#"]]},
+ {title:"Intact LLM extraction",status:["s-live","industry"],meta:"Intact Financial · Jan – Apr 2026",fig:null,figText:"generated cover: documents → extracted fields",
+  desc:"An async, parallel LLM pipeline that recovered a sparsely recorded underwriting variable from call transcripts and agent notes for 2,000+ clients, with cheap keyword pre-filters to cut inference cost. The extracted features fed random-forest rankings of profitability drivers in Airflow pipelines that actuarial teams can reuse.",
+  tools:["Python","OpenAI API","asyncio","SQL","Databricks","Snowflake","Airflow","scikit-learn"],links:[["proprietary · no public code","",1]]},
+ {title:"Decisions under effort",status:["s-pub","in preparation"],meta:"EPFL · May – Aug 2025",fig:"carousel/academic/acceptance-rate-difference.avif",contain:1,
+  desc:"Mixed-effects logistic regression of 48,600 accept/reject decisions from 81 participants. The full interaction model wouldn't converge, so I fixed it with sum-to-zero contrasts and a different optimizer, reproduced the lab's reference estimates, and showed the extra 40 parameters weren't worth it (likelihood-ratio p = 0.35).",
+  tools:["R","lme4","likelihood-ratio tests","OLS"],links:[["3 papers in prep","",1]]},
+ {title:"Breast-cancer histopathology",status:["s-live","team · UTMIST"],meta:"U of T · 2025",fig:null,figText:"figure to make: sample tiles + ROC of the ensemble",
+  desc:"Image models that classify breast-tissue biopsy tiles (BreakHis and RCL-7500) as cancerous or not. A CNN, a ResNet-18 and a vision transformer were combined into an ensemble that beat each of them on held-out data, reaching a test ROC-AUC of 0.98.",
+  tools:["Python","PyTorch","ResNet-18","ViT","scikit-learn"],links:[["private repo","",1]]},
+ {title:"EEG connectivity pipeline",status:["s-live","open source"],meta:"Cove Neurosciences · 2024 – 25",fig:"carousel/academic/topomap.avif",
+  desc:"An automated MNE-Python pipeline for resting-state EEG from depression patients and controls: artifact removal, source localisation to 61 cortical regions, and connectivity features. Multivariate coupling features got 7 of 12 held-out subjects right versus 6 by chance, and 7 of the top 10 features were frontal–parietal.",
+  tools:["Python","MNE-Python","scikit-learn","random forests"],links:[["GitHub ↗ (link needed)","",1]]},
+ {title:"BetterYears",status:["s-live","hackathon"],meta:"Sundai Hack (MIT / Harvard) · Oct 2026",fig:null,figText:"screenshot needed: Vision Pro minigame",
+  desc:"A Vision Pro physiotherapy app whose eight minigames turn reaction, balance, reach and memory into one \"movement age\". I designed the scoring and built the Klemera–Doubal biological-age model, refit with robust Bayesian regression and gated by leave-one-out validation.",
+  tools:["Python","Swift","Bayesian regression","Apple Vision Pro"],links:[["GitHub ↗","https://github.com/hunterh37/SpatialHumanAssesment"]]},
+ {title:"Vera",status:["s-live","venture"],meta:"U of T Innovation Lab · Sep – Dec 2025",fig:null,figText:"generated cover: map with ranked pins",
+  desc:"A restaurant recommender that scores 4,628 Toronto restaurants against six taste archetypes and your likes, saves and visits, and returns a top five with reasons. One of eight ventures backed by the U of T Innovation Lab.",
+  tools:["Python","FastAPI","LangChain","GCP Cloud Run","Firestore","Flutter"],links:[["GitHub ↗ (link needed)","",1]]},
+ {title:"Cardiovascular & stroke mortality",status:["s-pub","under review · AJPC"],meta:"Stanford & Yale · 2025 · co-author",fig:null,figText:"figure needed: trend lines by subgroup",
+  desc:"Age-standardised heart-disease and stroke death rates for six Asian American subgroups from 2.4 million U.S. death records, 2018–2022. The largest 2020 rise was in stroke deaths among Korean women (+60.9%); presented at ACC.25 and CAMS.",
+  tools:["R","NVSS mortality data","ACS denominators"],links:[["2 papers under review","",1]]},
+];
+const box=document.getElementById("projects");
+const fig=p=>`<div class="fig${p.contain?" contain":""}">${p.fig?`<img src="${ASSETS+p.fig}" alt="">`:`<div class="ph">${p.figText}</div>`}</div>`;
+const body=p=>`<div class="ebody"><div class="meta"><span class="status ${p.status[0]}">${p.status[1]}</span><span>${p.meta}</span></div><h3>${p.title}</h3>${p.q?`<p class="q">${p.q}</p>`:""}<p class="desc">${p.desc}</p>${p.stats?`<div class="stats">${p.stats.map(([a,b])=>`<div><b>${a}</b>${b}</div>`).join("")}</div>`:""}<div class="tools">${p.tools.map(t=>`<span>${t}</span>`).join("")}</div><div class="links">${p.links.map(([t,h,off])=>off?`<span class="off">${t}</span>`:`<a href="${h}">${t}</a>`).join("")}</div></div>`;
+box.innerHTML=P.filter(p=>p.flag).map(p=>`<article class="entry flag">${fig(p)}${body(p)}</article>`).join("")+`<div class="grid2">${P.filter(p=>!p.flag).map(p=>`<article class="entry">${fig(p)}${body(p)}</article>`).join("")}</div>`;
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("on",x===c)));
+
+// ------------------------------------------------------------------ banner
 (function(){const s=document.getElementById("banner"),W=1100,H=120,L=[5,8,8,5,3];s.setAttribute("viewBox",`0 0 ${W} ${H}`);s.setAttribute("preserveAspectRatio","none");
-let o="";const P=L.map((n,l)=>Array.from({length:n},(_,j)=>[60+l*(W-120)/(L.length-1),15+j*(H-30)/(n-1||1)]));
-for(let l=0;l<L.length-1;l++)for(const a of P[l])for(const b of P[l+1])o+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="rgba(125,255,176,${(.04+Math.random()*.16).toFixed(2)})"/>`;
-P.flat().forEach(([x,y])=>o+=`<circle cx="${x}" cy="${y}" r="4" fill="rgba(125,255,176,.7)"/>`);s.innerHTML=o;})();
+let o="";const Pn=L.map((n,l)=>Array.from({length:n},(_,j)=>[60+l*(W-120)/(L.length-1),15+j*(H-30)/(n-1||1)]));
+for(let l=0;l<L.length-1;l++)for(const a of Pn[l])for(const b of Pn[l+1])o+=`<line x1="${a[0]}" y1="${a[1]}" x2="${b[0]}" y2="${b[1]}" stroke="rgba(125,255,176,${(.04+Math.random()*.16).toFixed(2)})"/>`;
+Pn.flat().forEach(([x,y])=>o+=`<circle cx="${x}" cy="${y}" r="4" fill="rgba(125,255,176,.7)"/>`);s.innerHTML=o;})();
 </script>
 </body>
 </html>

@@ -25,8 +25,8 @@ Legend: 🐛 bug fix · 🧱 structure · ✨ new section · 🎨 visual · ✍�
 - **Work / Life pages:** placeholders in the new style (big title, the channel's animation as a banner, "what's coming" cards).
 - **Routing:** clean URLs (`/work`, `/life`) with the GitHub Pages `404.html` redirect for deep links. Old site at `/legacy`.
 - **Accessibility:** clock is a keyboard button, readings `aria-live`, ASCII `aria-hidden` with real labels, skip link, `prefers-reduced-motion` turns off rolls, sweeps, typing, warps and the grain.
-- **Next:** pick a Work layout from `docs/mockups/work_wireframes.html` (recommended: flagship cards + sortable index), then build it; then Life; then replace `/legacy` section by section.
-- **Waiting on Franco:** Harvard, MIT, Harvard i-lab logo PNGs; what the Harvard i-lab role was (not on the fact sheet); awards total + currency; a source for the breast-cancer project.
+- **Next:** build Work from `docs/mockups/work_wireframes.html` (lab-notebook projects, logos wired to DATA); then Life; then replace `/legacy` section by section.
+- **Waiting on Franco:** the Work intro (2–3 sentences); GitHub links for the EEG pipeline and Vera; his role/team size on the breast-cancer project; figures for Lambda, Intact, Vera, BetterYears, mortality study, breast cancer.
 
 ---
 
@@ -147,7 +147,7 @@ These rules keep the site from looking chaotic and keep it readable for recruite
 - [ ] 🖼️ CHIS paper — cleaner figure or paper thumbnail + key finding.
 - [ ] 🖼️ Numerosity Test — short demo GIF.
 - [ ] 🖼️ Breast Cancer Detection — SHAP plot + results metric.
-- [x] 🖼️ VeriSkeptic — `src/assets/projects/veriskeptic_pass_vs_attempts.png`.
+- [x] 🖼️ VeriSkeptic — `src/assets/projects/veriskeptic-pass-vs-attempts.png`.
 - [ ] 🖼️ λ Lambda, Intact, Vera — real images to replace the generated cover art in the carousel.
 - [ ] 🖼️ Proud Of photos/links (see `docs/planning/CONTENT.md`).
 - [ ] 🖼️ One photo per visited country (for the map).
