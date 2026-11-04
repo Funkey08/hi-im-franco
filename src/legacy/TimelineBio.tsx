@@ -28,7 +28,7 @@ const timelineData = [
         of my studies and eventually as a long-term goal.
       </>
     ),
-    img: imgMap["../assets/timeline/mouse_lab.avif"],
+    img: imgMap["../assets/timeline/mouse-lab.avif"],
   },
   {
     year: "2023",
@@ -47,7 +47,7 @@ const timelineData = [
         physical lab.
       </>
     ),
-    img: imgMap["../assets/timeline/stanford_pres.avif"],
+    img: imgMap["../assets/timeline/stanford-pres.avif"],
   },
   {
     year: "2024",
@@ -65,7 +65,7 @@ const timelineData = [
         them.
       </>
     ),
-    img: imgMap["../assets/timeline/cove_group.avif"],
+    img: imgMap["../assets/timeline/cove-group.avif"],
   },
   {
     year: "2025",
@@ -82,7 +82,7 @@ const timelineData = [
         life in a more tangible way.
       </>
     ),
-    img: imgMap["../assets/timeline/swiss_landscape.avif"],
+    img: imgMap["../assets/timeline/swiss-landscape.avif"],
   },
   {
     year: "infinity and beyond",

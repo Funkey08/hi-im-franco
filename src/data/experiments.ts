@@ -1,7 +1,7 @@
-import veriskeptic from "../assets/projects/veriskeptic_pass_vs_attempts.png";
-import breastShap from "../assets/projects/breast_shap.avif";
-import weightedOrs from "../assets/carousel/academic/weighted_ors.avif";
-import acceptance from "../assets/carousel/academic/acceptance_rate_difference.avif";
+import veriskeptic from "../assets/projects/veriskeptic-pass-vs-attempts.png";
+import breastShap from "../assets/projects/breast-shap.avif";
+import weightedOrs from "../assets/carousel/academic/weighted-ors.avif";
+import acceptance from "../assets/carousel/academic/acceptance-rate-difference.avif";
 import topomap from "../assets/carousel/academic/topomap.avif";
 
 /** Generated cover art (see coverArt.ts) for projects that don't have a figure yet. */

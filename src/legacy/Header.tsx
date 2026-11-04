@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import face from "../assets/face.JPG";
-import face_icon from "../assets/face_only_icon.png";
-import face_icon_blinking from "../assets/face_only_icon_blinking.png";
+import face from "../assets/face.jpg";
+import face_icon from "../assets/face-only-icon.png";
+import face_icon_blinking from "../assets/face-only-icon-blinking.png";
 
 const roleList = [
   { label: "🧠 data scientist...", color: "text-indigo-300" },

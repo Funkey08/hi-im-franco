@@ -1,16 +1,16 @@
 const books = [
   {
-    name: "kafka_on_the_shore.jpg",
+    name: "kafka-on-the-shore.jpg",
     title: "Kafka on the Shore",
     author: "Haruki Murakami",
   },
   {
-    name: "three_body_problem.jpg",
+    name: "three-body-problem.jpg",
     title: "The Three-Body Problem",
     author: "Liu Cixin",
   },
   {
-    name: "lord_of_the_rings.jpg",
+    name: "lord-of-the-rings.jpg",
     title: "The Lord of the Rings",
     author: "J.R.R. Tolkien",
   },

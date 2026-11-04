@@ -1,4 +1,4 @@
-import ursaTalk from "../assets/ursa_talk.JPG";
+import ursaTalk from "../assets/ursa-talk.jpg";
 
 const AboutMe = () => {
   return (

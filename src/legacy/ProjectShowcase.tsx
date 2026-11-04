@@ -1,11 +1,11 @@
 import eeg from "../assets/projects/eeg.avif";
 // import connectionsMap from "../assets/projects/connections_map.avif";
 import apathy from "../assets/projects/apathy.avif";
-import mhPaper from "../assets/projects/mh_paper.avif";
-import mhFigure from "../assets/projects/mh_figure.avif";
+import mhPaper from "../assets/projects/mh-paper.avif";
+import mhFigure from "../assets/projects/mh-figure.avif";
 import numerosity from "../assets/projects/numerosity.avif";
 import bibliolinguist from "../assets/projects/bibliolinguist.avif";
-import breastShap from "../assets/projects/breast_shap.avif";
+import breastShap from "../assets/projects/breast-shap.avif";
 
 const projects = [
   {

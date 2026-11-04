@@ -1,5 +1,5 @@
 const companyLogosMap = import.meta.glob<string>(
-  "../assets/companies/*.{png,svg,jpg,jpeg}",
+  "../assets/logos/*.{png,svg,jpg,jpeg}",
   {
     eager: true,
     query: "?url",
@@ -11,13 +11,13 @@ const companyOrder = [
   "uoft.png",
   "stanford.png",
   "epfl.png",
-  "campus_biotech.png",
+  "campus-biotech.png",
   "nus.png",
-  "cove_neurosciences.png",
+  "cove.png",
 ];
 
 const companyLogos = companyOrder.map(
-  (name) => companyLogosMap[`../assets/companies/${name}`]
+  (name) => companyLogosMap[`../assets/logos/${name}`]
 );
 
 const InstitutionGrid = () => {
