@@ -7,7 +7,6 @@ import { NixieController } from "./nixie";
 
 const MEASURED_KEY = "fmv.hasMeasured";
 const BOOTED_KEY = "fmv.booted";
-const INTRO_KEY = "fmv.intro";
 const SECTIONS: Section[] = ["work", "life"];
 
 const sectionOf = (path: string): Section | null => {
@@ -31,8 +30,10 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
   const [warp, setWarp] = useState<Section | null>(null);
   const [leaving, setLeaving] = useState(false);
   const [heroSlot, registerHeroSlot] = useState<HTMLElement | null>(null);
-  const [introDone, setIntroDone] = useState(() => readFlag(sessionStorage, INTRO_KEY) || reducedMotion());
-  const finishIntro = useCallback(() => { writeFlag(sessionStorage, INTRO_KEY); setIntroDone(true); }, []);
+  // The worldline boot plays on every full page load (it is skippable, and it covers asset loading).
+  // In-app navigation never replays it: the provider lives as long as the app.
+  const [introDone, setIntroDone] = useState(() => reducedMotion());
+  const finishIntro = useCallback(() => setIntroDone(true), []);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
