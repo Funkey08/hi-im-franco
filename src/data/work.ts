@@ -27,6 +27,9 @@ import awStanford from "../assets/awards/stanford.png";
 import awYale from "../assets/awards/yale.svg";
 import awUtcs from "../assets/awards/utcs.png";
 import awTrinity from "../assets/awards/trinity.png";
+import awUoft from "../assets/awards/uoft.png";
+import awAssu from "../assets/awards/assu.png";
+import awUtsu from "../assets/awards/utsu.png";
 import type { CoverArt } from "./experiments";
 
 /* ------------------------------------------------------------------ statement */
@@ -123,16 +126,20 @@ export const ROLES: Role[] = [
 
 export interface Award { name: string; from: string; logo: string; note?: string }
 
-/** A selection (FACT_SHEET "Awards ($30k+)"; the Jan 2026 CV names 10). Years omitted until verified. */
+/** Every award (the Jan 2026 CV's ten; FACT_SHEET total $30k+). Years omitted until verified. */
 export const AWARDS: Award[] = [
-  { name: "Excellence Research Award", from: "EPFL", logo: awEpfl, note: "funded the summer in Geneva" },
+  { name: "Excellence Research Internship Award", from: "EPFL", logo: awEpfl, note: "funded the summer in Geneva" },
   { name: "Chi-Li Pao Foundation Award", from: "Stanford", logo: awStanford },
   { name: "Yale Research Fund", from: "Yale", logo: awYale },
   { name: "Computer Science Engagement Award", from: "University of Toronto", logo: awUtcs },
+  { name: "Research Exchange Award", from: "University of Toronto", logo: awUoft },
+  { name: "DCS Academic Grant", from: "U of T Computer Science", logo: awUtcs },
   { name: "Eric Jackman Scholarship", from: "Trinity College, U of T", logo: awTrinity },
   { name: "Experiential Learning Award", from: "Trinity College, U of T", logo: awTrinity },
+  { name: "Conference Grant", from: "Arts & Science Students' Union (ASSU)", logo: awAssu },
+  { name: "Academic Pursuits Award", from: "U of T Students' Union (UTSU)", logo: awUtsu },
 ];
-export const AWARDS_MORE = "+ 4 more · $30k+ in total";
+export const AWARDS_TOTAL = "$30k+ in total";
 
 /* ------------------------------------------------------------------ tech stack */
 
@@ -147,7 +154,7 @@ export interface StackGroup { id: string; label: string; tools: Tool[] }
 
 /**
  * Everything in the FACT_SHEET Skills section, grouped. Each tool's hover note lists the projects
- * below that use it (computed from PROJECTS[].tools), so the stack doubles as a legend.
+ * below that use it (computed from PROJECTS[].tools) plus `also`.
  */
 export const STACK: StackGroup[] = [
   { id: "lang", label: "languages", tools: [
