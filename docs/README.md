@@ -11,6 +11,6 @@ Planning material for the 2026 site overhaul. Nothing in here ships with the sit
 | `planning/CONTENT.md` | Copy drafts (the "Proud Of" list) with fact-check flags. |
 | `planning/CONTENT_AUDIT.md` | Audit of outdated or overstated claims on the live site, checked against the FACT_SHEET. |
 | `planning/OUTDATED_CONTENT.md` | An earlier, shorter pass of the same audit. Kept for its section-by-section notes; `CONTENT_AUDIT.md` is the one to work from. |
-| `source-art/` | Full-resolution source images that aren't loaded by the site: `kurisu_pose.png` and `franco_pose.png`, which the ASCII art is generated from. |
+| `source-art/` | Full-resolution source images that aren't loaded by the site: `franco_pose.png`, which the ASCII art is generated from. |
 
 `scripts/make_ascii.py` (repo root) regenerates `src/assets/ascii/*.json` from `docs/source-art/`.

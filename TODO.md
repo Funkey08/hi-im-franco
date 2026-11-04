@@ -1,7 +1,7 @@
 # Website Overhaul TODO
 
 Stack: React + Vite + TypeScript + Tailwind, deployed to GitHub Pages at `/hi-im-franco/`.
-Branches: `main` = live site · `overhaul` = redesign base · feature branches off `overhaul` (e.g. the home page build).
+Branches: `main` = live site · `archive/original-site` + `archive/original-site-build` (tag `v1-original-site`) = frozen copy of the original site · `overhaul` = redesign base · feature branches off `overhaul` (e.g. the home page build).
 Code map: `src/instrument/` (nixie controller + shared state) · `src/components/` (nixie clock, dock, layout, fx, ascii) · `src/sims/` (net + neuron canvases) · `src/pages/` (home, section placeholders, 404) · `src/data/` (all copy and metrics) · `src/legacy/` (the old site, served at `/legacy` until replaced).
 Planning docs live in `docs/` (see `docs/README.md`). Copy drafts (Proud Of list, etc.): `docs/planning/CONTENT.md`.
 
@@ -21,7 +21,7 @@ Legend: 🐛 bug fix · 🧱 structure · ✨ new section · 🎨 visual · ✍�
 - **Readings:** MEASURE push-button (sends out ping rings every few seconds until it's pressed for the first time, remembered in localStorage), tubes, unit lamps, or pips. Metrics live in `src/data/readings.ts` (all [V] in the FACT_SHEET; no GPA).
 - **Contact ("open a channel"):** compose box above the footer; Send opens the visitor's mail app pre-filled (no backend), Copy copies the address.
 - **Duolingo reading:** 2128 on 2026-11-03, +1 each midnight America/New_York (`src/data/counters.ts`). If the streak breaks, reset `STREAK_ANCHOR`.
-- **Slogan · Work vs Life · carousel · Kurisu footer · probe cursor:** as in the prototype. Carousel is a 3D orbit on desktop and a swipe row with scroll-snap on touch/narrow screens. Card clicks show "case study coming soon" until the Work pages exist.
+- **Slogan · Work vs Life · carousel · footer self-portrait · probe cursor:** as in the prototype. Carousel is a 3D orbit on desktop and a swipe row with scroll-snap on touch/narrow screens. Card clicks show "case study coming soon" until the Work pages exist.
 - **Work page (built, `src/pages/work/`, copy in `src/data/work.ts`):** WORK header + forward-pass banner → statement (three phrases amber, "data" glows; intro slot empty until written) → institution plaques scattered around a DATA hub with live wires (walnut/bone plaques so logos are never recoloured; hover note sits above everything; click jumps to the role) → rolling counters (7 manuscripts · 5 talks · $30k+ awards · 5 of the world's top 25 universities, QS 2026) → experience (older roles behind "more") → lab-notebook projects (3 flagships + equal cards; every card has a figure, 2+ sentences, tools, links; chips highlight, never hide; 3 earlier projects behind "more"). Home carousel cards open `/work#slug` through the Work transition.
 - **Life page:** placeholder in the new style.
 - **Routing:** clean URLs (`/work`, `/life`) with the GitHub Pages `404.html` redirect for deep links. Old site at `/legacy`.
@@ -39,7 +39,7 @@ Every existing component has a home here. If it isn't on this map, it's cut.
 2. **Work / Life channel cards** → `/projects`, `/life`
 3. **Recent experiments** carousel → click opens the case study
 4. ❓ Proud Of teaser below the carousel, or keep Home this short?
-5. **Contact** (D-Mail-styled form, ❓ placement) + footer (Lab Mem badge, Kurisu cameo)
+5. **Contact** (D-Mail-styled form, ❓ placement) + footer (self-portrait)
 
 Removed from Home (round 2): proof strip / stats (→ `/projects`), short About (→ `/life` or one line under the name), logos (→ `/projects`).
 
@@ -48,7 +48,7 @@ Cut from Home: both scrolling carousels (personal photos move to `/life`; academ
 ### `/projects` — Work
 1. Page header + GitHub profile button
 2. **Credentials band** (moved from Home): 7 manuscripts (1 first author) · 5 conference presentations · $30k+ awards · 1 of 24 CARE fellows · institution logos
-3. Track filter (quant / AI-infra & DS / ML-health). ❓ build in v1 or later
+3. ~~Track filter~~ → decided: no project filters (round 15).
 4. Tiered projects: flagships first (VeriSkeptic, λ Lambda, CHIS paper) as case studies → compact cards (Intact, EPFL, Cove EEG pipeline, Stanford mortality study, SC², Vera, BetterYears, Breast Cancer, Numerosity, BiblioLinguist, mouse TI task) → one-line archive
 5. **Experience timeline** (moved from Home, rebuilt, see §0)
 6. Publications & talks
@@ -110,7 +110,8 @@ These rules keep the site from looking chaotic and keep it readable for recruite
 ## 3. Portfolio / project section overhaul
 - [ ] 🧱 One clean, prominent GitHub profile button at the top of `/projects`, plus a repo link on each project.
 - [ ] ✍️ One-line *result/impact* per project card, not just tech-stack tags.
-- [ ] 🧱 Track tags + filter (see §A).
+- [x] ~~Track tags + filter~~ → dropped (round 15).
+- [x] GitHub profile button beside the projects heading (round 15).
 - [ ] 🧱 Lead with λ Lambda (`quant_project`) and VeriSkeptic (currently not on the site at all). Lambda has no results yet: always label it "in progress", never show a number.
 - [ ] 🧱 Link to live demos where they exist.
 - [ ] 🧱 Reuse the academic carousel figures (`carousel/academic`, 17 images) as visuals inside the matching project cards instead of a separate scrolling strip.
@@ -172,10 +173,10 @@ These rules keep the site from looking chaotic and keep it readable for recruite
 Must pass the §B rules: the site reads as polished to someone who never notices any of these.
 
 - [ ] 🥚 **Per-page coded character cameo**, rendered through code (ASCII / Analog Resolve / GoL / dithering), small, below the fold, with a hover caption:
-  - `/` → Makise Kurisu, "El Psy Kongroo" pose (Steins;Gate)
+  - `/` → none: the footer shows Franco's own ASCII self-portrait instead (Kurisu art removed in round 15; the "El Psy Kongroo." sign-off stays in its hover note)
   - `/projects` → Joker (Persona 5)
   - `/life` → ❓ TBD (Link, Professor Layton, something Three-Body)
-  - ✅ Home cameo built in the prototype: `src/assets/ascii/kurisu.json` (now built in React), generated by `scripts/make_ascii.py` from `docs/source-art/kurisu_pose.png`.
+  - ✅ ASCII pipeline: `scripts/make_ascii.py` (`ARTS` dict) → `src/assets/ascii/*.json`; currently only `franco`.
   - Accessibility: ASCII art must be `aria-hidden` with a real text alternative. Otherwise screen readers read out hundreds of symbols.
   - Mobile: smaller or hidden on narrow screens. Never overlaps content.
   - Copyright: this is official character art. Fine for a personal non-commercial site in practice, and turning it into ASCII art makes it more your own work. Still, don't put it in OG preview images or anything that looks like branding.
@@ -193,7 +194,7 @@ Parked (not selected for now): Konami-code flash, console.log signature, Zelda c
 ## Open decisions (❓ summary)
 1. Routing: HashRouter vs BrowserRouter + 404 trick
 2. Thesis line wording (mockup draft: "from mental-health research to market microstructure")
-3. Track filter in v1 or later
+3. ~~Track filter~~ → no filters
 4. Contact form service
 5. `/life` cameo character
 6. Mini-puzzle design

@@ -9,6 +9,7 @@ It's made from scratch with React 19, TypeScript, Vite 7, Tailwind CSS v4 and Fr
 The site is being redesigned ("Nixie Lab": a warm, lab-bench theme where my name is a nixie-tube instrument).
 
 - `main` is the live site.
+- `archive/original-site` (source) and `archive/original-site-build` (the built `gh-pages` output), plus tag `v1-original-site`, freeze the original site exactly as it was before the redesign. Never change them.
 - `overhaul` is the redesign base; features are built on branches off it.
 - Plan and current design: [`TODO.md`](TODO.md). Design history, content audits and mockups: [`docs/`](docs/README.md).
 

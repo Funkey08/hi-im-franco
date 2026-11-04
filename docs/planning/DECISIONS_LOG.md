@@ -122,3 +122,10 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - Facts found: the CVD paper is published (AJPC 2026); the breast-cancer repo is UTMIST/breast-cancer-detection (Franco owned the histopathology stream); EEG pipeline repo is public.
 - Built in React and wired in: `/work` replaces the placeholder; home carousel cards deep-link to `/work#slug`.
 
+## Round 15 · Nov 4, 2026 — Work polish, Kurisu retired, original site archived
+- Original site frozen: `archive/original-site` (= `main` @ 21357cc) and `archive/original-site-build` (= `gh-pages` @ 612555d), tag `v1-original-site`. Verified: identical commit and tree hashes, identical served `index.html`, same JS/CSS bundles when served locally.
+- Footer: Franco's ASCII self-portrait on the right replaces the Kurisu art entirely (asset, source image and generator entry deleted).
+- Work: experience timeline and all projects open by default; project filters removed; GitHub link beside the projects heading; updated MIT lockup.
+- Figures: TI-task rig photo (Franco), DAS-change figure for EPFL (Franco), generated BiblioLinguist cover (book + quiz + readability meter, same style as the other generated covers).
+- CHIS paper: under review at *Epidemiology and Psychiatric Sciences* (not JAACAP).
+
