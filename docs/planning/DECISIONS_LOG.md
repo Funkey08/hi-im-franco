@@ -114,3 +114,11 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - **Facts:** Harvard i-lab role = founder of a stealth AI startup; awards = $30k+; breast-cancer project verified from local terminal summaries (CNN/ResNet-18/ViT ensemble on BreakHis + RCL-7500 tiles, test AUC 0.98); repo is private. Added to the FACT_SHEET.
 - **Work wireframe v2:** statement with three amber-highlighted phrases and a phosphor-green glowing "data"; intro is a placeholder; hub reads just DATA; counters swap "1/24 CARE fellows" for "2.4M records in my largest dataset"; publications removed; projects = **lab notebook** (every entry: figure, 2+ sentence description, tools, GitHub link or honest "private"/"proprietary"). Ordered by strength for a quant/ML reader.
 
+## Round 14 · Nov 4, 2026 — Work page built
+- Statement: colour change only (no highlighter); "data" keeps its glow. Intro left empty.
+- Institutions: scattered (hand-placed, slight tilts, gentle float) instead of an even ring. Plaques in two subdued tones close to the background (walnut, bone) instead of white; logos shown exactly as published (the earlier white-plaque version had recoloured Harvard and Cove). Fixed: hover note hidden under neighbouring plaques (hovered plaque now rises above all).
+- Counters: "5 of the world's top 25 universities (QS 2026)" replaces "2.4M records".
+- Projects: no card is "punished" for lacking an image: every card has a figure (real, or generated on-theme art / a big-number panel). New figures: EPFL delay vs no-delay line plot, BetterYears screenshot, breast-cancer integrated-gradients tiles, CVD Fig. 2 (published paper, CC BY-NC-ND, unmodified, credited).
+- Facts found: the CVD paper is published (AJPC 2026); the breast-cancer repo is UTMIST/breast-cancer-detection (Franco owned the histopathology stream); EEG pipeline repo is public.
+- Built in React and wired in: `/work` replaces the placeholder; home carousel cards deep-link to `/work#slug`.
+

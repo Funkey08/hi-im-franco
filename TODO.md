@@ -22,11 +22,12 @@ Legend: 🐛 bug fix · 🧱 structure · ✨ new section · 🎨 visual · ✍�
 - **Contact ("open a channel"):** compose box above the footer; Send opens the visitor's mail app pre-filled (no backend), Copy copies the address.
 - **Duolingo reading:** 2128 on 2026-11-03, +1 each midnight America/New_York (`src/data/counters.ts`). If the streak breaks, reset `STREAK_ANCHOR`.
 - **Slogan · Work vs Life · carousel · Kurisu footer · probe cursor:** as in the prototype. Carousel is a 3D orbit on desktop and a swipe row with scroll-snap on touch/narrow screens. Card clicks show "case study coming soon" until the Work pages exist.
-- **Work / Life pages:** placeholders in the new style (big title, the channel's animation as a banner, "what's coming" cards).
+- **Work page (built, `src/pages/work/`, copy in `src/data/work.ts`):** WORK header + forward-pass banner → statement (three phrases amber, "data" glows; intro slot empty until written) → institution plaques scattered around a DATA hub with live wires (walnut/bone plaques so logos are never recoloured; hover note sits above everything; click jumps to the role) → rolling counters (7 manuscripts · 5 talks · $30k+ awards · 5 of the world's top 25 universities, QS 2026) → experience (older roles behind "more") → lab-notebook projects (3 flagships + equal cards; every card has a figure, 2+ sentences, tools, links; chips highlight, never hide; 3 earlier projects behind "more"). Home carousel cards open `/work#slug` through the Work transition.
+- **Life page:** placeholder in the new style.
 - **Routing:** clean URLs (`/work`, `/life`) with the GitHub Pages `404.html` redirect for deep links. Old site at `/legacy`.
 - **Accessibility:** clock is a keyboard button, readings `aria-live`, ASCII `aria-hidden` with real labels, skip link, `prefers-reduced-motion` turns off rolls, sweeps, typing, warps and the grain.
-- **Next:** build Work from `docs/mockups/work_wireframes.html` (lab-notebook projects, logos wired to DATA); then Life; then replace `/legacy` section by section.
-- **Waiting on Franco:** the Work intro (2–3 sentences); GitHub links for the EEG pipeline and Vera; his role/team size on the breast-cancer project; figures for Lambda, Intact, Vera, BetterYears, mortality study, breast cancer.
+- **Next:** design and build Life; then case-study pages per flagship; then replace `/legacy` section by section.
+- **Waiting on Franco:** the Work intro (2–3 sentences); a real Lambda figure once there is data (generated cover until then); whether the CHIS card should link a preprint; confirm the BiblioLinguist description and the Takehara title ("Research Opportunity Program"); the numerosity app was left out (stack unverified).
 
 ---
 
