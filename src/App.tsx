@@ -4,11 +4,12 @@ import Layout from "./components/layout/Layout";
 import InstrumentProvider from "./instrument/InstrumentProvider";
 import Home from "./pages/home/Home";
 import NotFound from "./pages/NotFound";
-import SectionPage from "./pages/SectionPage";
 import WorkPage from "./pages/work/WorkPage";
 
 // The old site stays reachable at /legacy while it's replaced; loaded only if visited.
 const LegacyApp = lazy(() => import("./legacy/LegacyApp"));
+// Life carries the map and photo data; load it only when someone goes there.
+const LifePage = lazy(() => import("./pages/life/LifePage"));
 
 /** Vite's base ("/hi-im-franco/") without the trailing slash, as React Router expects. */
 const BASENAME = import.meta.env.BASE_URL.replace(/\/$/, "");
@@ -21,7 +22,7 @@ export default function App() {
         <Route element={<InstrumentProvider><Layout /></InstrumentProvider>}>
           <Route index element={<Home />} />
           <Route path="work" element={<WorkPage />} />
-          <Route path="life" element={<SectionPage section="life" />} />
+          <Route path="life" element={<Suspense fallback={null}><LifePage /></Suspense>} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
