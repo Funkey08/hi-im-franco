@@ -1,4 +1,3 @@
-import ContactBox from "./ContactBox";
 import Experiments from "./Experiments";
 import Hero from "./Hero";
 import "./home.css";
@@ -8,7 +7,6 @@ export default function Home() {
     <main className="home">
       <Hero />
       <Experiments />
-      <ContactBox />
     </main>
   );
 }

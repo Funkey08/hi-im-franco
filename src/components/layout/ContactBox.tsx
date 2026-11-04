@@ -1,8 +1,9 @@
 import { useRef, useState, type FormEvent } from "react";
 import { EMAIL } from "../../data/site";
+import "./contact.css";
 
 /**
- * "Open a channel": a compose box at the bottom of Home. There's no backend (static site), so Send
+ * "Open a channel": the compose box at the bottom of every page (left of the self-portrait). There's no backend (static site), so Send
  * opens the visitor's own mail app with everything pre-filled; Copy puts the address on the clipboard.
  */
 export default function ContactBox() {
@@ -33,10 +34,10 @@ export default function ContactBox() {
 
   return (
     <section className="contact" aria-labelledby="contact-title">
-      <h2 className="section-head" id="contact-title">// <b>open a channel</b></h2>
+      <h2 className="contact-title" id="contact-title">// <b>open a channel</b></h2>
       <p className="contact-lede">Hiring, collaborating, or just curious? Send me a message.</p>
       <form className="contact-box" onSubmit={send}>
-        <span className="meter-screw tl" /><span className="meter-screw tr" />
+        <span className="contact-screw tl" /><span className="contact-screw tr" />
         <div className="contact-head">
           <span className="contact-to">to: <b id="contact-address">{EMAIL}</b></span>
           <button type="button" className="contact-copy" onClick={copy} data-probe="COPY">
