@@ -424,34 +424,6 @@
 .contact-send span { display: inline-block; transition: transform 0.2s; }
 .contact-send:hover span { transform: translateX(3px); }
 
-/* ---------------------------------------------------------------- footer portraits */
-/* ---------------------------------------------------------------- footer self-portrait */
-.portrait { position: relative; outline: none; margin-bottom: -1px; }
-.portrait .ascii { --fs: clamp(5px, 0.42vw, 7px); }
-.portrait:focus-visible { outline: 1px dashed var(--amber); outline-offset: 6px; }
-.portrait-note {
-  position: absolute;
-  right: calc(100% + 30px);
-  top: 26%;
-  width: max-content;
-  max-width: min(520px, 52vw);
-  text-align: right;
-  pointer-events: none;
-  font: 400 13.5px / 1.65 var(--font-sans);
-  color: #b39e86;
-  visibility: hidden;
-}
-.portrait-note span { display: block; white-space: nowrap; opacity: 0; transform: translateY(8px); }
-.portrait-note .signoff { margin-top: 8px; font: italic 400 21px / 1.2 var(--font-serif); color: #ffcf95; text-shadow: 0 0 14px rgba(255, 130, 40, 0.4); }
-.portrait:hover .portrait-note, .portrait:focus-visible .portrait-note { visibility: visible; }
-.portrait:hover .portrait-note span, .portrait:focus-visible .portrait-note span {
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.35s ease-out, transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
-}
-.portrait:hover .portrait-note span:nth-child(2), .portrait:focus-visible .portrait-note span:nth-child(2) { transition-delay: 0.2s; }
-.portrait:hover .portrait-note .signoff, .portrait:focus-visible .portrait-note .signoff { transition-delay: 0.5s; }
-
 /* ---------------------------------------------------------------- responsive */
 @media (max-width: 700px) {
   .contact-field { grid-template-columns: 1fr; gap: 2px; }
@@ -472,8 +444,6 @@
   .channel-text b { font-size: 30px; }
   .meter { grid-template-columns: 1fr; justify-items: center; text-align: center; }
   .meter-top { justify-content: center; }
-  .portrait-note { right: auto; left: 50%; top: auto; bottom: calc(100% + 12px); translate: -50% 0; text-align: center; max-width: 86vw; }
-  .portrait-note span { white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   .bench .reveal { transition: none; }

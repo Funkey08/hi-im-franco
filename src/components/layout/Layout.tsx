@@ -6,8 +6,11 @@ import Atmosphere from "../fx/Atmosphere";
 import ProbeCursor from "../fx/ProbeCursor";
 import WarpOverlay from "../fx/WarpOverlay";
 import WorldlineBoot from "../fx/WorldlineBoot";
+import Footer from "./Footer";
 import NixieDock from "./NixieDock";
 import "./layout.css";
+
+const EOT: Record<string, string> = { home: "— end of readings —", work: "— end of channel —", life: "— end of channel —" };
 
 /** App shell: atmosphere, top bar with the docking clock, transitions, and the current page. */
 export default function Layout() {
@@ -51,6 +54,7 @@ export default function Layout() {
         className={`page${animateIn ? " page-enter" : ""}${leaving ? " page-leave" : ""}`}
       >
         <Outlet />
+        <Footer eot={EOT[section] ?? EOT.home} />
       </div>
     </>
   );

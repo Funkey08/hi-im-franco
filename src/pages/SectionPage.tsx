@@ -1,4 +1,3 @@
-import Footer from "../components/layout/Footer";
 import { useInstrument, type Section } from "../instrument/context";
 import { createBrain } from "../sims/brain";
 import { createNet } from "../sims/net";
@@ -55,7 +54,6 @@ export default function SectionPage({ section }: { section: Section }) {
           ))}
         </div>
       </div>
-      <Footer eot="— end of channel —" />
     </main>
   );
 }

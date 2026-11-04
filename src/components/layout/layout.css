@@ -106,12 +106,42 @@ html.probe .topbar-coords { display: inline; }
 .footer-links nav { display: flex; gap: 18px; }
 .footer-eot { color: #6b5643; margin-bottom: 10px; letter-spacing: 0.2em; }
 
+/* ---------------------------------------------------------------- footer self-portrait */
+.portrait { position: relative; outline: none; margin-bottom: -1px; }
+.portrait .ascii { --fs: clamp(3.6px, 0.3vw, 5px); }
+.portrait:focus-visible { outline: 1px dashed var(--amber); outline-offset: 6px; }
+.portrait-note {
+  position: absolute;
+  right: calc(100% + 30px);
+  top: 26%;
+  width: max-content;
+  max-width: min(520px, 52vw);
+  text-align: right;
+  pointer-events: none;
+  font: 400 13px / 1.6 var(--font-sans);
+  color: #b39e86;
+  visibility: hidden;
+}
+.portrait-note span { display: block; white-space: nowrap; opacity: 0; transform: translateY(8px); }
+.portrait-note .signoff { margin-top: 6px; font: italic 400 19px / 1.2 var(--font-serif); color: #ffcf95; text-shadow: 0 0 14px rgba(255, 130, 40, 0.4); }
+.portrait:hover .portrait-note, .portrait:focus-visible .portrait-note { visibility: visible; }
+.portrait:hover .portrait-note span, .portrait:focus-visible .portrait-note span {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.35s ease-out, transform 0.45s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.portrait:hover .portrait-note span:nth-child(2), .portrait:focus-visible .portrait-note span:nth-child(2) { transition-delay: 0.2s; }
+.portrait:hover .portrait-note .signoff, .portrait:focus-visible .portrait-note .signoff { transition-delay: 0.5s; }
+
 @media (max-width: 700px) {
   .topbar { padding: 0 16px; }
   .topbar-plate { display: none; }
   .topbar-nav { gap: 14px; }
   .footer { flex-direction: column; align-items: center; text-align: center; }
   .footer-links nav { justify-content: center; }
+  .footer-links { padding-bottom: 18px; }
+  .portrait-note { right: auto; left: 50%; top: auto; bottom: calc(100% + 12px); translate: -50% 0; text-align: center; max-width: 86vw; }
+  .portrait-note span { white-space: normal; }
 }
 @media (prefers-reduced-motion: reduce) {
   .page-enter, .page-leave { animation: none; }
