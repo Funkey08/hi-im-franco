@@ -2,7 +2,7 @@
 
 Usage (from the repo root):
     python scripts/make_ascii.py            # every art in ARTS
-    python scripts/make_ascii.py kurisu     # just one
+    python scripts/make_ascii.py franco     # just one
 
 Each entry in ARTS reads a transparent PNG from docs/source-art/ and writes
 src/assets/ascii/<name>.json:
@@ -35,7 +35,6 @@ QUANT = 16               # colour quantisation step: fewer distinct colours = lo
 TUBE_LIGHT = (236, 200, 158)
 
 ARTS = {
-    "kurisu": dict(src="kurisu_pose.png", cols=66, min_char=2, gamma=0.72, tint_mix=0.16, sat=0.78, min_lum=0.22),
     "franco": dict(src="franco_pose.png", cols=70, min_char=3, stretch=True, gamma=0.55, tint_mix=0.14, sat=1.0, min_lum=0.30),
 }
 

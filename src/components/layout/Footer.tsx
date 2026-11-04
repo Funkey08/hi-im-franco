@@ -2,10 +2,9 @@ import type { ReactNode } from "react";
 import { LINKS } from "../../data/site";
 
 /** Bottom-of-page links. Pages can put something beside it (Home puts Kurisu there). */
-export default function Footer({ left, aside, eot = "— end of readings —" }: { left?: ReactNode; aside?: ReactNode; eot?: string }) {
+export default function Footer({ aside, eot = "— end of readings —" }: { aside?: ReactNode; eot?: string }) {
   return (
-    <footer className={`footer${left ? " has-left" : ""}`}>
-      {left}
+    <footer className="footer">
       <div className="footer-links">
         <div className="footer-eot">{eot}</div>
         <nav aria-label="Contact">
