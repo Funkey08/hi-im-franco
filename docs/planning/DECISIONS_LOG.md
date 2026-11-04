@@ -89,3 +89,14 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
   - **MEASURE button** sends out a few signal pulses until it's pressed the first time.
   - **Tube display polished to "as good as it can look"**, with an implicit hover cue that says "click me".
 - Not chosen (for now): optional sound, the "currently" line, the scroll-signal line, carousel duotone.
+
+## Round 11 · Nov 3, 2026 — the real home page (React, branch `feat/home-page`)
+- **Routing:** clean URLs via BrowserRouter + the spa-github-pages `404.html` redirect (vs hash URLs). The old site moves to `src/legacy/` and stays reachable at `/legacy`.
+- **Work / Life:** placeholder pages in the new style until they're designed.
+- **Background lifted** from `#0b0806` to a warm brown `#1c1611`; edges, panels and dim text lifted to match. Kurisu's ASCII re-tuned (shadow lift, slight desaturation, pull toward the tube-light tint).
+- **ASCII self-portrait** from Franco's own art (`docs/source-art/franco_pose.png`). Dark-on-dark source, so the generator histogram-equalises luminance (`stretch`) and keeps a minimum glyph density; otherwise the sweater collapses to one character.
+- **Clock redesign:** glass, getter, hex mesh, ghost cathodes, decimal points, sockets, walnut plinth with brass plate + READY lamp; parallax lean. Hover cue = brighten + lift + left-to-right ripple + ghosts + READY lamp + probe label.
+- **Opening:** strike flicker + synchronised 0-9 sweep, then FRANCO; staged reveal; self-demo reading on first visit.
+- **Docking:** one clock instance, portalled between the hero slot and a fixed layer; flies into the bar over 300 px of scroll.
+- **MEASURE** pings until first use (persisted).
+

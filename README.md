@@ -22,6 +22,6 @@ yarn lint       # ESLint
 yarn deploy     # build + publish dist/ to the gh-pages branch
 ```
 
-`scripts/make_ascii.py` regenerates the ASCII art in `src/assets/easter-eggs/` from the source images in `docs/source-art/` (needs Python + Pillow).
+`scripts/make_ascii.py` regenerates the ASCII art in `src/assets/ascii/` from the source images in `docs/source-art/` (needs Python + Pillow).
 
 Thanks for stopping by!

@@ -2,7 +2,7 @@
 
 Stack: React + Vite + TypeScript + Tailwind, deployed to GitHub Pages at `/hi-im-franco/`.
 Branches: `main` = live site · `overhaul` = redesign base · feature branches off `overhaul` (e.g. the home page build).
-Legacy sections still in `App.tsx` (to be replaced): NavLinks → Header → ImageCarousel(x2) → InstitutionGrid → AboutMe → ProjectShowcase → AwardsSection → Timeline → FavBooks → ContactSection → Footer.
+Code map: `src/instrument/` (nixie controller + shared state) · `src/components/` (nixie clock, dock, layout, fx, ascii) · `src/sims/` (net + neuron canvases) · `src/pages/` (home, section placeholders, 404) · `src/data/` (all copy and metrics) · `src/legacy/` (the old site, served at `/legacy` until replaced).
 Planning docs live in `docs/` (see `docs/README.md`). Copy drafts (Proud Of list, etc.): `docs/planning/CONTENT.md`.
 
 Legend: 🐛 bug fix · 🧱 structure · ✨ new section · 🎨 visual · ✍️ copy · ⚙️ infra · 🖼️ asset hunting · 🥚 easter egg · ❓ open decision
@@ -10,19 +10,19 @@ Legend: 🐛 bug fix · 🧱 structure · ✨ new section · 🎨 visual · ✍�
 **Order of work:** Phase 1 bugs (§0) → Phase 2 page map + routing (§A, §1, §8 routing) → Phase 3 content (§2, §3, §5, `docs/planning/CONTENT.md`, `docs/planning/CONTENT_AUDIT.md`) → Phase 4 visual design (§B, §4) → Phase 5 intro + easter eggs (§8, §9). Easter eggs go last on purpose. They only work once the site underneath them is solid.
 
 ## ✅ Current design (home page)
-Prototype: **`docs/mockups/nixie_home.html`** (open in a browser). Full history of how we got here: `docs/planning/DECISIONS_LOG.md`.
+**Built in React** on branch `feat/home-page` (prototype it came from: `docs/mockups/nixie_home.html`). History: `docs/planning/DECISIONS_LOG.md`.
 
-- **Theme "Nixie Lab":** warm near-black `#0b0806`, nixie amber `#ffb35c` (glow `#ffd29a`), Work channel green `#7dffb0`. Film grain, vignette, dust in the tube light, graph paper lit by the tubes and the cursor. Fonts: Oswald (tubes, headings), JetBrains Mono (labels), Inter (body), Instrument Serif italic (slogan, "El Psy Kongroo.").
-- **Hero:** FRANCO in six nixie tubes that power on one by one (this *is* the intro; no separate intro). Underneath: MIGUEL VALENCIA, then "data scientist · applied researcher · human being".
-- **Readings (the name is an instrument):** MEASURE button / click the tubes / click a unit lamp. Tubes roll to a metric, the label names the quantity, a caption explains it, and FRANCO drops down to join MIGUEL VALENCIA. Metrics (all [V] in the FACT_SHEET): 48,600 decisions modelled (EPFL) · 4,366 adolescents (first-author) · 2.4M death records (mortality study) · 2,000+ client records (Intact) · 4,628 restaurants (Vera) · p = 0.002 (VeriSkeptic) · $3.74 total study cost (VeriSkeptic) · 1,342 checksums (Lambda) · 2,100 Duolingo days (❓ keep or move to Life). No GPA.
-- **Slogan:** "I love experiencing things I know nothing about." types itself after power-on; "know nothing about" in amber.
-- **Work vs Life:** "Click on a section to learn more about me." above two channel cards. Work = feed-forward net (strict layer-by-layer forward pass, green). Life = spiking biological neurons (causal cascades, refractory period, amber). Entering = tubes roll to WORK/LIFE → full-screen version of that animation → CRT power-on. Back = CRT power-off.
-- **Recent experiments carousel:** slow 3D orbit, drag to spin (inertia), pauses only while hovering a card, click opens the case study. Cards = image + title + one line. Projects without a figure use generated on-theme art (Lambda, Intact, Vera) until real images exist.
-- **Footer:** links, "Lab Mem 008", ASCII Kurisu (subdued colours) that prints in on scroll. Hover note: "This website was inspired by Steins;Gate." / "For making me realize that determination precedes intelligence." / *El Psy Kongroo.*
-- **Cursor:** probe (amber dot + lagging ring; ring grows and labels MEASURE / READ / OPEN · DRAG / DRAG / WORK / LIFE). Faint page-coordinate readout top-left. Cursor-fit regression exists but is off (`SHOW_FIT = false`). Mouse/trackpad only.
-- **Resume / GitHub / LinkedIn / email:** small links top-right and in the footer.
-- **Accessibility:** tubes keyboard-operable, readout `aria-live`, ASCII `aria-hidden` with a real label, `prefers-reduced-motion` skips rolls/sweeps/typing.
-- **Next:** build the real home page in React (brief: `docs/planning/DECISIONS_LOG.md` round 10), then design the Work and Life pages.
+- **Theme "Nixie Lab":** warm lamp-lit brown `#1c1611` (lifted from near-black in round 11 so it reads as a workbench, not a terminal), nixie amber `#ffb35c` (glow `#ffd29a`), Work green `#7dffb0`. Tokens: `@theme` in `src/styles/index.css`. Film grain, vignette, dust in the tube light (links up near the cursor), graph paper lit by the tubes and the cursor. Fonts: Oswald, JetBrains Mono, Inter, Instrument Serif italic.
+- **The clock:** six tubes on a walnut plinth with a brass plate and a READY lamp. Each tube has a glass dome with reflections, getter film, a hex anode mesh, unlit cathodes stacked behind the lit digit, a decimal point, a socket with pins, and light pooling on the plinth. Tubes lean slightly toward the cursor. **Click cue on hover:** tubes brighten and lift, a brightness ripple runs left to right, ghost cathodes show, READY lamp lights, probe says MEASURE. Until the first measurement the READY lamp blinks.
+- **Opening:** tubes strike one by one with a flicker and run a synchronised 0-9 cathode sweep (like real nixie clocks), then settle on FRANCO left to right; then the rest of the hero reveals in sequence and the slogan types. First visit per session only: if the visitor hasn't clicked within ~4 s, the instrument takes one reading by itself (48600) and returns to FRANCO. Repeat visits get a short boot.
+- **Docking:** scrolling past the hero, the same clock flies up and shrinks into the centre of the top bar (left corner on phones), stays clickable on every page (Home: next reading; Work/Life: back home), and shows WORK / LIFE / 404 on those pages. The bar turns solid once docked; on wide screens the current reading's label sits beside it.
+- **Hero:** MIGUEL VALENCIA, with FRANCO dropping in letter by letter whenever the tubes show something else. Role line: "data scientist · applied researcher · human being". **ASCII self-portrait** (`// operator`) on the left on screens ≥1280 px.
+- **Readings:** MEASURE push-button (sends out ping rings every few seconds until it's pressed for the first time, remembered in localStorage), tubes, unit lamps, or pips. Metrics live in `src/data/readings.ts` (all [V] in the FACT_SHEET; no GPA).
+- **Slogan · Work vs Life · carousel · Kurisu footer · probe cursor:** as in the prototype. Carousel is a 3D orbit on desktop and a swipe row with scroll-snap on touch/narrow screens. Card clicks show "case study coming soon" until the Work pages exist.
+- **Work / Life pages:** placeholders in the new style (big title, the channel's animation as a banner, "what's coming" cards).
+- **Routing:** clean URLs (`/work`, `/life`) with the GitHub Pages `404.html` redirect for deep links. Old site at `/legacy`.
+- **Accessibility:** clock is a keyboard button, readings `aria-live`, ASCII `aria-hidden` with real labels, skip link, `prefers-reduced-motion` turns off rolls, sweeps, typing, warps and the grain.
+- **Next:** design the Work and Life pages; then replace `/legacy` section by section.
 
 ---
 
@@ -129,7 +129,7 @@ These rules keep the site from looking chaotic and keep it readable for recruite
 - [ ] ⚙️ **Content as data.** Move projects, Proud Of items, countries, books and timeline entries into typed data files (e.g. `src/data/*.ts`) so updating content never means editing components.
 - [x] ⚙️ Remove dead code: `AltAwardSection.tsx`, `App.css`, unused template assets (`react.svg`, `vite.svg`, `icon.png`).
 - [x] ⚙️ Dependency cleanup: removed unused `react-icons`, `react-type-animation`, `vite-plugin-gh-pages`, `autoprefixer`, `postcss`; fixed `homepage` placement in `package.json`; migrated `import.meta.glob` off the deprecated `as: 'url'`.
-- [ ] ⚙️ `src/index.css` still carries the Vite starter styles (light-mode media query, blue link colours, button resets). Replace with the Nixie base styles during the home page build.
+- [x] ⚙️ Vite starter styles replaced by Nixie base styles (`src/styles/index.css`); the old site's globals are scoped under `.legacy`.
 - [ ] ⚙️ Self-host the fonts (Oswald, JetBrains Mono, Inter, Instrument Serif) instead of Google Fonts, for speed and no layout shift.
 - [ ] ⚙️ Resume PDF: visible link, and a reminder to replace it each time the resume changes.
 - [ ] ⚙️ Lightweight analytics (e.g. Plausible / GA).
@@ -170,7 +170,7 @@ Must pass the §B rules: the site reads as polished to someone who never notices
   - `/` → Makise Kurisu, "El Psy Kongroo" pose (Steins;Gate)
   - `/projects` → Joker (Persona 5)
   - `/life` → ❓ TBD (Link, Professor Layton, something Three-Body)
-  - ✅ Home cameo built in the prototype: `src/assets/easter-eggs/kurisu_ascii.json`, generated by `scripts/make_ascii.py` from `docs/source-art/kurisu_pose.png`.
+  - ✅ Home cameo built in the prototype: `src/assets/ascii/kurisu.json` (now built in React), generated by `scripts/make_ascii.py` from `docs/source-art/kurisu_pose.png`.
   - Accessibility: ASCII art must be `aria-hidden` with a real text alternative. Otherwise screen readers read out hundreds of symbols.
   - Mobile: smaller or hidden on narrow screens. Never overlaps content.
   - Copyright: this is official character art. Fine for a personal non-commercial site in practice, and turning it into ASCII art makes it more your own work. Still, don't put it in OG preview images or anything that looks like branding.
