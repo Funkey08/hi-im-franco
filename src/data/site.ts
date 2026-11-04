@@ -17,9 +17,11 @@ export const KURISU_NOTE = [
 ];
 export const KURISU_SIGNOFF = "El Psy Kongroo.";
 
+export const EMAIL = "francomiguel.valencia@gmail.com";
+
 export const LINKS: { label: string; href: string }[] = [
   { label: "github", href: "https://github.com/Funkey08" },
   { label: "linkedin", href: "https://www.linkedin.com/in/franco-miguel-valencia-6a650b219/" },
-  { label: "email", href: "mailto:francomiguel.valencia@gmail.com" },
+  { label: "email", href: `mailto:${EMAIL}` },
   // { label: "resume", href: `${import.meta.env.BASE_URL}resume.pdf` },  // add once a current PDF is in public/
 ];
