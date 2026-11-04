@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Life page wireframes · Nixie Lab</title>
+<!--
+  Life (/life) wireframes, round 16. Mid-fidelity: real copy from docs/planning/CONTENT.md and the
+  FACT_SHEET, real photos and book covers from ../../src/assets/. Three layouts (tabs A/B/C) share
+  the same header and content; dashed boxes = content Franco still has to send.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600&family=Oswald:wght@200;300;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1c1611;--panel:#261e16;--edge:#3e3025;--edge2:#5a4632;--ink:#f3e8d8;--ink2:#dccbb5;--dim:#a8937c;--faint:#76634f;--amber:#ffb35c;--glow:#ffd29a;--hot:#ff7a1a;--phos:#7dffb0}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(ellipse 70% 40% at 50% 0%,rgba(255,140,50,.09),transparent 70%),var(--bg);color:var(--ink);font:15px/1.55 Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+img{display:block}
+.wrap{max-width:1180px;margin:0 auto;padding:0 5vw}
+.mono{font-family:"JetBrains Mono",monospace}
+.note{border-left:2px solid var(--amber);background:rgba(255,179,92,.06);padding:10px 14px;margin:16px 0 0;font:12.5px/1.6 "JetBrains Mono",monospace;color:var(--ink2)}
+.note b{color:var(--glow)}
+.wf-label{font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.2em;text-transform:uppercase;color:var(--amber);margin:0 0 16px;display:flex;align-items:center;gap:10px}
+.wf-label::after{content:"";flex:1;height:1px;background:linear-gradient(90deg,#5a4632,transparent)}
+.wf-label i{font-style:normal;color:var(--faint);letter-spacing:.12em}
+section.wf{padding:46px 0;border-bottom:1px dashed #3a2c20}
+.ph{border:1.5px dashed #5a4632;border-radius:8px;display:grid;place-items:center;color:var(--faint);font:11px/1.5 "JetBrains Mono",monospace;letter-spacing:.04em;text-align:center;padding:10px;background:repeating-linear-gradient(45deg,transparent 0 9px,rgba(90,70,50,.12) 9px 10px)}
+.ask{color:var(--amber);font:600 10.5px "JetBrains Mono",monospace;letter-spacing:.06em}
+
+/* top bar + tabs */
+.bar{position:sticky;top:0;z-index:20;height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 24px;background:rgba(30,23,17,.92);border-bottom:1px solid rgba(90,70,50,.45);backdrop-filter:blur(8px)}
+.bar .tubes{display:flex;gap:3px}
+.bar .tubes span{width:20px;height:34px;border-radius:9px 9px 3px 3px;border:1px solid rgba(255,214,170,.17);background:rgba(24,16,11,.8);display:grid;place-items:center;font:300 22px Oswald;color:#ffd6a6;text-shadow:0 0 6px #ff8a2a}
+.tabs{display:flex;gap:6px}
+.tabs button{all:unset;cursor:pointer;padding:6px 12px;border:1px solid var(--edge);border-radius:4px;font:11px "JetBrains Mono",monospace;letter-spacing:.08em;color:var(--dim)}
+.tabs button.on{border-color:var(--amber);color:var(--glow);box-shadow:0 0 14px -5px var(--hot)}
+.opt{display:none}.opt.on{display:block}
+
+/* header (shared) */
+.kicker{font:11px "JetBrains Mono",monospace;letter-spacing:.2em;color:var(--dim);text-transform:uppercase}
+.head{padding-top:36px}
+.head h1{margin:4px 0 0;font:200 clamp(80px,12vw,150px)/.9 Oswald;letter-spacing:.04em;color:#ffe2bd;text-shadow:0 0 6px #ffa040,0 0 26px rgba(255,100,10,.55)}
+.banner{height:120px;margin-top:18px;border-radius:12px;background:radial-gradient(ellipse at center,#2a1b0c,#0d0804);position:relative;overflow:hidden}
+.banner svg{position:absolute;inset:0;width:100%;height:100%}
+.motto{margin:30px 0 0;font:italic 400 clamp(28px,3.2vw,44px)/1.25 "Instrument Serif",serif;color:#e9dac6}
+.motto em{color:#ffcf95}
+
+/* ------- shared building blocks ------- */
+.readings{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.rd{padding:16px 16px 14px;border:1px solid var(--edge);border-radius:10px;background:linear-gradient(180deg,#2a2118,#211912)}
+.rd b{display:block;font:300 44px/1 Oswald;color:#ffdcae;text-shadow:0 0 10px rgba(255,120,30,.6)}
+.rd span{display:block;margin-top:6px;font:10.5px/1.45 "JetBrains Mono",monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--dim)}
+.rd small{display:block;margin-top:3px;font:10px "JetBrains Mono",monospace;color:var(--faint)}
+
+.proud{list-style:none;margin:0;padding:0;columns:2;column-gap:34px;counter-reset:p}
+.proud li{break-inside:avoid;counter-increment:p;position:relative;padding:0 0 14px 44px;font-size:15.5px;color:var(--ink2)}
+.proud li::before{content:counter(p,decimal-leading-zero);position:absolute;left:0;top:1px;font:500 13px "JetBrains Mono",monospace;color:var(--amber)}
+.proud li b{color:var(--ink);font-weight:600}
+.proud li .cam{margin-left:6px;font:10px "JetBrains Mono",monospace;color:var(--faint);border:1px solid var(--edge);border-radius:3px;padding:0 4px}
+.proud .post{color:var(--faint);font-style:italic}
+.coda{margin:6px 0 0 44px;font:italic 17px "Instrument Serif",serif;color:var(--dim)}
+
+.gallery{columns:3;column-gap:12px}
+.gallery figure{margin:0 0 12px;break-inside:avoid;position:relative;border-radius:8px;overflow:hidden;border:1px solid var(--edge)}
+.gallery img{width:100%;height:auto;filter:saturate(.92)}
+.gallery figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 10px 8px;background:linear-gradient(transparent,rgba(16,11,7,.85));font:10.5px "JetBrains Mono",monospace;color:#e6d4bb;letter-spacing:.04em}
+.gallery figcaption i{font-style:normal;color:var(--amber)}
+
+.shelf{display:flex;gap:22px;align-items:flex-end;padding:0 10px 0;border-bottom:10px solid #3b2617;box-shadow:0 10px 20px -8px rgba(0,0,0,.6)}
+.book{width:150px;flex:none}
+.book img{width:150px;height:225px;object-fit:cover;border-radius:3px 6px 6px 3px;box-shadow:-4px 0 0 #000 inset,0 10px 18px rgba(0,0,0,.5);transition:transform .3s}
+.book:hover img{transform:translateY(-10px) rotate(-1.5deg)}
+.book b{display:block;margin-top:10px;font:500 14px/1.25 Oswald;letter-spacing:.02em}
+.book small{display:block;font:11px "JetBrains Mono",monospace;color:var(--dim)}
+.book p{margin:6px 0 12px;font-size:12.5px;line-height:1.45;color:var(--faint)}
+
+.interests{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.int{padding:16px 18px;border:1px solid var(--edge);border-radius:10px;background:linear-gradient(170deg,#2b2119,#1f1812)}
+.int h4{margin:0;font:500 19px Oswald;letter-spacing:.02em}
+.int .lvl{margin-top:2px;font:11px "JetBrains Mono",monospace;color:var(--amber)}
+.int p{margin:8px 0 0;font-size:13.5px;color:var(--ink2)}
+
+/* ------- A: field notebook ------- */
+.a-split{display:grid;grid-template-columns:1.25fr 1fr;gap:34px;align-items:start}
+
+/* ------- B: atlas ------- */
+.map{position:relative;height:420px;border:1px solid var(--edge);border-radius:12px;background:radial-gradient(ellipse at center,#22180f,#140e09);overflow:hidden}
+.map svg{position:absolute;inset:0;width:100%;height:100%}
+.pin{position:absolute;translate:-50% -50%;width:14px;height:14px;border-radius:50%;background:var(--amber);box-shadow:0 0 0 4px rgba(255,179,92,.2),0 0 18px var(--hot);cursor:pointer}
+.pin.on::after{content:attr(data-n);position:absolute;left:50%;bottom:calc(100% + 10px);translate:-50% 0;white-space:nowrap;padding:4px 8px;border-radius:4px;background:#1f1812;border:1px solid var(--edge2);font:10.5px "JetBrains Mono",monospace;color:var(--glow)}
+.mapcard{position:absolute;right:16px;top:16px;width:250px;border:1px solid var(--edge2);border-radius:8px;background:#1f1812;overflow:hidden;box-shadow:0 14px 30px rgba(0,0,0,.6)}
+.mapcard img{width:100%;height:150px;object-fit:cover}
+.mapcard div{padding:10px 12px;font:11px/1.5 "JetBrains Mono",monospace;color:var(--ink2)}
+.strip{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 16px;scroll-snap-type:x mandatory}
+.polar{flex:none;width:230px;scroll-snap-align:start;padding:10px 10px 14px;background:#e9dfcf;color:#2a1d12;border-radius:3px;box-shadow:0 12px 24px rgba(0,0,0,.45);rotate:var(--r,0deg)}
+.polar img{width:100%;height:170px;object-fit:cover}
+.polar .ph{height:170px;background-color:#d9ccb6;border-color:#a8937c;color:#6b5643}
+.polar p{margin:10px 2px 0;font:italic 17px/1.25 "Instrument Serif",serif}
+.polar small{display:block;margin:6px 2px 0;font:9.5px "JetBrains Mono",monospace;color:#7b6550;letter-spacing:.06em}
+.b-two{display:grid;grid-template-columns:1fr 1fr;gap:34px}
+.minishelf{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+.minishelf img{width:100%;aspect-ratio:2/3;object-fit:cover;border-radius:3px;box-shadow:0 8px 14px rgba(0,0,0,.5)}
+.taglist{display:flex;flex-wrap:wrap;gap:8px}
+.taglist span{padding:6px 11px;border:1px solid #45352a;border-radius:99px;background:#2f241a;font:12px "JetBrains Mono",monospace;color:#e2d0b8}
+.taglist span b{color:var(--amber);font-weight:400}
+
+/* ------- C: the desk ------- */
+.desk{position:relative;height:900px;border-radius:14px;border:1px solid #4a3828;background:
+  radial-gradient(ellipse 60% 50% at 50% 45%,rgba(255,170,80,.1),transparent 70%),
+  repeating-linear-gradient(92deg,#3a2718 0 3px,#35241a 3px 7px,#3d2a1b 7px 9px),#3b2617;overflow:hidden;box-shadow:inset 0 0 120px rgba(0,0,0,.6)}
+.obj{position:absolute;left:var(--x);top:var(--y);rotate:var(--r);transition:rotate .3s,scale .3s,z-index 0s;cursor:pointer}
+.obj:hover{rotate:0deg;scale:1.05;z-index:9}
+.obj.pol{width:200px;padding:9px 9px 34px;background:#ebe1d1;box-shadow:0 14px 26px rgba(0,0,0,.55)}
+.obj.pol img{width:100%;height:150px;object-fit:cover}
+.obj.pol span{position:absolute;left:10px;right:10px;bottom:9px;font:italic 15px "Instrument Serif",serif;color:#2a1d12}
+.obj.sticky{width:190px;padding:14px 14px 16px;background:#f2d58a;color:#3a2a10;font:15px/1.35 "Instrument Serif",serif;box-shadow:0 12px 20px rgba(0,0,0,.45)}
+.obj.sticky b{display:block;font:600 10px "JetBrains Mono",monospace;letter-spacing:.1em;margin-bottom:6px;color:#8a5a12}
+.obj.bk img{width:110px;height:165px;object-fit:cover;border-radius:2px 5px 5px 2px;box-shadow:0 14px 24px rgba(0,0,0,.6)}
+.obj.card{width:210px;padding:12px 14px;border-radius:6px;background:#1f1812;border:1px solid var(--edge2);box-shadow:0 14px 26px rgba(0,0,0,.55);font:11px/1.5 "JetBrains Mono",monospace;color:var(--ink2)}
+.obj.card b{display:block;font:500 18px Oswald;color:var(--glow);letter-spacing:.02em;margin-bottom:2px}
+.obj.medal{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;text-align:center;background:radial-gradient(circle at 35% 30%,#f2f2f2,#9a9a9a 60%,#6a6a6a);box-shadow:0 10px 18px rgba(0,0,0,.6),inset 0 0 0 5px rgba(255,255,255,.25);font:600 10px/1.2 "JetBrains Mono",monospace;color:#333}
+.obj.medal.bronze{background:radial-gradient(circle at 35% 30%,#f0c49a,#a8673a 60%,#6e3f1e);color:#3a1e0a}
+.obj.keys{width:220px;height:70px;display:flex;border-radius:4px;overflow:hidden;box-shadow:0 12px 20px rgba(0,0,0,.55);background:#111}
+.obj.keys i{flex:1;border-right:1px solid #999;background:linear-gradient(#fff,#ddd);position:relative}
+.obj.keys i:nth-child(7n+1)::after,.obj.keys i:nth-child(7n+2)::after,.obj.keys i:nth-child(7n+4)::after,.obj.keys i:nth-child(7n+5)::after,.obj.keys i:nth-child(7n+6)::after{content:"";position:absolute;right:-5px;top:0;width:9px;height:42px;background:#111;z-index:1}
+.obj.ids{width:170px;height:110px}
+.obj.ids i{position:absolute;inset:0;border-radius:8px;background:linear-gradient(135deg,#f5efe5,#cfc3b0);border:1px solid #9a8a72;box-shadow:0 8px 14px rgba(0,0,0,.4);rotate:calc(var(--k)*9deg - 18deg);transform-origin:20% 90%}
+.obj.ids span{position:absolute;left:0;right:0;bottom:-24px;text-align:center;font:italic 15px "Instrument Serif",serif;color:#f0e2cf}
+.hover-tip{position:absolute;left:50%;top:18px;translate:-50% 0;padding:6px 12px;border-radius:4px;background:rgba(20,14,10,.8);font:11px "JetBrains Mono",monospace;color:var(--dim);letter-spacing:.06em}
+
+@media (max-width:900px){
+  .readings{grid-template-columns:1fr 1fr}.proud{columns:1}.gallery{columns:2}.interests{grid-template-columns:1fr}
+  .a-split,.b-two{grid-template-columns:1fr}.shelf{overflow-x:auto}.desk{height:auto;padding:20px;display:grid;gap:16px}.obj{position:relative;left:auto;top:auto;rotate:none}
+}
+</style>
+</head>
+<body>
+<div class="bar">
+  <div class="tubes"><span>L</span><span>I</span><span>F</span><span>E</span></div>
+  <div class="tabs" role="tablist">
+    <button class="on" data-t="a">A · field notebook</button>
+    <button data-t="b">B · atlas</button>
+    <button data-t="c">C · the desk</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <header class="head">
+    <div class="kicker">real neurons · places · photos · the rest of me</div>
+    <h1>LIFE</h1>
+    <div class="banner"><svg viewBox="0 0 1000 120" preserveAspectRatio="none" id="brain"></svg></div>
+    <p class="motto">I like experiencing things I <em>know nothing about</em>.</p>
+    <p class="note"><b>Shared by all three:</b> same header as Work (amber "real neurons" banner instead of the green net), the motto as the statement, and the same footer self-portrait. The three options differ only in how the four blocks are arranged: <b>facts</b>, <b>photos</b>, <b>books</b>, <b>other interests</b>.</p>
+  </header>
+
+  <!-- ======================================================== A -->
+  <div class="opt on" id="opt-a">
+    <p class="note"><b>A · Field notebook.</b> Four labelled sections, top to bottom, the same rhythm as Work (readings → list → gallery). Most scannable and the easiest to keep updated; the personality comes from the copy, not the layout. <b>My recommendation.</b></p>
+
+    <section class="wf">
+      <div class="wf-label">01 · by the numbers <i>tubes-style readings, the Duolingo one live</i></div>
+      <div class="readings">
+        <div class="rd"><b>2129</b><span>day Duolingo streak</span><small>live · +1 every night</small></div>
+        <div class="rd"><b>4</b><span>international karate medals</span><small>2× silver · 2× bronze · kata, kobudo</small></div>
+        <div class="rd"><b>9</b><span>RCM piano level</span><small>plus guitar, in a band</small></div>
+        <div class="rd"><b>5</b><span>student ID cards</span><small>and counting</small></div>
+        <div class="rd ph" style="display:grid"><span class="ask">? countries visited</span><small>send the list</small></div>
+      </div>
+    </section>
+
+    <section class="wf">
+      <div class="wf-label">02 · things I'm proud of <i>serious and silly, alternating</i></div>
+      <ol class="proud">
+        <li>Did full-time research at <b>Stanford and NUS at the same time</b> one summer, 15 hours apart.</li>
+        <li>Got kicked out of an all-you-can-eat buffet.</li>
+        <li>Solved <b class="ask">[X]</b> Jane Street puzzles. <span class="cam">links to solver lists</span></li>
+        <li>Met Pope Francis (cardboard cutout). <span class="cam">📷</span></li>
+        <li>Kept a Duolingo streak alive for <b>2,129 days</b> and counting.</li>
+        <li>Recommended a book on a reader's YouTube channel, and it got picked. <span class="cam ask">timestamp?</span></li>
+        <li>Learned enough Japanese in 3 months to get home after getting lost in the Kyushu countryside.</li>
+        <li>Got my driver's license.</li>
+        <li>Wrote a 60,000-word manuscript on motivation, then finished it by living out the rest instead of writing it.</li>
+        <li>Accidentally hiked the hardest trail up Seoul's tallest mountain with my mom, and survived thanks to a Korean umma. <span class="cam">📷</span></li>
+        <li>Spoke about my research path at URSA, Canada's largest undergraduate research association.</li>
+        <li>Played piano <i>and</i> guitar with my band at my high-school graduation party.</li>
+        <li>Ate a pizza bun 3 km up in the Swiss Alps. <span class="cam">📷</span></li>
+        <li>Made it out of the University of Toronto alive.</li>
+        <li class="post">(post-credits) Own 5 student ID cards.</li>
+      </ol>
+      <p class="coda">…and many, many more, omitted to keep this website minimalist.</p>
+      <p class="note">Items marked 📷 get a small photo on hover. List from <b>docs/planning/CONTENT.md</b>; the karate medals and piano level live in the readings above instead of here.</p>
+    </section>
+
+    <section class="wf">
+      <div class="wf-label">03 · photos I took <i>masonry · click opens a lightbox with place + date</i></div>
+      <div class="gallery" id="gal-a"></div>
+      <p class="note"><b>Needs from you:</b> these are the photos already in the repo, and most of them are <b>of</b> you. You said "photos I took that I'm proud of", so send the ones you actually want (scenery, people, details), with a place for each. I'll resize them properly (the current set is 61 MB; the page should load ~3–5 MB).</p>
+    </section>
+
+    <section class="wf">
+      <div class="wf-label">04 · on the shelf <i>covers lift on hover · one line each, in your words</i></div>
+      <div class="shelf" id="shelf-a"></div>
+    </section>
+
+    <section class="wf">
+      <div class="wf-label">05 · off the clock</div>
+      <div class="interests">
+        <div class="int"><h4>Karate</h4><div class="lvl">2× silver · 2× bronze, international · kata + kobudo</div><p>Including the U.S. Open ISKA World Championships.</p></div>
+        <div class="int"><h4>Piano & guitar</h4><div class="lvl">RCM level 9</div><p>Played both with my band at graduation.</p></div>
+        <div class="int"><h4>Photography</h4><div class="lvl">see above</div><p>Mostly travel; the gallery is the proof.</p></div>
+        <div class="int"><h4>Bouldering</h4><div class="lvl ask">grade / gym?</div><p class="ph" style="padding:6px">one line from you</p></div>
+        <div class="int"><h4>Digital art</h4><div class="lvl ask">one piece to show?</div><p class="ph" style="padding:6px">an image would make this card</p></div>
+        <div class="int"><h4>Stories I keep returning to</h4><div class="lvl">games · anime · fiction</div><p>Zelda, Persona 5, Professor Layton, Steins;Gate, The Three-Body Problem.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======================================================== B -->
+  <div class="opt" id="opt-b">
+    <p class="note"><b>B · Atlas.</b> A world map is the centrepiece: every country is a pin, hovering one shows its best photo. Facts become a strip of polaroids you swipe through. Books and interests share a compact row at the end. Strongest "data person" signal; depends on the countries list and one photo per country.</p>
+
+    <section class="wf">
+      <div class="wf-label">01 · where I've been <i>pins = countries · hover/tap for a photo</i></div>
+      <div class="map">
+        <svg viewBox="0 0 1000 420" id="world"></svg>
+        <span class="pin" style="left:27%;top:30%" data-n="Canada"></span>
+        <span class="pin" style="left:24%;top:39%" data-n="United States"></span>
+        <span class="pin on" style="left:50.5%;top:30%" data-n="Switzerland"></span>
+        <span class="pin" style="left:48.5%;top:26%" data-n="United Kingdom?"></span>
+        <span class="pin" style="left:84%;top:37%" data-n="Japan"></span>
+        <span class="pin" style="left:80.5%;top:37%" data-n="South Korea"></span>
+        <span class="pin" style="left:75%;top:58%" data-n="Singapore"></span>
+        <div class="mapcard"><img src="life-previews/photo-08.jpg" alt=""><div><b style="color:var(--glow)">Switzerland</b><br>place? · year?<br><span style="color:var(--faint)">3 photos · ‹ ›</span></div></div>
+      </div>
+      <p class="note">Pins are guesses from your photos. <b>Need the real country list.</b> A counter beside it reads "N countries · M photos", from the data.</p>
+    </section>
+
+    <section class="wf">
+      <div class="wf-label">02 · things I'm proud of <i>swipe →</i></div>
+      <div class="strip">
+        <div class="polar" style="--r:-1.5deg"><img src="life-previews/photo-05.jpg" alt=""><p>Did full-time research at Stanford and NUS at the same time, 15 hours apart.</p><small>01 · SUMMER 2024</small></div>
+        <div class="polar" style="--r:1deg"><div class="ph">no photo needed</div><p>Got kicked out of an all-you-can-eat buffet.</p><small>02</small></div>
+        <div class="polar" style="--r:-.5deg"><div class="ph">solver-list screenshot</div><p>Solved [X] Jane Street puzzles.</p><small>03</small></div>
+        <div class="polar" style="--r:1.5deg"><div class="ph">📷 the cutout</div><p>Met Pope Francis (cardboard cutout).</p><small>04</small></div>
+        <div class="polar" style="--r:-1deg"><img src="life-previews/photo-18.jpg" alt=""><p>Ate a pizza bun 3 km up in the Swiss Alps.</p><small>13</small></div>
+        <div class="polar" style="--r:.5deg"><div class="ph">📷 Seoul</div><p>Accidentally hiked the hardest trail up Seoul's tallest mountain with my mom.</p><small>10</small></div>
+      </div>
+    </section>
+
+    <section class="wf">
+      <div class="b-two">
+        <div>
+          <div class="wf-label">03 · on the shelf</div>
+          <div class="minishelf" id="shelf-b"></div>
+        </div>
+        <div>
+          <div class="wf-label">04 · off the clock</div>
+          <div class="taglist">
+            <span>karate <b>· 4 intl medals</b></span><span>piano <b>· RCM 9</b></span><span>guitar</span><span>photography</span><span>bouldering</span><span>digital art</span><span>Duolingo <b>· 2129 days</b></span><span>Zelda</span><span>Persona 5</span><span>Professor Layton</span><span>Steins;Gate</span>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ======================================================== C -->
+  <div class="opt" id="opt-c">
+    <p class="note"><b>C · The desk.</b> One big scene: a walnut desk with things scattered on it (polaroids, sticky-note facts, books, medals, a strip of piano keys, a fan of student IDs). Hover lifts an object, click opens it. It mirrors the scattered plaques on Work. The most memorable and the most fun; the risk is that it reads as a toy, and it must collapse to a plain list (A) on phones.</p>
+    <section class="wf">
+      <div class="desk">
+        <div class="hover-tip">hover to pick something up · click to open</div>
+        <div class="obj pol" style="--x:4%;--y:6%;--r:-5deg"><img src="life-previews/photo-07-2.jpg" alt=""><span>Fushimi Inari, Kyoto?</span></div>
+        <div class="obj sticky" style="--x:25%;--y:5%;--r:3deg"><b>FACT 02</b>Got kicked out of an all-you-can-eat buffet.</div>
+        <div class="obj card" style="--x:43%;--y:8%;--r:-1.5deg"><b>2129 days</b>Duolingo streak · live</div>
+        <div class="obj bk" style="--x:64%;--y:4%;--r:6deg"><img src="../../src/assets/books/three-body-problem.jpg" alt=""></div>
+        <div class="obj bk" style="--x:73%;--y:7%;--r:-3deg"><img src="../../src/assets/books/kafka-on-the-shore.jpg" alt=""></div>
+        <div class="obj pol" style="--x:79%;--y:27%;--r:4deg;width:180px"><img src="life-previews/photo-01.jpg" alt=""><span>Swiss Alps</span></div>
+        <div class="obj sticky" style="--x:6%;--y:40%;--r:-2deg"><b>FACT 07</b>Learned enough Japanese in 3 months to get home after getting lost in rural Kyushu.</div>
+        <div class="obj medal" style="--x:30%;--y:36%;--r:-8deg">SILVER<br>KATA</div>
+        <div class="obj medal bronze" style="--x:37%;--y:45%;--r:10deg">BRONZE<br>KOBUDO</div>
+        <div class="obj keys" style="--x:50%;--y:38%;--r:-4deg"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="obj ids" style="--x:63%;--y:52%;--r:3deg"><i style="--k:0"></i><i style="--k:1"></i><i style="--k:2"></i><i style="--k:3"></i><i style="--k:4"></i><span>5 student IDs</span></div>
+        <div class="obj pol" style="--x:14%;--y:66%;--r:3deg"><img src="life-previews/photo-15.jpg" alt=""><span>Nara</span></div>
+        <div class="obj sticky" style="--x:37%;--y:68%;--r:-3deg"><b>FACT 01</b>Full-time research at Stanford and NUS at the same time, 15 hours apart.</div>
+        <div class="obj bk" style="--x:56%;--y:74%;--r:-7deg"><img src="../../src/assets/books/dune.jpg" alt=""></div>
+        <div class="obj pol" style="--x:73%;--y:66%;--r:-4deg"><img src="life-previews/photo-17.jpg" alt=""><span>New York</span></div>
+      </div>
+      <p class="note">On click, each object opens a small card (the full fact, the photo large with its place, or the book with your one-liner). Below the desk: a plain "everything on the desk" list, for skimmers and screen readers.</p>
+    </section>
+  </div>
+
+  <section class="wf">
+    <div class="wf-label">questions for you</div>
+    <ol class="note" style="margin:0;padding-left:30px">
+      <li><b>Layout:</b> A, B or C? (Mixes work too, e.g. A with B's map as section 03.)</li>
+      <li><b>Photos:</b> which photos (that you took) and where each was taken.</li>
+      <li><b>Countries</b> you've visited.</li>
+      <li><b>Facts:</b> the Jane Street count, the YouTube timestamp, and any facts to add or cut ("the ones I mentioned before" = the CONTENT.md list; tell me if there were others).</li>
+      <li><b>Books:</b> still these five? One line on why, for each.</li>
+      <li><b>Interests:</b> which language is the Duolingo streak? Bouldering grade, a digital-art piece, anything else (cooking, film…)?</li>
+    </ol>
+  </section>
+</div>
+
+<script>
+// tabs
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.opt').forEach(o=>o.classList.toggle('on',o.id==='opt-'+b.dataset.t));
+});
+// gallery (repo photos, captions are guesses)
+const P='life-previews/'; // small previews of src/assets/carousel/personal
+const gal=[['photo-01','Swiss Alps?'],['photo-07-2','Fushimi Inari, Kyoto?'],['photo-08','Lake Geneva?'],['photo-21','Kyoto?'],['photo-12','?'],['photo-17','New York'],['photo-15','Nara?'],['photo-14','?'],['photo-16','Chicago?'],['photo-23','?'],['photo-04-2','?'],['photo-03','?']];
+document.getElementById('gal-a').innerHTML=gal.map(([f,c])=>`<figure><img src="${P}${f}.jpg" alt="" loading="lazy"><figcaption><i>◉</i> ${c}</figcaption></figure>`).join('');
+const books=[['kafka-on-the-shore','Kafka on the Shore','Haruki Murakami'],['three-body-problem','The Three-Body Problem','Liu Cixin'],['lord-of-the-rings','The Lord of the Rings','J.R.R. Tolkien'],['dune','Dune','Frank Herbert'],['exhalation','Exhalation','Ted Chiang']];
+document.getElementById('shelf-a').innerHTML=books.map(([f,t,a])=>`<div class="book"><img src="../../src/assets/books/${f}.jpg" alt=""><b>${t}</b><small>${a}</small><p class="ask">why, in one line?</p></div>`).join('');
+document.getElementById('shelf-b').innerHTML=books.map(([f])=>`<img src="../../src/assets/books/${f}.jpg" alt="">`).join('');
+// banner: a few "real neurons" (amber dendrites)
+(()=>{const s=document.getElementById('brain');let h='';let r=7;const R=()=>(r=(r*9301+49297)%233280)/233280;
+for(let n=0;n<22;n++){const x=R()*1000,y=20+R()*80;for(let k=0;k<5;k++){let px=x,py=y;let d='M'+px+','+py;for(let j=0;j<4;j++){px+=(R()-.5)*70;py+=(R()-.5)*30;d+=' L'+px.toFixed(1)+','+py.toFixed(1)}h+=`<path d="${d}" fill="none" stroke="rgba(255,160,70,${.15+R()*.25})" stroke-width="1"/>`}h+=`<circle cx="${x}" cy="${y}" r="${2+R()*2}" fill="#ffb35c" style="filter:drop-shadow(0 0 4px #ff7a1a)"/>`}
+s.innerHTML=h})();
+// world map: dotted continents (very rough blobs)
+(()=>{const s=document.getElementById('world');if(!s)return;const blobs=[[270,140,130,70],[250,190,60,40],[300,310,50,80],[500,120,60,40],[520,230,60,90],[680,140,170,70],[760,230,60,40],[860,320,60,30]];let h='';
+for(let x=10;x<1000;x+=12)for(let y=10;y<420;y+=12){const inb=blobs.some(([cx,cy,rx,ry])=>((x-cx)/rx)**2+((y-cy)/ry)**2<1);if(inb)h+=`<circle cx="${x}" cy="${y}" r="2" fill="#5a4632"/>`}
+s.innerHTML=h})();
+</script>
+</body>
+</html>

@@ -129,3 +129,11 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - Figures: TI-task rig photo (Franco), DAS-change figure for EPFL (Franco), generated BiblioLinguist cover (book + quiz + readability meter, same style as the other generated covers).
 - CHIS paper: under review at *Epidemiology and Psychiatric Sciences* (not JAACAP).
 
+## Round 16 · Nov 4, 2026 — Work: awards + stack; footer everywhere; Life wireframes
+- Intro: was gated to once per tab session (refresh skipped it, which read as "gone"). Now plays on every full load; still skippable, never on in-app navigation.
+- Footer self-portrait on every page (moved into the shell), smaller.
+- Harvard: Franco's replacement logo, on a bone plaque.
+- Work order is now statement → institutions → counters → experience → **awards** → **tech stack** → projects. Why: awards belong with the record (experience) rather than the proof (projects); the stack sits directly above the projects because it works as their legend (each tool's pips count the projects below that use it, hover lists them, click jumps). Putting the stack higher (e.g. under the counters) would separate it from what it describes.
+- Awards: six named (EPFL, Stanford Chi-Li Pao, Yale, U of T CS Engagement, Eric Jackman, Trinity Experiential Learning) + "4 more · $30k+ in total". No years: the old component's years were unverified (it had EPFL as 2024).
+- Life wireframes (A field notebook / B atlas / C the desk), real content from CONTENT.md and the fact sheet.
+
