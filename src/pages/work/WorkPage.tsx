@@ -63,36 +63,17 @@ function Counters() {
 }
 
 function Experience() {
-  const [open, setOpen] = useState(false);
-  // the institution map can ask for an older role to be revealed
-  useEffect(() => {
-    const on = (e: Event) => {
-      const id = (e as CustomEvent<string>).detail;
-      if (ROLES.find((r) => r.id === id)?.older) setOpen(true);
-    };
-    window.addEventListener("fmv:open-role", on);
-    return () => window.removeEventListener("fmv:open-role", on);
-  }, []);
-  const shown = ROLES.filter((r) => open || !r.older);
-  const hidden = ROLES.filter((r) => r.older);
   return (
     <section className="wsec" aria-labelledby="experience-title">
       <h2 className="wlabel" id="experience-title">// <b>experience</b></h2>
       <ol className="roles">
-        {shown.map((r) => (
+        {ROLES.map((r) => (
           <li key={r.id} id={`role-${r.id}`} className="role">
             <div className="role-when">{r.when}</div>
             <h3>{r.org} <small>· {r.title}</small></h3>
             <p>{r.line}</p>
           </li>
         ))}
-        {!open && (
-          <li className="role more">
-            <button type="button" onClick={() => setOpen(true)} data-probe="MORE">
-              + {hidden.length} more · {hidden.map((r) => r.org.split(",")[0].replace("University of Toronto", "U of T").replace("National University of Singapore", "NUS")).join(" · ")}
-            </button>
-          </li>
-        )}
       </ol>
     </section>
   );

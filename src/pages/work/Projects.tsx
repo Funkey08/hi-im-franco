@@ -1,13 +1,14 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { COVER_ART } from "../../lib/coverArt";
 import { useSeen } from "../../lib/useSeen";
-import { FIELDS, PROJECTS, type Field, type Figure, type Project } from "../../data/work";
+import { GITHUB } from "../../data/site";
+import { PROJECTS, type Figure, type Project } from "../../data/work";
 
 function Fig({ figure, title }: { figure: Figure; title: string }) {
   const svg = useMemo(() => ("art" in figure ? COVER_ART[figure.art]() : null), [figure]);
   if ("image" in figure) {
     return (
-      <figure className={`pfig${figure.fit === "contain" ? " contain" : ""}${figure.tall ? " tall" : ""}`}>
+      <figure className={`pfig${figure.fit === "contain" ? " contain" : ""}`}>
         <img src={figure.image} alt={`Figure from ${title}`} loading="lazy" decoding="async" />
         {figure.credit && <figcaption>{figure.credit}</figcaption>}
       </figure>
@@ -24,10 +25,10 @@ function Fig({ figure, title }: { figure: Figure; title: string }) {
   );
 }
 
-function Card({ p, dim }: { p: Project; dim: boolean }) {
+function Card({ p }: { p: Project }) {
   const [ref, seen] = useSeen<HTMLElement>(0.12);
   return (
-    <article id={p.slug} ref={ref} className={`pcard${p.flagship ? " flag" : ""}${dim ? " dim" : ""}${seen ? " seen" : ""}`}>
+    <article id={p.slug} ref={ref} className={`pcard${p.flagship ? " flag" : ""}${seen ? " seen" : ""}`}>
       <Fig figure={p.figure} title={p.title} />
       <div className="pbody">
         <div className="pmeta">
@@ -55,44 +56,21 @@ function Card({ p, dim }: { p: Project; dim: boolean }) {
   );
 }
 
-/**
- * The lab notebook: flagships as wide cards, everything else as equal cards in a two-column grid.
- * Field chips highlight matching projects (others dim) rather than hiding anything.
- */
+/** The lab notebook: flagships as wide cards, then every other project as an equal card. */
 export default function Projects() {
-  const [field, setField] = useState<Field | null>(null);
-  const [showMore, setShowMore] = useState(false);
-
-  // deep link (/work#slug) to a project behind "show more": open it first
-  useEffect(() => {
-    const id = decodeURIComponent(window.location.hash.slice(1));
-    if (PROJECTS.some((p) => p.more && p.slug === id)) setShowMore(true);
-  }, []);
-
-  const dim = (p: Project) => field !== null && !p.fields.includes(field);
   const flags = PROJECTS.filter((p) => p.flagship);
-  const rest = PROJECTS.filter((p) => !p.flagship && (!p.more || showMore));
-  const hidden = PROJECTS.filter((p) => p.more).length;
-
+  const rest = PROJECTS.filter((p) => !p.flagship);
   return (
     <section className="wsec" aria-labelledby="projects-title">
-      <h2 className="wlabel" id="projects-title">// <b>projects</b></h2>
-      <div className="chips" role="group" aria-label="Highlight projects by field">
-        <button type="button" className={field === null ? "on" : ""} onClick={() => setField(null)} aria-pressed={field === null}>all</button>
-        {FIELDS.map((f) => (
-          <button key={f.id} type="button" className={field === f.id ? "on" : ""} aria-pressed={field === f.id}
-            onClick={() => setField((cur) => (cur === f.id ? null : f.id))}>{f.label}</button>
-        ))}
+      <div className="phead-row">
+        <h2 className="wlabel" id="projects-title">// <b>projects</b></h2>
+        <a className="gh-link" href={GITHUB.href} target="_blank" rel="noreferrer" data-probe="GITHUB">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+          <span>{GITHUB.label}</span><span aria-hidden="true">↗</span>
+        </a>
       </div>
-      <div className="pflags">{flags.map((p) => <Card key={p.slug} p={p} dim={dim(p)} />)}</div>
-      <div className="pgrid">{rest.map((p) => <Card key={p.slug} p={p} dim={dim(p)} />)}</div>
-      {!showMore && (
-        <div className="pmore">
-          <button type="button" onClick={() => setShowMore(true)} data-probe="MORE">
-            show {hidden} earlier projects
-          </button>
-        </div>
-      )}
+      <div className="pflags">{flags.map((p) => <Card key={p.slug} p={p} />)}</div>
+      <div className="pgrid">{rest.map((p) => <Card key={p.slug} p={p} />)}</div>
     </section>
   );
 }

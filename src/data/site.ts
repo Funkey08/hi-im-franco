@@ -11,16 +11,19 @@ export const SLOGAN = {
 };
 export const SLOGAN_TEXT = SLOGAN.lead + SLOGAN.accent + SLOGAN.tail;
 
-export const KURISU_NOTE = [
+/** Hover note beside the footer self-portrait. */
+export const SIGNOFF_NOTE = [
   "This website was inspired by Steins;Gate.",
   "For making me realize that determination precedes intelligence.",
 ];
-export const KURISU_SIGNOFF = "El Psy Kongroo.";
+export const SIGNOFF = "El Psy Kongroo.";
 
 export const EMAIL = "francomiguel.valencia@gmail.com";
 
+export const GITHUB = { label: "github.com/Funkey08", href: "https://github.com/Funkey08" };
+
 export const LINKS: { label: string; href: string }[] = [
-  { label: "github", href: "https://github.com/Funkey08" },
+  { label: "github", href: GITHUB.href },
   { label: "linkedin", href: "https://www.linkedin.com/in/franco-miguel-valencia-6a650b219/" },
   { label: "email", href: `mailto:${EMAIL}` },
   // { label: "resume", href: `${import.meta.env.BASE_URL}resume.pdf` },  // add once a current PDF is in public/

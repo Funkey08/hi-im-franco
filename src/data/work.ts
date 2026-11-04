@@ -16,13 +16,12 @@ import uoft from "../assets/logos/uoft.png";
 
 import veriskeptic from "../assets/projects/veriskeptic-pass-vs-attempts.png";
 import weightedOrs from "../assets/carousel/academic/weighted-ors.avif";
-import epflFig from "../assets/projects/epfl-acceptance-by-reward.avif";
+import epflFig from "../assets/projects/epfl-das-change.avif";
 import breast from "../assets/projects/breast-cancer-integrated-gradients.avif";
 import topomap from "../assets/carousel/academic/topomap.avif";
 import betterYears from "../assets/projects/betteryears.avif";
 import cvd from "../assets/projects/cvd-heart-failure-asmr.avif";
-import mouseLab from "../assets/timeline/mouse-lab.avif";
-import bibliolinguist from "../assets/projects/bibliolinguist.avif";
+import tiRig from "../assets/projects/ti-task-rig.avif";
 import type { CoverArt } from "./experiments";
 
 /* ------------------------------------------------------------------ statement */
@@ -92,8 +91,6 @@ export interface Role {
   org: string;
   title: string;
   line: string;
-  /** Older roles collapse behind "more". */
-  older?: boolean;
 }
 
 export const ROLES: Role[] = [
@@ -108,28 +105,19 @@ export const ROLES: Role[] = [
   { id: "stanford", when: "Apr 2024 – Apr 2026 · Palo Alto", org: "Stanford Medicine & Stanford SC²", title: "Data Science Research Fellow",
     line: "First author on a survey-weighted study of 4,366 adolescents; co-author on mortality studies of 2.4M death records; data harmonization for the Item Response Warehouse." },
   { id: "cove", when: "Aug 2024 – May 2025 · Toronto", org: "Cove Neurosciences", title: "R&D Data Science & Software Engineering Intern",
-    line: "An open-source MNE-Python pipeline for depression EEG, from artifact removal to connectivity features and classifiers.", older: true },
+    line: "An open-source MNE-Python pipeline for depression EEG, from artifact removal to connectivity features and classifiers." },
   { id: "nus", when: "May – Aug 2024 · Singapore", org: "National University of Singapore", title: "Research (full-time)",
-    line: "Held alongside the Stanford fellowship, 15 hours apart.", older: true },
+    line: "Held alongside the Stanford fellowship, 15 hours apart." },
   { id: "takehara", when: "May 2023 – Jan 2024 · Toronto", org: "Takehara Lab, University of Toronto", title: "Research Opportunity Program",
-    line: "Extended the Arduino control code of an automated transitive-inference task for mice: 6.25× more trials per session than the manual design.", older: true },
+    line: "Extended the Arduino control code of an automated transitive-inference task for mice: 6.25× more trials per session than the manual design." },
   { id: "uoft", when: "to Jun 2026 · Toronto", org: "University of Toronto", title: "BSc Hons · Computer Science, Neuroscience, Psychology",
-    line: "High Distinction.", older: true },
+    line: "High Distinction." },
 ];
 
 /* ------------------------------------------------------------------ projects */
 
-export type Field = "ml" | "stats" | "quant" | "health" | "eng";
-export const FIELDS: { id: Field; label: string }[] = [
-  { id: "ml", label: "ML & LLM agents" },
-  { id: "stats", label: "statistics" },
-  { id: "quant", label: "quant" },
-  { id: "health", label: "health & neuro" },
-  { id: "eng", label: "engineering" },
-];
-
 export type Figure =
-  | { image: string; fit?: "cover" | "contain"; credit?: string; tall?: boolean }
+  | { image: string; fit?: "cover" | "contain"; credit?: string }
   | { art: CoverArt }
   | { metric: string; caption: string };
 
@@ -138,7 +126,6 @@ export interface Project {
   title: string;
   status: { label: string; tone: "live" | "prog" | "pub" };
   meta: string;
-  fields: Field[];
   figure: Figure;
   /** Flagships only: the result in one line. */
   headline?: string;
@@ -147,13 +134,12 @@ export interface Project {
   tools: string[];
   links: { label: string; href?: string }[];
   flagship?: boolean;
-  more?: boolean;
 }
 
 export const PROJECTS: Project[] = [
   {
     slug: "veriskeptic", title: "VeriSkeptic", flagship: true,
-    status: { label: "public repo", tone: "live" }, meta: "Oct 2026 · solo", fields: ["ml", "stats", "eng"],
+    status: { label: "public repo", tone: "live" }, meta: "Oct 2026 · solo",
     figure: { image: veriskeptic, fit: "contain" },
     headline: "Letting an LLM test its own hardware code barely beats asking it once: +1.3 points, not significant.",
     desc: "An LLM agent that writes Verilog from a plain-English spec, then writes and simulates its own testbench and revises before submitting. On 152 VerilogEval problems it beat a single call by only 1.3 points (95% CI −3.9 to +6.6), even though its self-checks fixed 10 of its own drafts and broke none. The null result is the headline, reported with the cost of every call.",
@@ -163,7 +149,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "lambda", title: "λ Lambda", flagship: true,
-    status: { label: "in progress", tone: "prog" }, meta: "Oct 2026 – · solo", fields: ["quant", "stats", "eng"],
+    status: { label: "in progress", tone: "prog" }, meta: "Oct 2026 – · solo",
     figure: { art: "lambda" },
     headline: "Does order-flow imbalance predict crypto prices once you pay for trading? Pre-registered, so a clean “no” counts.",
     desc: "A study of whether order-flow imbalance predicts mid-price moves seconds ahead, net of fees, spread, latency and queue position. The multi-venue L2 recorder is built and verified against the exchanges' own checksums. The walk-forward design, leakage tests and cost model were written down before looking at any data.",
@@ -173,7 +159,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "chis-mental-health", title: "Acculturation & adolescent mental health", flagship: true,
-    status: { label: "under review · JAACAP", tone: "pub" }, meta: "Stanford · 2024 – 25 · first author", fields: ["stats", "health"],
+    status: { label: "under review · Epidemiol Psychiatr Sci", tone: "pub" }, meta: "Stanford · 2024 – 25 · first author",
     figure: { image: weightedOrs, fit: "contain" },
     headline: "Which factors predict serious distress in California's teenagers, and does it differ by race?",
     desc: "First-author analysis of the California Health Interview Survey: 4,366 adolescents, weighted to represent about 3.1 million. I pooled two survey cycles into a 160-replicate-weight design and fit survey-weighted logistic regressions across six nested specifications, with design-based tests and confidence intervals.",
@@ -183,15 +169,15 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "epfl-decisions", title: "Decisions under effort and delay",
-    status: { label: "3 papers in preparation", tone: "pub" }, meta: "EPFL · May – Aug 2025", fields: ["stats", "health"],
+    status: { label: "3 papers in preparation", tone: "pub" }, meta: "EPFL · May – Aug 2025",
     figure: { image: epflFig, fit: "contain" },
-    desc: "Mixed-effects logistic regression of 48,600 accept/reject decisions from 81 participants: people accept less often when the reward is delayed, at every reward level. The full interaction model wouldn't converge, so I fixed it with sum-to-zero contrasts and a different optimizer, reproduced the lab's reference estimates, and showed the extra 40 parameters weren't worth it (likelihood-ratio p = 0.35).",
+    desc: "Mixed-effects logistic regression of 48,600 accept/reject decisions from 81 participants, part of the lab's work on agency and apathy (the figure tracks questionnaire scores as the agency condition switches). The full interaction model wouldn't converge, so I fixed it with sum-to-zero contrasts and a different optimizer, reproduced the lab's reference estimates, and showed the extra 40 parameters weren't worth it (likelihood-ratio p = 0.35).",
     tools: ["R", "lme4", "likelihood-ratio tests", "OLS"],
     links: [{ label: "papers in preparation" }],
   },
   {
     slug: "breast-cancer", title: "Breast-cancer histopathology",
-    status: { label: "team · UTMIST", tone: "live" }, meta: "U of T · 2025", fields: ["ml", "health"],
+    status: { label: "team · UTMIST", tone: "live" }, meta: "U of T · 2025",
     figure: { image: breast },
     desc: "Image models that classify breast-tissue biopsy tiles from BreakHis and RCL-7500 as benign or malignant. I built the histopathology pipeline (stain normalization, tiling, tissue filtering, patient-level splits), the vision-transformer baselines and the ensemble, which reached a test ROC-AUC of 0.98, and the integrated-gradient maps (right) that show what it looks at.",
     tools: ["Python", "PyTorch", "ViT", "ResNet-18", "integrated gradients"],
@@ -199,7 +185,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "intact", title: "LLM extraction for underwriting",
-    status: { label: "industry", tone: "live" }, meta: "Intact Financial · Jan – Apr 2026", fields: ["ml", "eng"],
+    status: { label: "industry", tone: "live" }, meta: "Intact Financial · Jan – Apr 2026",
     figure: { art: "intact" },
     desc: "An async, parallel LLM pipeline that recovered a sparsely recorded underwriting variable from call transcripts and agent notes for 2,000+ clients, with keyword pre-filters to cut inference cost. The extracted features fed random-forest rankings of profitability drivers in Airflow pipelines that actuarial teams can reuse.",
     tools: ["Python", "OpenAI API", "asyncio", "SQL", "Databricks", "Snowflake", "Airflow"],
@@ -207,15 +193,15 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "cvd-mortality", title: "Cardiovascular mortality in Asian American subgroups",
-    status: { label: "published · AJPC 2026", tone: "pub" }, meta: "Stanford & Yale · co-author", fields: ["stats", "health"],
-    figure: { image: cvd, fit: "contain", tall: true, credit: "Fig. 2, Yang et al. 2026 · CC BY-NC-ND 4.0" },
+    status: { label: "published · AJPC 2026", tone: "pub" }, meta: "Stanford & Yale · co-author",
+    figure: { image: cvd, fit: "contain", credit: "Fig. 2, Yang et al. 2026 · CC BY-NC-ND 4.0" },
     desc: "Age-standardized heart-disease and heart-failure death rates for six Asian American subgroups from U.S. death records, 2018–2022. Heart-failure deaths rose 11.6% a year among Vietnamese American women, while ischemic heart disease stayed flat in every group; a companion stroke paper is under review.",
     tools: ["R", "NVSS mortality data", "ACS denominators", "age standardization"],
     links: [{ label: "paper ↗", href: "https://doi.org/10.1016/j.ajpc.2026.101515" }],
   },
   {
     slug: "eeg-connectivity", title: "EEG connectivity pipeline",
-    status: { label: "open source", tone: "live" }, meta: "Cove Neurosciences · 2024 – 25", fields: ["health", "ml"],
+    status: { label: "open source", tone: "live" }, meta: "Cove Neurosciences · 2024 – 25",
     figure: { image: topomap },
     desc: "An automated MNE-Python pipeline for resting-state EEG from depression patients and controls: artifact removal, source localization to 61 cortical regions, and connectivity features. Multivariate coupling features got 7 of 12 held-out subjects right versus 6 by chance, and 7 of the top 10 features were frontal–parietal.",
     tools: ["Python", "MNE-Python", "scikit-learn", "random forests"],
@@ -223,7 +209,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "betteryears", title: "BetterYears",
-    status: { label: "hackathon", tone: "live" }, meta: "Sundai Hack (MIT / Harvard) · Oct 2026", fields: ["health", "stats", "eng"],
+    status: { label: "hackathon", tone: "live" }, meta: "Sundai Hack (MIT / Harvard) · Oct 2026",
     figure: { image: betterYears },
     desc: "A Vision Pro physiotherapy app whose eight minigames turn reaction, balance, reach and memory into one “movement age”. I designed the scoring and built the Klemera–Doubal biological-age model, refit with robust Bayesian regression and adopted only when leave-one-out validation says it's no worse.",
     tools: ["Python", "Swift", "Bayesian regression", "Apple Vision Pro"],
@@ -231,32 +217,32 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: "vera", title: "Vera",
-    status: { label: "venture", tone: "live" }, meta: "U of T Innovation Lab · Sep – Dec 2025", fields: ["ml", "eng"],
+    status: { label: "venture", tone: "live" }, meta: "U of T Innovation Lab · Sep – Dec 2025",
     figure: { art: "vera" },
     desc: "A restaurant recommender that scores 4,628 Toronto restaurants against six taste archetypes and your likes, saves and visits, then returns a top five with reasons. One of eight ventures backed by the U of T Innovation Lab.",
     tools: ["Python", "FastAPI", "LangChain", "GCP Cloud Run", "Firestore", "Flutter"],
     links: [{ label: "private repo" }],
   },
   {
-    slug: "transitive-inference", title: "Automated transitive-inference task", more: true,
-    status: { label: "accepted · CAN", tone: "pub" }, meta: "Takehara Lab, U of T · 2023", fields: ["health", "eng"],
-    figure: { image: mouseLab },
+    slug: "transitive-inference", title: "Automated transitive-inference task",
+    status: { label: "accepted · CAN", tone: "pub" }, meta: "Takehara Lab, U of T · 2023",
+    figure: { image: tiRig },
     desc: "An operant task where mice learn a five-item hierarchy through nose-poke ports. I debugged and extended the Arduino control code and the data logging; the automated design ran 6.25 times more trials per session than the published manual one.",
     tools: ["C++ / Arduino", "Bonsai", "pyControl"],
     links: [{ label: "conference abstract" }],
   },
   {
-    slug: "item-response-warehouse", title: "Item Response Warehouse", more: true,
-    status: { label: "research data", tone: "live" }, meta: "Stanford SC² · 2025 – 26", fields: ["stats", "eng"],
+    slug: "item-response-warehouse", title: "Item Response Warehouse",
+    status: { label: "research data", tone: "live" }, meta: "Stanford SC² · 2025 – 26",
     figure: { metric: "~175k", caption: "item responses harmonized" },
     desc: "Ingestion pipelines that turn raw SPSS and CSV files from randomized trials into one person × item × response schema. The warehouse is the data layer others use to estimate item-level treatment effects.",
     tools: ["R", "haven", "tidyr"],
     links: [{ label: "used in published treatment-effect studies" }],
   },
   {
-    slug: "bibliolinguist", title: "BiblioLinguist", more: true,
-    status: { label: "team project", tone: "live" }, meta: "U of T", fields: ["eng"],
-    figure: { image: bibliolinguist },
+    slug: "bibliolinguist", title: "BiblioLinguist",
+    status: { label: "team project", tone: "live" }, meta: "U of T",
+    figure: { art: "biblio" },
     desc: "A Java language-learning app that turns real articles into AI-generated quizzes and scores how readable each article is. Built as a team, with everyone contributing equally.",
     tools: ["Java", "REST APIs", "OpenAI API"],
     links: [{ label: "private repo" }],

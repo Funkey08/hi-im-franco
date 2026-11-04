@@ -1,11 +1,11 @@
 import veriskeptic from "../assets/projects/veriskeptic-pass-vs-attempts.png";
 import breast from "../assets/projects/breast-cancer-integrated-gradients.avif";
 import weightedOrs from "../assets/carousel/academic/weighted-ors.avif";
-import epflFig from "../assets/projects/epfl-acceptance-by-reward.avif";
+import epflFig from "../assets/projects/epfl-das-change.avif";
 import topomap from "../assets/carousel/academic/topomap.avif";
 
 /** Generated cover art (see coverArt.ts) for projects that don't have a figure yet. */
-export type CoverArt = "lambda" | "intact" | "vera";
+export type CoverArt = "lambda" | "intact" | "vera" | "biblio";
 
 export interface Experiment {
   slug: string;

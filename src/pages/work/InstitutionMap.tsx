@@ -68,7 +68,6 @@ export default function InstitutionMap() {
   };
 
   const jump = (id: string) => {
-    window.dispatchEvent(new CustomEvent("fmv:open-role", { detail: id }));
     window.setTimeout(() => {
       const el = document.getElementById(`role-${id}`);
       if (!el) return;
