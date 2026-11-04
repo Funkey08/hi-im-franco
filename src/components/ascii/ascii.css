@@ -1,0 +1,20 @@
+.ascii {
+  --fs: 7.4px;
+  margin: 0;
+  font: 700 var(--fs) / var(--fs) var(--font-mono);
+  white-space: pre;
+  user-select: none;
+}
+.ascii-row { display: block; opacity: 0; }
+.ascii.play .ascii-row {
+  animation: ascii-row 0.28s ease-out forwards;
+  animation-delay: calc(var(--r) * var(--row-ms));
+}
+@keyframes ascii-row {
+  0% { opacity: 0; filter: brightness(2.2); }
+  40% { opacity: 1; filter: brightness(1.6); }
+  100% { opacity: 1; filter: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ascii.play .ascii-row { animation: none; opacity: 1; }
+}
