@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<style>
+  * { box-sizing: border-box; }
+  body { color: var(--foreground); padding: 18px 22px 36px; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: var(--muted-foreground); font-size: 12.5px; margin-bottom: 14px; line-height: 1.5; max-width: 900px;}
+  .tabs { display: flex; gap: 6px; margin-bottom: 8px; flex-wrap: wrap; }
+  .tab { padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; font-size: 12px; cursor: pointer; }
+  .tab.active { background: var(--accent); border-color: var(--accent); font-weight: 600; }
+  .subtabs { display:flex; gap:6px; margin: 6px 0 14px; flex-wrap: wrap;}
+  .st { padding: 4px 10px; border: 1px dashed var(--border); border-radius: 6px; font-size: 11.5px; cursor: pointer; }
+  .st.active { border-style: solid; border-color: var(--foreground); font-weight: 600; }
+  .panel, .variant { display: none; }
+  .panel.active, .variant.active { display: block; }
+  .row { display: flex; gap: 22px; align-items: flex-start; flex-wrap: wrap; }
+  .page { width: 560px; border: 1px solid var(--border); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 7px; flex-shrink: 0; }
+  .page.mobile { width: 250px; }
+  .nav { display:flex; justify-content: space-between; align-items:center; font-size: 10.5px; border-bottom: 1px solid var(--border); padding: 2px 2px 7px; }
+  .nav .links span { margin-left: 9px; }
+  .b { border: 1.5px dashed var(--border); border-radius: 6px; padding: 7px 9px; font-size: 10.5px; line-height: 1.35; background: var(--card); }
+  .b.solid { border-style: solid; }
+  .lbl { font-weight: 700; font-size: 10.5px; display:block; margin-bottom: 2px;}
+  .m { color: var(--muted-foreground); }
+  .flex { display:flex; gap: 7px; }
+  .grid2 { display:grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+  .grid3 { display:grid; grid-template-columns: repeat(3,1fr); gap: 7px; }
+  .grid4 { display:grid; grid-template-columns: repeat(4,1fr); gap: 7px; }
+  .pill { display:inline-block; border: 1px solid var(--foreground); border-radius: 999px; padding: 1px 7px; font-size: 9.5px; margin: 2px 2px 0 0; }
+  .img { border: 1px solid var(--border); border-radius: 4px; background: repeating-linear-gradient(45deg, transparent, transparent 5px, var(--border) 5px, var(--border) 6px); min-height: 44px; display:flex; align-items:center; justify-content:center; font-size: 9.5px; color: var(--muted-foreground);}
+  .big { font-size: 16px; font-weight: 800; }
+  .term { background:#0b0b0b; color:#7CFF7C; font-family: monospace; border: 1px solid #333; border-radius: 6px; padding: 9px; font-size: 10.5px; line-height: 1.5;}
+  .egg { border: 1.5px dotted #7CFF7C !important; }
+  .notes { flex: 1; min-width: 250px; max-width: 380px; font-size: 12.5px; line-height: 1.55; }
+  .notes h3 { font-size: 14px; margin: 0 0 6px; }
+  .notes ul { margin: 0 0 10px 16px; padding: 0; }
+  .pro { color: var(--foreground); } .con { color: var(--muted-foreground); }
+  .p5 { background:#d10f1b; color:#fff; font-weight: 900; transform: skew(-8deg); padding: 6px 10px; display:inline-block; }
+  .ach { display:flex; gap:7px; align-items:center; border:1px solid var(--border); border-radius: 6px; padding: 6px; font-size: 10.5px; background: var(--card);}
+  .ach .ic { width: 26px; height: 26px; border-radius: 5px; border:1px solid var(--foreground); display:flex; align-items:center; justify-content:center; font-size: 12px; flex-shrink:0;}
+  .polaroid { border:1px solid var(--border); background: var(--card); padding: 5px 5px 10px; font-size: 9.5px; text-align:center; border-radius: 3px;}
+  .legend { font-size: 11px; color: var(--muted-foreground); margin-bottom: 10px;}
+</style>
+</head>
+<body>
+<h1>Wireframes v2: page-by-page, with real content</h1>
+<div class="sub">Built from the page map in TODO §A. Pick a variant per page; mixing is fine (e.g. Home B + Work A + Life A). <span style="color:#7CFF7C">Green dotted boxes</span> = easter eggs.</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab active" data-p="home">Home</div>
+  <div class="tab" data-p="work">Work (/projects)</div>
+  <div class="tab" data-p="life">Life</div>
+  <div class="tab" data-p="proud">Proud Of card styles</div>
+  <div class="tab" data-p="mobile">Mobile</div>
+  <div class="tab" data-p="404">404</div>
+</div>
+
+<!-- ================= HOME ================= -->
+<div class="panel active" id="home">
+  <div class="subtabs">
+    <div class="st active" data-v="h1">A. Classic split</div>
+    <div class="st" data-v="h2">B. Terminal hero</div>
+    <div class="st" data-v="h3">C. Bento grid</div>
+  </div>
+
+  <div class="variant active" id="h1"><div class="row">
+    <div class="page">
+      <div class="nav"><b>FMV</b><span class="links"><span>Home</span><span>Work</span><span>Life</span><span class="pill">Resume ↓</span><span>GH · in · ✉</span></span></div>
+      <div class="flex">
+        <div class="b solid" style="flex:2"><span class="m">Hi, I'm</span><div class="big">Franco Miguel Valencia</div>Data scientist &amp; quantitative researcher. Harvard SM Data Science · MIT cross-enrolled.<br><i class="m">[one-line thesis]</i><div style="margin-top:5px"><span class="pill">Resume</span><span class="pill">GitHub</span><span class="pill">LinkedIn</span><span class="pill">Email</span></div></div>
+        <div class="img" style="flex:1;min-height:110px">portrait</div>
+      </div>
+      <div class="b"><span class="lbl">Proof strip</span>
+        <div class="flex" style="justify-content:space-between"><span>Harvard</span><span>MIT</span><span>Stanford</span><span>EPFL</span><span>Intact</span><span>U of T</span><span>Cove</span></div>
+        <div class="grid4" style="margin-top:5px;text-align:center"><b>7<br><span class="m">manuscripts</span></b><b>5<br><span class="m">conf. talks</span></b><b>$30k+<br><span class="m">awards</span></b><b>1 of 24<br><span class="m">CARE fellows</span></b></div>
+      </div>
+      <div class="b"><span class="lbl">Featured work → See all</span><div class="grid3"><div><div class="img">plot</div>VeriSkeptic</div><div><div class="img">diagram</div>λ Lambda <span class="m">(in progress)</span></div><div><div class="img">figure</div>CHIS paper</div></div></div>
+      <div class="b"><span class="lbl">About (3–4 sentences)</span><span class="m">Neuroscience → stats → markets...</span></div>
+      <div class="b"><span class="lbl">Things I'm proud of → See all</span><div class="grid3"><div class="b">Stanford + NUS at once</div><div class="b">Kicked out of a buffet</div><div class="b">Duolingo: 2,1xx days</div></div></div>
+      <div class="b"><span class="lbl">Contact</span>D-Mail form (name · email · message · Send)</div>
+      <div class="flex" style="justify-content:space-between;font-size:9.5px" ><span class="m">Lab Mem 008 · © 2026</span><span class="b egg" style="padding:3px 6px">Kurisu ASCII</span></div>
+    </div>
+    <div class="notes"><h3>A. Classic split</h3><ul>
+      <li class="pro">Safest and most familiar: text left, photo right. Recruiters know where to look.</li>
+      <li class="pro">Easiest to make responsive.</li>
+      <li class="con">The most "standard portfolio" look. All the uniqueness has to come from the intro, the Proud Of section and the details.</li></ul></div>
+  </div></div>
+
+  <div class="variant" id="h2"><div class="row">
+    <div class="page">
+      <div class="nav"><b>FMV</b><span class="links"><span>Home</span><span>Work</span><span>Life</span><span class="pill">Resume ↓</span></span></div>
+      <div class="flex">
+        <div class="term" style="flex:2">$ whoami<br><span style="color:#fff;font-size:15px;font-weight:700">Franco Miguel Valencia</span><br>&gt; data scientist · quantitative researcher<br>&gt; Harvard SM Data Science · MIT<br>&gt; currently: building λ Lambda_<br><br>[ resume ] [ github ] [ linkedin ] [ email ]</div>
+        <div class="img" style="flex:1;min-height:120px">portrait</div>
+      </div>
+      <div class="b"><span class="lbl">Proof strip (logos + 4 stats)</span><span class="m">same as A</span></div>
+      <div class="b"><span class="lbl">Featured work, as a "case file" list</span>
+        <div class="b" style="margin-bottom:4px">01 VeriSkeptic — self-checking LLM agent · <b>87.5%</b> · <span class="m">[repo]</span></div>
+        <div class="b" style="margin-bottom:4px">02 λ Lambda — order-flow predictability · <span class="m">in progress</span></div>
+        <div class="b">03 CHIS paper — first author · under review, JAACAP</div></div>
+      <div class="b"><span class="lbl">About</span></div>
+      <div class="b"><span class="lbl">Proud Of teaser</span></div>
+      <div class="term">D-MAIL &gt; to: franco · from: ___ · message: ___ [SEND]</div>
+    </div>
+    <div class="notes"><h3>B. Terminal hero</h3><ul>
+      <li class="pro">The intro's CRT style carries straight into the hero, so the page feels like one continuous idea.</li>
+      <li class="pro">"currently: ..." is a live line you can update. It shows momentum.</li>
+      <li class="con">Leans harder into the "developer" look. Readable to everyone, but less warm than A.</li>
+      <li class="con">Green on black needs care for contrast and accessibility.</li></ul></div>
+  </div></div>
+
+  <div class="variant" id="h3"><div class="row">
+    <div class="page">
+      <div class="nav"><b>FMV</b><span class="links"><span>Home</span><span>Work</span><span>Life</span><span class="pill">Resume ↓</span></span></div>
+      <div class="grid4">
+        <div class="b solid" style="grid-column: span 3"><div class="big">Franco Miguel Valencia</div>Data scientist &amp; quant researcher · Harvard · MIT<div><span class="pill">Resume</span><span class="pill">GitHub</span><span class="pill">LinkedIn</span></div></div>
+        <div class="img" style="grid-row: span 2">portrait</div>
+        <div class="b" style="text-align:center"><b class="big">7</b><br>manuscripts</div>
+        <div class="b" style="text-align:center"><b class="big">$30k+</b><br>awards</div>
+        <div class="b" style="text-align:center"><b class="big">2,1xx</b><br>day Duolingo streak</div>
+        <div class="b" style="grid-column: span 2"><span class="lbl">VeriSkeptic</span><div class="img">results plot</div></div>
+        <div class="b"><span class="lbl">λ Lambda</span><div class="img">order book</div></div>
+        <div class="b"><span class="lbl">CHIS paper</span><div class="img">fig</div></div>
+        <div class="b" style="grid-column: span 2"><span class="lbl">Proud of</span>Kicked out of a buffet · Met the Pope (cardboard) · ...</div>
+        <div class="b"><span class="lbl">Countries</span><div class="img">mini map</div></div>
+        <div class="b"><span class="lbl">Now reading</span><span class="m">book</span></div>
+        <div class="b" style="grid-column: span 3"><span class="lbl">Logos</span>Harvard · MIT · Stanford · EPFL · Intact · U of T · Cove</div>
+        <div class="b egg">Kurisu</div>
+      </div>
+      <div class="b"><span class="lbl">Contact</span></div>
+    </div>
+    <div class="notes"><h3>C. Bento grid</h3><ul>
+      <li class="pro">The most modern and the most "unique at a glance". Everything (work, stats, personality) is visible in one screen.</li>
+      <li class="pro">Live tiles (Duolingo, Now reading, map) make the site feel alive.</li>
+      <li class="con">Busiest of the three. Needs strict design discipline or it turns chaotic.</li>
+      <li class="con">Harder on mobile (tiles stack into a long list).</li></ul></div>
+  </div></div>
+</div>
+
+<!-- ================= WORK ================= -->
+<div class="panel" id="work">
+  <div class="subtabs">
+    <div class="st active" data-v="w1">A. Case-study list</div>
+    <div class="st" data-v="w2">B. Timeline + grid</div>
+  </div>
+  <div class="variant active" id="w1"><div class="row">
+    <div class="page">
+      <div class="nav"><b>FMV</b><span class="links"><span>Home</span><span><u>Work</u></span><span>Life</span></span></div>
+      <div class="b solid"><span class="lbl">Work</span>Research, industry and projects. <span class="pill">GitHub profile ↗</span></div>
+      <div><span class="pill">All</span><span class="pill">Quant</span><span class="pill">ML / AI</span><span class="pill">Health research</span></div>
+      <div class="b flex"><div class="img" style="flex:1;min-height:70px">plot</div><div style="flex:2"><span class="lbl">VeriSkeptic · Oct 2026</span>Self-checking LLM agent for hardware code. <b>Fixed 10 drafts, broke 0 (p = 0.002), but no better than one call.</b><br><span class="pill">repo</span><span class="pill">write-up</span></div></div>
+      <div class="b flex"><div style="flex:2"><span class="lbl">λ Lambda · in progress</span>Does order-flow imbalance predict crypto prices after costs? Recorder built, spec pre-registered.<br><span class="pill">repo</span></div><div class="img" style="flex:1;min-height:70px">diagram</div></div>
+      <div class="b flex"><div class="img" style="flex:1;min-height:70px">figure</div><div style="flex:2"><span class="lbl">Intact · Data Scientist I</span>LLM pipeline for 2,000+ clients; projected $300K upside.</div></div>
+      <div class="b"><span class="lbl">More projects (compact cards)</span><div class="grid3"><div class="b">CHIS paper</div><div class="b">EEG pipeline</div><div class="b">EPFL apps</div><div class="b">BetterYears</div><div class="b">Vera</div><div class="b">Mice TI task</div></div></div>
+      <div class="b"><span class="lbl">Experience timeline (static, clean)</span>2023 U of T lab → 2024 Stanford/NUS → Cove → 2025 EPFL → 2026 Intact → Harvard + MIT</div>
+      <div class="b"><span class="lbl">Publications &amp; talks</span>7 manuscripts · ACC.25 · CAMS · AACAP ...</div>
+      <div class="flex" style="justify-content:flex-end"><span class="b egg" style="padding:3px 6px">Joker</span></div>
+    </div>
+    <div class="notes"><h3>A. Case-study list</h3><ul>
+      <li class="pro">The 3 flagships get real space and a clear result line each. This is where the "honest null result" story shines.</li>
+      <li class="pro">Older and smaller work still appears, just compressed.</li>
+      <li class="con">Long page. The filter chips matter more here.</li></ul></div>
+  </div></div>
+  <div class="variant" id="w2"><div class="row">
+    <div class="page">
+      <div class="nav"><b>FMV</b><span class="links"><span>Home</span><span><u>Work</u></span><span>Life</span></span></div>
+      <div class="flex">
+        <div class="b" style="flex:1"><span class="lbl">Experience (sticky)</span>● Harvard + MIT<br>● Intact '26<br>● Stanford '24–26<br>● EPFL '25<br>● Cove '24–25<br>● U of T lab '23<br><span class="m">click to filter →</span></div>
+        <div style="flex:2.2;display:flex;flex-direction:column;gap:7px">
+          <div><span class="pill">All</span><span class="pill">Quant</span><span class="pill">ML</span><span class="pill">Health</span></div>
+          <div class="grid2"><div class="b"><div class="img">plot</div>VeriSkeptic</div><div class="b"><div class="img">diagram</div>λ Lambda</div><div class="b"><div class="img">fig</div>CHIS</div><div class="b"><div class="img">EEG</div>Cove pipeline</div><div class="b"><div class="img">app</div>EPFL apps</div><div class="b"><div class="img">VR</div>BetterYears</div></div>
+          <div class="b"><span class="lbl">Just for fun</span>Anime-Disser · ...</div>
+        </div>
+      </div>
+      <div class="b"><span class="lbl">Publications &amp; talks</span></div>
+    </div>
+    <div class="notes"><h3>B. Timeline + grid</h3><ul>
+      <li class="pro">Experience and projects are visibly linked: click "EPFL" and only EPFL work shows.</li>
+      <li class="pro">Feels like a dashboard, which suits a data scientist.</li>
+      <li class="con">Equal-sized cards make the flagships less prominent.</li>
+      <li class="con">The sticky sidebar collapses to a dropdown on mobile.</li></ul></div>
+  </div></div>
+</div>
+
+<!-- ================= LIFE ================= -->
+<div class="panel" id="life">
+  <div class="subtabs">
+    <div class="st active" data-v="l1">A. Chapters</div>
+    <div class="st" data-v="l2">B. Scrapbook</div>
+  </div>
+  <div class="variant active" id="l1"><div class="row">
+    <div class="page">
+      <div class="nav"><b>FMV</b><span class="links"><span>Home</span><span>Work</span><span><u>Life</u></span></span></div>
+      <div class="b solid"><span class="lbl">Life</span>The non-résumé part.</div>
+      <div class="b"><span class="lbl">Things I'm proud of (all ~15)</span><div class="grid3"><div class="b">...</div><div class="b">...</div><div class="b">...</div><div class="b">...</div><div class="b">...</div><div class="b">...</div></div><i class="m">...and many more, omitted to keep this website minimalist.</i></div>
+      <div class="b"><span class="lbl">Places I've been</span><div class="img" style="min-height:90px">world map: visited countries filled; hover = photo</div></div>
+      <div class="b"><span class="lbl">Photos</span><div class="grid4"><div class="img">p</div><div class="img">p</div><div class="img">p</div><div class="img">p</div></div></div>
+      <div class="b"><span class="lbl">Bookshelf</span><div class="grid4"><div class="img" style="min-height:55px">Kafka</div><div class="img" style="min-height:55px">3-Body</div><div class="img" style="min-height:55px">LOTR</div><div class="img" style="min-height:55px">Dune</div></div></div>
+      <div class="b"><span class="lbl">Also me</span>Karate medals · piano (RCM 9) · guitar · digital art · bouldering</div>
+      <div class="flex" style="justify-content:flex-end"><span class="b egg" style="padding:3px 6px">cameo TBD</span></div>
+    </div>
+    <div class="notes"><h3>A. Chapters</h3><ul>
+      <li class="pro">Clear sections, easy to scan, easy to keep adding to.</li>
+      <li class="con">Calmer and less surprising than B.</li></ul></div>
+  </div></div>
+  <div class="variant" id="l2"><div class="row">
+    <div class="page">
+      <div class="nav"><b>FMV</b><span class="links"><span>Home</span><span>Work</span><span><u>Life</u></span></span></div>
+      <div class="grid4">
+        <div class="img" style="grid-column: span 2; grid-row: span 2; min-height: 120px">big photo</div>
+        <div class="b">Kicked out of a buffet</div>
+        <div class="polaroid"><div class="img">photo</div>Pope (cardboard)</div>
+        <div class="b" style="grid-column: span 2"><div class="img">map</div></div>
+        <div class="polaroid"><div class="img">photo</div>Pizza bun, 3 km up</div>
+        <div class="b">Duolingo 2,1xx 🔥</div>
+        <div class="img">photo</div>
+        <div class="b">Karate medals</div>
+        <div class="b" style="grid-column: span 2">Bookshelf strip</div>
+      </div>
+    </div>
+    <div class="notes"><h3>B. Scrapbook</h3><ul>
+      <li class="pro">Photos, facts, map and books mixed in one collage. The most personality, and it doesn't look like a résumé.</li>
+      <li class="pro">Fine for this page to be playful: recruiters reach it only if they're curious.</li>
+      <li class="con">Needs a good number of decent photos to work.</li></ul></div>
+  </div></div>
+</div>
+
+<!-- ================= PROUD OF ================= -->
+<div class="panel" id="proud">
+  <div class="subtabs">
+    <div class="st active" data-v="p1">A. Clean cards</div>
+    <div class="st" data-v="p2">B. Achievements unlocked</div>
+    <div class="st" data-v="p3">C. Polaroid wall</div>
+  </div>
+  <div class="variant active" id="p1"><div class="row">
+    <div class="page">
+      <div class="grid3">
+        <div class="b"><div class="img">photo</div><b>Researched at Stanford and NUS at the same time</b><br><span class="m">15-hour time difference</span></div>
+        <div class="b"><div class="img">—</div><b>Got kicked out of an all-you-can-eat buffet</b></div>
+        <div class="b"><div class="img">logo</div><b>Solved [X] Jane Street puzzles</b><br><span class="pill">proof ↗</span></div>
+        <div class="b"><div class="img">photo</div><b>Met Pope Francis</b><br><span class="m">(cardboard cutout)</span></div>
+        <div class="b"><div class="img">🔥</div><b>2,1xx-day Duolingo streak</b><br><span class="m">live</span></div>
+        <div class="b"><div class="img">—</div><b>Got my driver's license</b></div>
+      </div>
+    </div>
+    <div class="notes"><h3>A. Clean cards</h3><ul><li class="pro">Simplest and readable to everyone. The humour comes entirely from the writing.</li><li class="con">The least memorable visually.</li></ul></div>
+  </div></div>
+  <div class="variant" id="p2"><div class="row">
+    <div class="page">
+      <div class="ach"><div class="ic">🏆</div><div><b>Two Places at Once</b><br>Full-time research at Stanford and NUS, the same summer</div><span class="m" style="margin-left:auto">Rare · 0.1%</span></div>
+      <div class="ach"><div class="ic">🍣</div><div><b>Banned</b><br>Kicked out of an all-you-can-eat buffet</div><span class="m" style="margin-left:auto">Secret</span></div>
+      <div class="ach"><div class="ic">🧩</div><div><b>Puzzle Hunter</b><br>Solved [X] Jane Street puzzles</div><span class="m" style="margin-left:auto">↗ proof</span></div>
+      <div class="ach"><div class="ic">🔥</div><div><b>Streak</b><br>2,1xx consecutive days of Duolingo</div><span class="m" style="margin-left:auto">live</span></div>
+      <div class="ach"><div class="ic">🚗</div><div><b>Main Quest</b><br>Got my driver's license</div><span class="m" style="margin-left:auto">Common · 84%</span></div>
+      <div class="ach" style="opacity:.55"><div class="ic">🔒</div><div><b>???</b><br>Locked. Solve the puzzle to reveal.</div></div>
+    </div>
+    <div class="notes"><h3>B. Achievements unlocked</h3><ul>
+      <li class="pro">Each item gets a game-style title and a "rarity". That adds a second layer of jokes ("Got my driver's license — Common · 84%").</li>
+      <li class="pro">Achievements are mainstream (Xbox, Steam, phones), so non-gamers get it too.</li>
+      <li class="pro">A locked "???" achievement can link to your mini-puzzle.</li>
+      <li class="con">The fake rarity numbers must be obviously jokes, not stats.</li></ul></div>
+  </div></div>
+  <div class="variant" id="p3"><div class="row">
+    <div class="page">
+      <div class="grid4">
+        <div class="polaroid" style="transform:rotate(-3deg)"><div class="img" style="min-height:60px">photo</div>Bukhansan, survived</div>
+        <div class="polaroid" style="transform:rotate(2deg)"><div class="img" style="min-height:60px">photo</div>Pizza bun, 3 km up</div>
+        <div class="polaroid" style="transform:rotate(-1deg)"><div class="img" style="min-height:60px">photo</div>The Pope (cardboard)</div>
+        <div class="polaroid" style="transform:rotate(3deg)"><div class="img" style="min-height:60px">photo</div>5 student IDs</div>
+        <div class="polaroid" style="transform:rotate(1deg)"><div class="img" style="min-height:60px">photo</div>Grad party band</div>
+        <div class="polaroid" style="transform:rotate(-2deg)"><div class="img" style="min-height:60px">photo</div>Kyushu, lost</div>
+        <div class="polaroid" style="transform:rotate(2deg)"><div class="img" style="min-height:60px">—</div>Buffet (no photo, for legal reasons)</div>
+        <div class="polaroid" style="transform:rotate(-3deg)"><div class="img" style="min-height:60px">medal</div>Karate</div>
+      </div>
+    </div>
+    <div class="notes"><h3>C. Polaroid wall</h3><ul><li class="pro">Warm and personal; works best on /life.</li><li class="con">Needs a photo for most items. Text-only items (Jane Street, Duolingo) fit awkwardly.</li><li class="m">A hybrid also works: B on Home, C on /life.</li></ul></div>
+  </div></div>
+</div>
+
+<!-- ================= MOBILE ================= -->
+<div class="panel" id="mobile"><div class="row">
+  <div class="page mobile">
+    <div class="nav"><b>FMV</b><span>☰</span></div>
+    <div class="img" style="min-height:70px">portrait</div>
+    <div class="b solid"><div class="big" style="font-size:13px">Franco Miguel Valencia</div>Data scientist · Harvard · MIT<div><span class="pill">Resume</span><span class="pill">GH</span><span class="pill">in</span></div></div>
+    <div class="b">Logos: horizontal scroll →</div>
+    <div class="grid2"><div class="b" style="text-align:center"><b>7</b><br>papers</div><div class="b" style="text-align:center"><b>$30k+</b><br>awards</div></div>
+    <div class="b">Featured: swipeable cards →</div>
+    <div class="b">About</div>
+    <div class="b">Proud of: 3 cards + See all</div>
+    <div class="b">Contact</div>
+    <div class="b egg" style="font-size:9px">Kurisu: tiny, footer only</div>
+  </div>
+  <div class="notes"><h3>Mobile (any variant)</h3><ul>
+    <li>A lot of recruiters open links from LinkedIn on their phones. Portrait first, then name and buttons.</li>
+    <li>Logos and featured work become horizontal swipe rows, so the page doesn't get endlessly long.</li>
+    <li>Intro animation: shorter (~1.5s) or skipped.</li>
+    <li>Custom cursor: off (touch has no cursor).</li></ul></div>
+</div></div>
+
+<!-- ================= 404 ================= -->
+<div class="panel" id="404"><div class="row">
+  <div class="page" style="background:#111;border-color:#d10f1b">
+    <div style="padding:20px 10px;display:flex;flex-direction:column;gap:12px;align-items:flex-start">
+      <span class="p5" style="font-size:22px">404</span>
+      <span class="p5" style="background:#fff;color:#000">THIS PAGE TOOK YOUR HEART… AND LEFT.</span>
+      <span style="color:#fff;font-size:11px">The page you're looking for doesn't exist.</span>
+      <span class="p5" style="font-size:12px">◀ TAKE ME HOME</span>
+    </div>
+  </div>
+  <div class="notes"><h3>404: Persona 5</h3><ul>
+    <li>Red/black slanted panels and bold type, used only here.</li>
+    <li>Plain-English line underneath ("doesn't exist"), so it still works for non-fans.</li>
+    <li>Big obvious home button.</li></ul></div>
+</div></div>
+
+<script>
+document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
+  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(x => x.classList.remove('active'));
+  t.classList.add('active'); document.getElementById(t.dataset.p).classList.add('active');
+});
+document.querySelectorAll('.st').forEach(s => s.onclick = () => {
+  const panel = s.closest('.panel');
+  panel.querySelectorAll('.st').forEach(x => x.classList.remove('active'));
+  panel.querySelectorAll('.variant').forEach(x => x.classList.remove('active'));
+  s.classList.add('active'); document.getElementById(s.dataset.v).classList.add('active');
+});
+</script>
+</body>
+</html>

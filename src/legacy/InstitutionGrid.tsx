@@ -1,0 +1,51 @@
+const companyLogosMap = import.meta.glob<string>(
+  "../assets/logos/*.{png,svg,jpg,jpeg}",
+  {
+    eager: true,
+    query: "?url",
+      import: "default",
+  }
+);
+
+const companyOrder = [
+  "uoft.png",
+  "stanford.png",
+  "epfl.png",
+  "campus-biotech.png",
+  "nus.png",
+  "cove.png",
+];
+
+const companyLogos = companyOrder.map(
+  (name) => companyLogosMap[`../assets/logos/${name}`]
+);
+
+const InstitutionGrid = () => {
+  return (
+    <section
+      id="InstitutionGrid"
+      className="w-full pt-24 px-4 bg-neutral-900 text-white"
+    >
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl pl-1 mb-8 text-left">I have worked at:</h2>
+
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-60 gap-y-20 justify-items-center items-center">
+          {companyLogos.map((src, idx) => (
+            <div
+              key={idx}
+              className="h-40 w-50 object-contain flex items-center justify-center"
+            >
+              <img
+                src={src}
+                alt={`Company logo ${idx}`}
+                className="h-full w-full object-contain transition-transform duration-300 hover:scale-120"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default InstitutionGrid;

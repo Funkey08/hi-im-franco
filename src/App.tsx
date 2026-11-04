@@ -1,65 +1,31 @@
-// import { useState } from "react";
-import AboutMe from "./components/AboutMe.tsx";
-import Header from "./components/Header.tsx";
-import ImageCarousel from "./components/ImageCarousel.tsx";
-import InstitutionGrid from "./components/InstitutionGrid.tsx";
-import ProjectShowcase from "./components/ProjectShowcase.tsx";
-import FavBooks from "./components/FavBooks.tsx";
-import ContactSection from "./components/ContactSection.tsx";
-import Timeline from "./components/TimelineBio.tsx";
-import Footer from "./components/Footer.tsx";
-import NavLinks from "./components/NavLinks.tsx";
-import AwardsSection from "./components/AwardSection.tsx";
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-//import "./App.css";
+import { lazy, Suspense } from "react";
+import { BrowserRouter, Route, Routes } from "react-router";
+import Layout from "./components/layout/Layout";
+import InstrumentProvider from "./instrument/InstrumentProvider";
+import Home from "./pages/home/Home";
+import NotFound from "./pages/NotFound";
+import WorkPage from "./pages/work/WorkPage";
 
-const collator = new Intl.Collator(undefined, {
-  numeric: true,
-  sensitivity: "base",
-});
+// The old site stays reachable at /legacy while it's replaced; loaded only if visited.
+const LegacyApp = lazy(() => import("./legacy/LegacyApp"));
+// Life carries the map and photo data; load it only when someone goes there.
+const LifePage = lazy(() => import("./pages/life/LifePage"));
 
-const personalImages = Object.values(
-  import.meta.glob(
-    "./assets/carousel/personal/*.{avif,jpg,JPG,jpeg,png,webp}",
-    {
-      eager: true,
-      as: "url",
-    }
-  )
-);
+/** Vite's base ("/hi-im-franco/") without the trailing slash, as React Router expects. */
+const BASENAME = import.meta.env.BASE_URL.replace(/\/$/, "");
 
-const personalImagesSort = [...personalImages].sort(collator.compare);
-
-const academicImages = Object.values(
-  import.meta.glob(
-    "./assets/carousel/academic/*.{avif,jpg,JPG,jpeg,png,webp}",
-    {
-      eager: true,
-      as: "url",
-    }
-  )
-);
-
-function App() {
+export default function App() {
   return (
-    <main className="font-sans">
-      <NavLinks />
-      <Header />
-      <div className="space-y-4">
-        <ImageCarousel images={personalImagesSort} speed={0.05} />
-        <ImageCarousel images={academicImages} speed={0.05} reverse />
-      </div>
-      <InstitutionGrid />
-      <AboutMe />
-      <ProjectShowcase />
-      <AwardsSection />
-      <Timeline />
-      <FavBooks />
-      <ContactSection />
-      <Footer />
-    </main>
+    <BrowserRouter basename={BASENAME}>
+      <Routes>
+        <Route path="legacy" element={<Suspense fallback={null}><LegacyApp /></Suspense>} />
+        <Route element={<InstrumentProvider><Layout /></InstrumentProvider>}>
+          <Route index element={<Home />} />
+          <Route path="work" element={<WorkPage />} />
+          <Route path="life" element={<Suspense fallback={null}><LifePage /></Suspense>} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
-
-export default App;

@@ -1,0 +1,324 @@
+/* ============================================================================
+   Nixie clock
+   --tw   tube width; everything scales from it
+   --heat 1 at rest, higher on hover: more glow, brighter ghosts (the "it's live" cue)
+   --dock 0 in the hero, 1 when docked in the header (fades the plinth out)
+   ========================================================================== */
+.clock {
+  --tw: clamp(44px, min(8.2vw, 13.5vh), 116px);
+  --heat: 1;
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: stretch;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transform-origin: 0 0;
+}
+.clock:hover,
+.clock:focus-visible { --heat: 1.25; }
+.clock:focus-visible .clock-tubes { outline: 1px dashed rgba(255, 179, 92, 0.6); outline-offset: calc(var(--tw) * 0.12); border-radius: 12px; }
+
+.clock-tubes {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: calc(var(--tw) * 0.15);
+  padding: 0 calc(var(--tw) * 0.34);
+  transform: perspective(1200px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
+  translate: 0 0;
+  transition: translate 0.35s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+.clock:hover .clock-tubes { translate: 0 -2px; }
+
+/* ---------------------------------------------------------------- tube */
+.tube {
+  position: relative;
+  width: var(--tw);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+/* halo the tube throws on the wall behind it */
+.tube::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  width: 250%;
+  height: 135%;
+  translate: -50% -50%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, rgba(255, 112, 28, calc(0.26 * var(--heat))), rgba(255, 90, 10, 0.06) 62%, transparent);
+  mix-blend-mode: screen;
+  opacity: 0;
+  transition: opacity 0.3s, background 0.35s;
+}
+.tube.on::before { opacity: 1; }
+
+.tube-glass {
+  position: relative;
+  width: 100%;
+  height: calc(var(--tw) * 1.78);
+  overflow: hidden;
+  border-radius: 50% 50% 13% 13% / 29% 29% 7% 7%;
+  border: 1px solid rgba(255, 214, 170, 0.17);
+  background:
+    linear-gradient(90deg, rgba(255, 238, 215, 0.11), rgba(255, 238, 215, 0.025) 17%, transparent 42%, rgba(255, 238, 215, 0.015) 74%, rgba(255, 238, 215, 0.10)),
+    radial-gradient(ellipse 72% 56% at 50% 54%, rgba(255, 118, 30, 0), transparent 72%),
+    rgba(24, 16, 11, 0.78);
+  box-shadow:
+    inset 0 0 calc(var(--tw) * 0.3) rgba(0, 0, 0, 0.62),
+    inset 0 calc(var(--tw) * -0.08) calc(var(--tw) * 0.18) rgba(0, 0, 0, 0.5),
+    0 calc(var(--tw) * 0.16) calc(var(--tw) * 0.3) rgba(0, 0, 0, 0.42);
+  filter: brightness(calc(0.92 + 0.08 * var(--heat)));
+  transition: filter 0.35s, background 0.35s;
+}
+.tube.on .tube-glass {
+  background:
+    linear-gradient(90deg, rgba(255, 238, 215, 0.11), rgba(255, 238, 215, 0.025) 17%, transparent 42%, rgba(255, 238, 215, 0.015) 74%, rgba(255, 238, 215, 0.10)),
+    radial-gradient(ellipse 72% 56% at 50% 54%, rgba(255, 118, 30, calc(0.16 * var(--heat))), transparent 72%),
+    rgba(24, 16, 11, 0.78);
+}
+
+/* silvery getter film in the dome */
+.tube-getter {
+  position: absolute;
+  inset: 0 6% auto;
+  height: 17%;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: radial-gradient(ellipse 72% 100% at 50% 0%, rgba(210, 196, 178, 0.24), rgba(150, 128, 104, 0.08) 55%, transparent 82%);
+}
+
+/* the other cathodes, stacked behind the lit one */
+.tube-stack span,
+.tube-glyph {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-bottom: calc(var(--tw) * 0.06);
+  font: 300 calc(var(--tw) * 1.1) / 1 var(--font-display);
+}
+.tube-stack span {
+  color: rgba(255, 176, 118, calc(0.022 + 0.05 * (var(--heat) - 1)));
+  -webkit-text-stroke: 0.5px rgba(255, 176, 118, calc(0.05 + 0.08 * (var(--heat) - 1)));
+  translate: calc((var(--k) - 1.5) * 0.7px) calc((var(--k) - 1.5) * -0.6px);
+  scale: calc(1 - var(--k) * 0.018);
+  transition: color 0.35s;
+}
+
+.tube-glyph {
+  color: #ffdcae;
+  text-shadow:
+    0 0 1px #fff4e2,
+    0 0 calc(var(--tw) * 0.06) #ffa443,
+    0 0 calc(var(--tw) * 0.16) #ff7612,
+    0 0 calc(var(--tw) * 0.38) rgba(255, 82, 0, calc(0.55 * var(--heat)));
+  opacity: 0;
+}
+.tube.on .tube-glyph {
+  opacity: 1;
+  animation: tube-strike 0.4s steps(1) both, tube-hum 7s ease-in-out infinite;
+  animation-delay: 0s, calc(var(--i) * -1.17s);
+}
+.tube.rolling .tube-glyph { animation: none; opacity: 0.92; }
+@keyframes tube-strike {
+  0% { opacity: 0.12; } 16% { opacity: 0.85; } 30% { opacity: 0.22; }
+  46% { opacity: 1; } 58% { opacity: 0.55; } 70%, 100% { opacity: 1; }
+}
+@keyframes tube-hum {
+  0%, 60%, 100% { opacity: 1; } 61% { opacity: 0.8; } 62% { opacity: 1; } 63.5% { opacity: 0.9; } 64.5% { opacity: 1; }
+}
+
+.tube-dp {
+  position: absolute;
+  right: 11%;
+  bottom: 12%;
+  width: calc(var(--tw) * 0.075);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(255, 172, 112, 0.09);
+}
+.tube-dp.on {
+  background: #ffe4c2;
+  box-shadow: 0 0 3px #ffa443, 0 0 calc(var(--tw) * 0.1) #ff7612, 0 0 calc(var(--tw) * 0.2) rgba(255, 82, 0, 0.7);
+}
+
+/* honeycomb anode mesh in front of the cathodes */
+.tube-mesh {
+  position: absolute;
+  inset: 7% 7% 8%;
+  border-radius: 45% 45% 10% 10% / 24% 24% 6% 6%;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='20.78' viewBox='0 0 12 20.78'%3E%3Cpath d='M6 0l6 3.46v6.93L6 13.86 0 10.39V3.46zM6 13.86v6.92' fill='none' stroke='%23ffdcb4' stroke-opacity='0.13' stroke-width='0.7'/%3E%3C/svg%3E");
+  background-size: calc(var(--tw) * 0.13) auto;
+  pointer-events: none;
+}
+
+/* reflections on the curved glass */
+.tube-shine::before,
+.tube-shine::after {
+  content: "";
+  position: absolute;
+  border-radius: 99px;
+  pointer-events: none;
+}
+.tube-shine::before {
+  left: 13%; top: 9%; width: 7%; height: 70%;
+  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05) 70%, transparent);
+  filter: blur(0.4px);
+}
+.tube-shine::after {
+  right: 12%; top: 15%; width: 3%; height: 50%;
+  background: linear-gradient(rgba(255, 255, 255, 0.13), transparent);
+}
+
+/* bakelite socket + pins */
+.tube-socket {
+  position: relative;
+  width: 84%;
+  height: calc(var(--tw) * 0.2);
+  margin-top: -1px;
+  border-radius: 0 0 calc(var(--tw) * 0.07) calc(var(--tw) * 0.07);
+  background: linear-gradient(180deg, #17110d, #0b0806 60%, #1b130d);
+  box-shadow: inset 0 1px 0 rgba(255, 220, 180, 0.09), 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+.tube-socket::before {
+  content: "";
+  position: absolute;
+  inset: 32% 9% auto;
+  height: 1px;
+  background: rgba(255, 200, 150, 0.09);
+}
+.tube-socket i {
+  position: absolute;
+  bottom: calc(var(--tw) * -0.07);
+  width: 2px;
+  height: calc(var(--tw) * 0.07);
+  background: linear-gradient(#b0956b, #5d4a33);
+}
+.tube-socket i:first-child { left: 30%; }
+.tube-socket i:last-child { right: 30%; }
+
+/* light pooling on the plinth under each lit tube */
+.tube-pool {
+  position: absolute;
+  left: -35%;
+  right: -35%;
+  bottom: calc(var(--tw) * -0.3);
+  height: calc(var(--tw) * 0.34);
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, rgba(255, 138, 48, calc(0.4 * var(--heat))), transparent 70%);
+  mix-blend-mode: screen;
+  filter: blur(2px);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.tube.on .tube-pool { opacity: calc(1 - var(--dock, 0) * 3); }
+
+/* hover: a brightness ripple runs left to right through the lit tubes */
+.clock:hover .tube.on .tube-glass,
+.clock:focus-visible .tube.on .tube-glass {
+  animation: tube-ripple 0.65s ease-out calc(var(--i) * 65ms) 1;
+}
+@keyframes tube-ripple {
+  0% { filter: brightness(1); } 35% { filter: brightness(1.5); } 100% { filter: brightness(calc(0.92 + 0.08 * var(--heat))); }
+}
+
+/* ---------------------------------------------------------------- plinth */
+.clock-plinth {
+  position: relative;
+  z-index: 0;
+  margin-top: calc(var(--tw) * 0.06);
+  opacity: calc(1 - var(--dock, 0) * 2.4);
+}
+.plinth-top {
+  height: calc(var(--tw) * 0.13);
+  margin: 0 calc(var(--tw) * 0.06);
+  border-radius: 4px 4px 0 0;
+  background: linear-gradient(180deg, #6a4830, #4b301e);
+  box-shadow: inset 0 1px 0 rgba(255, 222, 186, 0.2);
+}
+.plinth-face {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--tw) * 0.14);
+  height: calc(var(--tw) * 0.32);
+  padding: 0 calc(var(--tw) * 0.16);
+  border-radius: 0 0 7px 7px;
+  background:
+    repeating-linear-gradient(92deg, rgba(0, 0, 0, 0.1) 0 2px, transparent 2px 9px),
+    repeating-linear-gradient(87deg, rgba(255, 212, 164, 0.04) 0 1px, transparent 1px 14px),
+    linear-gradient(180deg, #4d311f, #3b2517 55%, #2b1a10);
+  box-shadow: 0 calc(var(--tw) * 0.22) calc(var(--tw) * 0.4) rgba(0, 0, 0, 0.5), inset 0 -2px 0 rgba(0, 0, 0, 0.35);
+  font: 600 clamp(7px, calc(var(--tw) * 0.085), 10.5px) / 1 var(--font-mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+.plinth-screw {
+  width: calc(var(--tw) * 0.07);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #d9bd8c, #7d6240 70%);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+  position: relative;
+}
+.plinth-screw::after {
+  content: "";
+  position: absolute;
+  inset: 45% 15%;
+  background: rgba(40, 26, 14, 0.7);
+  rotate: 35deg;
+}
+.plinth-plate {
+  margin-right: auto;
+  padding: 0.45em 0.8em 0.4em;
+  border-radius: 2px;
+  color: #3b2614;
+  background: linear-gradient(180deg, #d4b07a, #a7834f 60%, #8f6d3f);
+  box-shadow: inset 0 1px 0 rgba(255, 240, 210, 0.55), inset 0 -1px 0 rgba(0, 0, 0, 0.25), 0 1px 2px rgba(0, 0, 0, 0.4);
+  text-shadow: 0 1px 0 rgba(255, 236, 200, 0.45);
+  white-space: nowrap;
+}
+.plinth-ready {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  color: #7c5d3c;
+  transition: color 0.3s, text-shadow 0.3s;
+}
+.plinth-led {
+  width: 0.75em;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: #3b1d0b;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6);
+  transition: background 0.25s, box-shadow 0.25s;
+}
+.clock.invite .plinth-led { animation: ready-blink 2.6s ease-in-out infinite; }
+.clock:hover .plinth-ready,
+.clock:focus-visible .plinth-ready { color: #ffd6a0; text-shadow: 0 0 8px rgba(255, 140, 40, 0.8); }
+.clock:hover .plinth-led,
+.clock:focus-visible .plinth-led { animation: none; background: #ffb35c; box-shadow: 0 0 5px #ff7a1a, 0 0 12px rgba(255, 110, 20, 0.8); }
+@keyframes ready-blink {
+  0%, 70%, 100% { background: #3b1d0b; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.6); }
+  78%, 90% { background: #ff9a3c; box-shadow: 0 0 5px #ff7a1a, 0 0 10px rgba(255, 110, 20, 0.6); }
+}
+
+/* ---------------------------------------------------------------- docked */
+.clock.is-docked { --heat: 1; }
+.clock.is-docked .tube::before { opacity: calc(1 - var(--dock, 0) * 0.5); }
+.clock.is-docked .tube-glass { box-shadow: inset 0 0 calc(var(--tw) * 0.3) rgba(0, 0, 0, 0.62); }
+.clock.is-docked:hover .clock-tubes { translate: 0 0; }
+.clock.is-docked .clock-plinth { pointer-events: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .tube.on .tube-glyph,
+  .clock.invite .plinth-led,
+  .clock:hover .tube.on .tube-glass { animation: none; }
+}
