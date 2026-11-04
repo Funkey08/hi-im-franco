@@ -1,3 +1,5 @@
+import { duolingoStreak } from "./counters";
+
 /**
  * What the nixie tubes can "measure". Index 0 is the resting state (the name).
  * Rules: real work metrics only, every value tagged [V] in the FACT_SHEET, no grades.
@@ -31,6 +33,8 @@ export const READINGS: Reading[] = [
     caption: "What the entire 152-problem VeriSkeptic benchmark cost to run in API calls." },
   { value: "1342", unit: "Checksums", label: "Checksums matched", numeric: true,
     caption: "Live order-book checksums verified: 1,342 of 1,342. λ Lambda, in progress." },
-  { value: "2100", unit: "Days", label: "Day streak", numeric: true,
+  { value: String(duolingoStreak()), unit: "Days", label: "Day streak", numeric: true,
     caption: "Consecutive days of Duolingo, and counting." },
 ];
+
+// Note: the Duolingo value is computed when the page loads (see counters.ts), so it ticks up nightly.
