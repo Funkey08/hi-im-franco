@@ -137,3 +137,9 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - Awards: six named (EPFL, Stanford Chi-Li Pao, Yale, U of T CS Engagement, Eric Jackman, Trinity Experiential Learning) + "4 more · $30k+ in total". No years: the old component's years were unverified (it had EPFL as 2024).
 - Life wireframes (A field notebook / B atlas / C the desk), real content from CONTENT.md and the fact sheet.
 
+## Round 17 · Nov 4, 2026 — every award; plainer stack; contact row on every page
+- Awards: all ten listed (Franco: "hide none").
+- Stack: pips and click-to-jump removed, all chips the same colour; the hover note stays.
+- Footer: compose box (left) + self-portrait (right) in one row on every page, so the page ends without empty space. Phones stack them.
+- Life work continues on branch `feat/life-page` (off `feat/home-page`).
+
