@@ -1,4 +1,4 @@
-import { useCallback, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState, type CSSProperties } from "react";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router";
 import { READINGS } from "../../data/readings";
@@ -21,7 +21,7 @@ const DOCK_RANGE = 300;
  */
 export default function NixieDock() {
   const inst = useInstrument();
-  const { heroSlot, readingIndex, hasMeasured, measure, back } = inst;
+  const { heroSlot, readingIndex, hasMeasured, measure, back, rest } = inst;
   const { pathname } = useLocation();
   const onHome = pathname === "/";
 
@@ -103,8 +103,12 @@ export default function NixieDock() {
   const docked = mode !== "hero";
   // the top bar turns solid once the clock is in it (see layout.css)
   useLayoutEffect(() => { document.body.toggleAttribute("data-docked", mode === "dock"); }, [mode]);
+  // in the header the clock always reads FRANCO: it's the site's name plate
+  useEffect(() => { if (mode === "dock") rest(); }, [mode, rest]);
   const target = mode === "hero" && heroSlot ? heroSlot : layer;
-  const activate = onHome ? measure : back;
+  // hero: take a reading · docked on Home: scroll back up to the instrument · other pages: go home
+  const toTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+  const activate = !onHome ? back : docked ? toTop : measure;
   const reading = READINGS[readingIndex];
 
   return (
@@ -116,7 +120,7 @@ export default function NixieDock() {
           aria-hidden="true"
           style={{ opacity: 0 } as CSSProperties}
         >
-          {onHome && readingIndex > 0 && <b>{reading.label}</b>}
+          {onHome && readingIndex > 0 && mode !== "dock" && <b>{reading.label}</b>}
         </div>
       </div>
       {target && createPortal(
@@ -124,8 +128,8 @@ export default function NixieDock() {
           ref={clockRef}
           docked={docked}
           onActivate={activate}
-          probe={onHome ? "MEASURE" : "HOME"}
-          ariaLabel={onHome ? "Franco. Press to take a measurement." : "Back to the home page"}
+          probe={!onHome ? "HOME" : docked ? "TOP" : "MEASURE"}
+          ariaLabel={!onHome ? "Back to the home page" : docked ? "Back to the top" : "Franco. Press to take a measurement."}
           invite={onHome && !hasMeasured && !docked}
         />,
         target,
