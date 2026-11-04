@@ -1,5 +1,5 @@
-import { rng } from "../../lib/util";
-import type { CoverArt } from "../../data/experiments";
+import { rng } from "./util";
+import type { CoverArt } from "../data/experiments";
 
 /**
  * On-theme SVG covers for projects that don't have a figure yet. Deterministic (seeded),
@@ -16,7 +16,7 @@ export const COVER_ART: Record<CoverArt, () => string> = {
     for (let x = 320; x >= 160; x -= 8) { y2 -= R() * 9; ask.push(`L${x},${y2.toFixed(1)} L${x - 8},${y2.toFixed(1)}`); }
     let spark = "M14,40", v = 40;
     for (let x = 14; x <= 306; x += 6) { v = Math.max(16, Math.min(64, v + (R() - 0.5) * 9)); spark += ` L${x},${v.toFixed(1)}`; }
-    return `<svg viewBox="0 0 320 168" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="168" fill="#15100b"/>
+    return `<svg viewBox="0 0 320 168" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg"><rect width="320" height="168" fill="#15100b"/>
       ${[42, 84, 126].map((gy) => `<line x1="0" x2="320" y1="${gy}" y2="${gy}" stroke="#2f241a"/>`).join("")}
       <path d="M0,168 L0,150 ${bid} L160,168 Z" fill="rgba(125,255,176,.16)" stroke="#7dffb0" stroke-width="1.4"/>
       <path d="M320,168 L320,150 ${ask.join(" ")} L160,168 Z" fill="rgba(255,179,92,.16)" stroke="#ffb35c" stroke-width="1.4"/>

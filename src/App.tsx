@@ -5,6 +5,7 @@ import InstrumentProvider from "./instrument/InstrumentProvider";
 import Home from "./pages/home/Home";
 import NotFound from "./pages/NotFound";
 import SectionPage from "./pages/SectionPage";
+import WorkPage from "./pages/work/WorkPage";
 
 // The old site stays reachable at /legacy while it's replaced; loaded only if visited.
 const LegacyApp = lazy(() => import("./legacy/LegacyApp"));
@@ -19,7 +20,7 @@ export default function App() {
         <Route path="legacy" element={<Suspense fallback={null}><LegacyApp /></Suspense>} />
         <Route element={<InstrumentProvider><Layout /></InstrumentProvider>}>
           <Route index element={<Home />} />
-          <Route path="work" element={<SectionPage section="work" />} />
+          <Route path="work" element={<WorkPage />} />
           <Route path="life" element={<SectionPage section="life" />} />
           <Route path="*" element={<NotFound />} />
         </Route>
