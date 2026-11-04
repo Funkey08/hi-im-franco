@@ -1,7 +1,7 @@
 # Website Overhaul TODO
 
 Stack: React + Vite + TypeScript + Tailwind, deployed to GitHub Pages at `/hi-im-franco/`.
-Branches: `main` = live site · `archive/original-site` + `archive/original-site-build` (tag `v1-original-site`) = frozen copy of the original site · `overhaul` = redesign base · feature branches off `overhaul` (e.g. the home page build).
+Branches: `main` = the redesign (merged Nov 4, 2026); the live site updates only on `yarn deploy` (publishes `gh-pages`) · `archive/original-site` (source) + `archive/original-site-build` (exact built site) + tag `v1-original-site` = frozen copy of the original site · new work on feature branches off `main`.
 Code map: `src/instrument/` (nixie controller + shared state) · `src/components/` (nixie clock, dock, layout, fx, ascii) · `src/sims/` (net + neuron canvases) · `src/pages/` (home, section placeholders, 404) · `src/data/` (all copy and metrics) · `src/legacy/` (the old site, served at `/legacy` until replaced).
 Planning docs live in `docs/` (see `docs/README.md`). Copy drafts (Proud Of list, etc.): `docs/planning/CONTENT.md`.
 
