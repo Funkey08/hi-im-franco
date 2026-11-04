@@ -26,11 +26,12 @@ const books = [
   },
 ];
 
-const booksCoversMap = import.meta.glob(
+const booksCoversMap = import.meta.glob<string>(
   "../assets/books/*.{avif,png,svg,jpg,jpeg}",
   {
     eager: true,
-    as: "url",
+    query: "?url",
+      import: "default",
   }
 );
 

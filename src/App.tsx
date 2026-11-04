@@ -1,4 +1,3 @@
-// import { useState } from "react";
 import AboutMe from "./components/AboutMe.tsx";
 import Header from "./components/Header.tsx";
 import ImageCarousel from "./components/ImageCarousel.tsx";
@@ -10,9 +9,6 @@ import Timeline from "./components/TimelineBio.tsx";
 import Footer from "./components/Footer.tsx";
 import NavLinks from "./components/NavLinks.tsx";
 import AwardsSection from "./components/AwardSection.tsx";
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-//import "./App.css";
 
 const collator = new Intl.Collator(undefined, {
   numeric: true,
@@ -20,11 +16,12 @@ const collator = new Intl.Collator(undefined, {
 });
 
 const personalImages = Object.values(
-  import.meta.glob(
+  import.meta.glob<string>(
     "./assets/carousel/personal/*.{avif,jpg,JPG,jpeg,png,webp}",
     {
       eager: true,
-      as: "url",
+      query: "?url",
+      import: "default",
     }
   )
 );
@@ -32,11 +29,12 @@ const personalImages = Object.values(
 const personalImagesSort = [...personalImages].sort(collator.compare);
 
 const academicImages = Object.values(
-  import.meta.glob(
+  import.meta.glob<string>(
     "./assets/carousel/academic/*.{avif,jpg,JPG,jpeg,png,webp}",
     {
       eager: true,
-      as: "url",
+      query: "?url",
+      import: "default",
     }
   )
 );

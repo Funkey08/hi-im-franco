@@ -1,8 +1,9 @@
-const companyLogosMap = import.meta.glob(
+const companyLogosMap = import.meta.glob<string>(
   "../assets/companies/*.{png,svg,jpg,jpeg}",
   {
     eager: true,
-    as: "url",
+    query: "?url",
+      import: "default",
   }
 );
 

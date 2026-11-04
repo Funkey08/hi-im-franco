@@ -2,11 +2,12 @@ import { useRef, useLayoutEffect, useState, useCallback } from "react";
 import { motion } from "framer-motion";
 
 // ---- your existing data ----
-const imgMap = import.meta.glob(
+const imgMap = import.meta.glob<string>(
   "../assets/timeline/*.{avif,png,jpg,jpeg,webp}",
   {
     eager: true,
-    as: "url",
+    query: "?url",
+      import: "default",
   }
 );
 
