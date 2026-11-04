@@ -5,13 +5,14 @@ import { useInstrument } from "../../instrument/context";
 import Atmosphere from "../fx/Atmosphere";
 import ProbeCursor from "../fx/ProbeCursor";
 import WarpOverlay from "../fx/WarpOverlay";
+import WorldlineBoot from "../fx/WorldlineBoot";
 import NixieDock from "./NixieDock";
 import "./layout.css";
 
 /** App shell: atmosphere, top bar with the docking clock, transitions, and the current page. */
 export default function Layout() {
   const { pathname } = useLocation();
-  const { leaving } = useInstrument();
+  const { leaving, introDone, finishIntro } = useInstrument();
   const section = pathname.replace(/^\/+|\/+$/g, "") || "home";
   // Only pages reached by navigation power on like a CRT; the page you land on doesn't.
   const [landing] = useState(pathname);
@@ -43,6 +44,7 @@ export default function Layout() {
       <NixieDock />
       <WarpOverlay />
       <ProbeCursor />
+      {!introDone && <WorldlineBoot onDone={finishIntro} />}
       <div
         id="main"
         key={pathname}

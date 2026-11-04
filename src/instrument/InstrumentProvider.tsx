@@ -7,6 +7,7 @@ import { NixieController } from "./nixie";
 
 const MEASURED_KEY = "fmv.hasMeasured";
 const BOOTED_KEY = "fmv.booted";
+const INTRO_KEY = "fmv.intro";
 const SECTIONS: Section[] = ["work", "life"];
 
 const sectionOf = (path: string): Section | null => {
@@ -30,6 +31,8 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
   const [warp, setWarp] = useState<Section | null>(null);
   const [leaving, setLeaving] = useState(false);
   const [heroSlot, registerHeroSlot] = useState<HTMLElement | null>(null);
+  const [introDone, setIntroDone] = useState(() => readFlag(sessionStorage, INTRO_KEY) || reducedMotion());
+  const finishIntro = useCallback(() => { writeFlag(sessionStorage, INTRO_KEY); setIntroDone(true); }, []);
 
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -39,6 +42,8 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
   const indexRef = useRef(0);
   const phaseRef = useRef<Phase>("off");
   const warpRef = useRef<Section | null>(null);
+  const sectionShownRef = useRef(false);
+  const showSection = useCallback((v: boolean) => { sectionShownRef.current = v; setSectionShown(v); }, []);
   // The provider lives as long as the app, so its timers are never cancelled. (Clearing them in an
   // effect cleanup would break the boot under StrictMode, which simulates an unmount in development.)
   const later = useCallback((fn: () => void, ms: number) => { window.setTimeout(fn, ms); }, []);
@@ -49,18 +54,22 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
     const r = READINGS[i];
     indexRef.current = i;
     setReadingIndex(i);
-    setSectionShown(false);
+    showSection(false);
     nixie.show(r.value, { numeric: r.numeric });
     flare();
     if (user) {
       interacted.current = true;
       if (i !== 0) { setHasMeasured(true); writeFlag(localStorage, MEASURED_KEY); }
     }
-  }, [nixie]);
+  }, [nixie, showSection]);
 
   const showReading = useCallback((i: number) => { if (!busy.current) display(i, true); }, [display]);
   const measure = useCallback(() => {
     if (!busy.current) display((indexRef.current + 1) % READINGS.length, true);
+  }, [display]);
+  const rest = useCallback(() => {
+    if (busy.current || phaseRef.current !== "ready") return;
+    if (indexRef.current !== 0 || sectionShownRef.current) display(0, false);
   }, [display]);
 
   /**
@@ -93,11 +102,11 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
     if (busy.current) return;
     busy.current = true;
     interacted.current = true;
-    setSectionShown(true);
+    showSection(true);
     const settle = nixie.show(section.toUpperCase(), { base: 220, stagger: 80 });
     flare();
     window.setTimeout(() => { warpRef.current = section; setWarp(section); }, reducedMotion() ? 0 : settle);
-  }, [nixie]);
+  }, [nixie, showSection]);
 
   const finishWarp = useCallback(() => {
     const s = warpRef.current;
@@ -125,24 +134,29 @@ export default function InstrumentProvider({ children }: { children: ReactNode }
     const prev = prevPath.current;
     prevPath.current = pathname;
     if (section) {
-      setSectionShown(true);
-      if (nixie.text !== section.toUpperCase()) nixie.show(section.toUpperCase(), { base: 160, stagger: 60 });
-      if (phaseRef.current === "off") setPhaseBoth("ready");
+      if (phaseRef.current === "off") {
+        // landed straight on a section page: power on with the name
+        later(() => { nixie.show("FRANCO", { base: 200, stagger: 90 }); setPhaseBoth("ready"); }, 0);
+      } else {
+        showSection(true);
+        if (nixie.text !== section.toUpperCase()) nixie.show(section.toUpperCase(), { base: 160, stagger: 60 });
+        later(() => { if (sectionOf(prevPath.current ?? "") === section) display(0, false); }, 1500);
+      }
     } else if (pathname === "/" && prev !== null && prev !== "/" && phaseRef.current === "ready") {
       display(0, false);
     } else if (pathname !== "/" && !section) {
-      setSectionShown(true);
+      showSection(true);
       nixie.show("404", { numeric: true, base: 160, stagger: 60 });
       if (phaseRef.current === "off") setPhaseBoth("ready");
     }
-  }, [pathname, nixie, display, setPhaseBoth]);
+  }, [pathname, nixie, display, setPhaseBoth, showSection, later]);
 
   const value = useMemo<Instrument>(() => ({
-    nixie, phase, readingIndex, hasMeasured, warp, leaving, heroSlot, registerHeroSlot,
+    nixie, phase, readingIndex, hasMeasured, warp, leaving, heroSlot, registerHeroSlot, introDone, finishIntro,
     fullName: readingIndex !== 0 || sectionShown,
-    boot, showReading, measure, enter, finishWarp, back,
-  }), [nixie, phase, readingIndex, sectionShown, hasMeasured, warp, leaving, heroSlot,
-    boot, showReading, measure, enter, finishWarp, back]);
+    boot, showReading, measure, rest, enter, finishWarp, back,
+  }), [nixie, phase, readingIndex, sectionShown, hasMeasured, warp, leaving, heroSlot, introDone, finishIntro,
+    boot, showReading, measure, rest, enter, finishWarp, back]);
 
   return <InstrumentContext.Provider value={value}>{children}</InstrumentContext.Provider>;
 }

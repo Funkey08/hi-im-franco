@@ -1,6 +1,4 @@
 import { useEffect, useState, useSyncExternalStore, type CSSProperties } from "react";
-import franco from "../../assets/ascii/franco.json";
-import AsciiArt, { type AsciiData } from "../../components/ascii/AsciiArt";
 import { NAME, ROLES, SLOGAN, SLOGAN_TEXT } from "../../data/site";
 import { useInstrument, type Section } from "../../instrument/context";
 import { reducedMotion } from "../../lib/util";
@@ -9,7 +7,6 @@ import { createNet } from "../../sims/net";
 import SimCanvas from "../../sims/SimCanvas";
 import ReadingsPanel, { UnitLamps } from "./ReadingsPanel";
 
-const FRANCO_ART = franco as unknown as AsciiData;
 const makeNet = (c: HTMLCanvasElement) => createNet(c, { layers: [4, 6, 6, 4, 2] });
 const makeBrain = (c: HTMLCanvasElement) => createBrain(c, { count: 8 });
 
@@ -85,20 +82,17 @@ function Channel({ kind, title, kicker, sub, create }: {
 }
 
 export default function Hero() {
-  const { phase, boot, registerHeroSlot, nixie } = useInstrument();
+  const { phase, boot, registerHeroSlot, nixie, introDone } = useInstrument();
   const cells = useSyncExternalStore(nixie.subscribe, nixie.getSnapshot);
   const lit = cells.filter((c) => c.on).length / cells.length;
   const ready = phase === "ready";
 
-  useEffect(() => { boot(); }, [boot]);
+  // the tubes power on as the worldline intro switches off
+  useEffect(() => { if (introDone) boot(); }, [introDone, boot]);
 
   return (
     <section className={`bench phase-${phase}`} aria-label="Introduction">
       <div className="wallglow" style={{ opacity: 0.25 + 0.75 * lit }} aria-hidden="true" />
-
-      <div className="self-portrait" aria-hidden="true">
-        <AsciiArt data={FRANCO_ART} play={ready} rowMs={16} />
-      </div>
 
       <div className="display-row">
         <div className="clock-slot" ref={registerHeroSlot} />

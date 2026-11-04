@@ -17,11 +17,16 @@ export interface Instrument {
   warp: Section | null;
   /** The current page is powering off (CRT collapse) before navigating home. */
   leaving: boolean;
+  /** The worldline boot intro has finished (or was skipped / already seen this session). */
+  introDone: boolean;
+  finishIntro: () => void;
   heroSlot: HTMLElement | null;
   registerHeroSlot: (el: HTMLElement | null) => void;
   boot: () => void;
   showReading: (i: number) => void;
   measure: () => void;
+  /** Return the tubes to the name (FRANCO), e.g. when the clock docks into the header. */
+  rest: () => void;
   enter: (section: Section) => void;
   finishWarp: () => void;
   back: () => void;

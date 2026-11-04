@@ -1,0 +1,112 @@
+/* ============================================================================
+   Worldline boot (first visit per session)
+   ========================================================================== */
+.worldline {
+  position: fixed;
+  inset: 0;
+  z-index: 95; /* above the grain (90) so it reads as its own screen; the probe cursor (99) stays on top */
+  background: #0c0806;
+  display: grid;
+  place-items: stretch;
+}
+.worldline.closing { background: transparent; transition: background 0.2s 0.3s; }
+.wl-screen {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 60% 45% at 50% 50%, rgba(255, 120, 30, 0.1), transparent 70%),
+    #120c08;
+  animation: wl-on 0.5s ease-out both;
+}
+/* scanlines + phosphor vignette */
+.wl-screen::before,
+.wl-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.wl-screen::before { background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.28) 0 1px, transparent 1px 3px); z-index: 2; }
+.wl-screen::after { background: radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.75) 100%); z-index: 2; }
+.closing .wl-screen { animation: wl-off 0.5s cubic-bezier(0.6, 0, 0.8, 0.4) forwards; }
+
+@keyframes wl-on {
+  0% { opacity: 0; filter: brightness(3); }
+  20% { opacity: 1; }
+  30% { opacity: 0.4; }
+  45% { opacity: 1; filter: brightness(1.4); }
+  100% { opacity: 1; filter: none; }
+}
+/* old monitor switching off: collapse to a bright line, then to a dot */
+@keyframes wl-off {
+  0% { transform: none; }
+  50% { transform: scale(1, 0.006); background: #ffd9a8; box-shadow: 0 0 40px 8px rgba(255, 140, 40, 0.8); }
+  100% { transform: scale(0, 0.006); background: #fff3e0; box-shadow: 0 0 30px 6px rgba(255, 140, 40, 0.6); opacity: 0.4; }
+}
+.closing .wl-screen > * { opacity: 0; transition: opacity 0.12s 0.1s; }
+
+.wl-log {
+  position: absolute;
+  left: clamp(20px, 4vw, 56px);
+  top: clamp(24px, 6vh, 60px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 400 clamp(11px, 1vw, 13px) / 1.9 var(--font-mono);
+  letter-spacing: 0.08em;
+  color: rgba(255, 190, 120, 0.72);
+  text-shadow: 0 0 6px rgba(255, 130, 40, 0.55);
+}
+.wl-log li { display: flex; align-items: baseline; gap: 0.7em; width: min(520px, 84vw); animation: wl-line 0.18s steps(2) both; }
+.wl-log b { font-weight: 600; color: #ffd6a0; white-space: nowrap; }
+.wl-prompt { width: 0.8em; color: rgba(255, 150, 70, 0.55); }
+.wl-dots { flex: 1; border-bottom: 1px dotted rgba(255, 170, 100, 0.3); transform: translateY(-0.35em); min-width: 1.5em; }
+.wl-caret { animation: wl-caret 0.8s steps(1) infinite; color: #ffb35c; }
+@keyframes wl-line { from { opacity: 0; } to { opacity: 1; } }
+@keyframes wl-caret { 50% { opacity: 0; } }
+
+.wl-meter {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  translate: -50% -58%;
+  display: flex;
+  font: 200 clamp(64px, 11vw, 168px) / 1 var(--font-display);
+  font-variant-numeric: tabular-nums;
+  color: #ffdcae;
+  text-shadow: 0 0 2px #fff0dc, 0 0 12px #ffa443, 0 0 34px #ff7612, 0 0 80px rgba(255, 82, 0, 0.5);
+  z-index: 1;
+}
+.wl-meter span { display: inline-block; width: 0.56em; text-align: center; opacity: 0.86; }
+.wl-meter span.dot { width: 0.24em; }
+.wl-meter.locked span { opacity: 1; animation: wl-lock 0.5s ease-out; }
+@keyframes wl-lock { 0% { filter: brightness(1.8); } 100% { filter: none; } }
+
+.wl-status {
+  position: absolute;
+  left: 50%;
+  top: calc(50% + clamp(48px, 7vw, 104px));
+  translate: -50% 0;
+  font: 600 11px var(--font-mono);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(255, 180, 110, 0.6);
+  z-index: 1;
+}
+.wl-skip {
+  all: unset;
+  position: absolute;
+  right: clamp(20px, 4vw, 48px);
+  bottom: clamp(20px, 5vh, 44px);
+  z-index: 3;
+  cursor: pointer;
+  font: 11px var(--font-mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 190, 130, 0.55);
+  padding: 8px 12px;
+  border: 1px solid rgba(255, 170, 100, 0.2);
+  border-radius: 4px;
+  transition: color 0.2s, border-color 0.2s;
+}
+.wl-skip:hover, .wl-skip:focus-visible { color: #ffd6a0; border-color: rgba(255, 170, 100, 0.6); }
