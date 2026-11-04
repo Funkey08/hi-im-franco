@@ -5,6 +5,7 @@ Planning material for the 2026 site overhaul. Nothing in here ships with the sit
 | Path | What it is |
 |---|---|
 | `mockups/nixie_home.html` | Prototype the React home page was built from (Nixie Lab theme; the React version in `src/` is now the reference). Open it directly in a browser. It reads images from `../../src/assets/`, so keep the folder layout intact. |
+| `planning/info_for_life.md` | Franco's own notes for Life (countries, facts, book blurbs): the source for `src/data/life.ts`. |
 | `mockups/life_wireframes.html` | Life page wireframes: three layouts (tabs A field notebook / B atlas / C the desk), real copy and photos (small previews in `mockups/life-previews/`), plus open questions. |
 | `mockups/work_wireframes.html` | Work page wireframe the React page was built from (the React version in `src/pages/work/` is now the reference). |
 | `mockups/archive/` | Earlier explorations, kept for reference: wireframes, the green "The Lab" theme, the four hero concepts, the Worldline intro storyboard, the easter-egg brainstorm. Superseded by `nixie_home.html`. |

@@ -6,6 +6,8 @@ Copy that will eventually move into `src/data/*.ts`. Edit freely; nothing here i
 
 ## Things I'm Most Proud Of
 
+> **Superseded (Nov 4, round 18):** the live list is `src/data/life.ts` (`FACTS`), written from Franco's `docs/planning/info_for_life.md`. The draft below is kept for history only.
+
 Edits from your original draft: all items in the same tense (past) so the list reads smoothly, the long ones trimmed, and the order alternates serious and silly, starting with a strong real one. ⚠️ = needs a fact, a number or a link from you.
 
 1. Did full-time research at Stanford and NUS at the same time over one summer (2024), across a 15-hour time difference (back-to-back 8-hour live shifts). ✅ 15 hours confirmed by the fact sheet.
@@ -37,7 +39,7 @@ Edits from your original draft: all items in the same tense (past) so the list r
 ---
 
 ## Countries visited
-⚠️ The image attached for this was the Kurisu image again. Please re-send the map or just list the countries. For each country, note one photo if you have one.
+Done: 17 countries, in `src/data/life.ts` (`COUNTRIES`) from `info_for_life.md`.
 
 ---
 

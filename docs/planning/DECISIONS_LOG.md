@@ -143,3 +143,12 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - Footer: compose box (left) + self-portrait (right) in one row on every page, so the page ends without empty space. Phones stack them.
 - Life work continues on branch `feat/life-page` (off `feat/home-page`).
 
+## Round 18 · Nov 4, 2026 — Life page built
+- Franco's picks from the wireframes: A's "things I'm proud of" list and bookshelf, B's map with pins, C's scattered photos.
+- Proud-of list kept as a notebook (ruled paper, margin line, glowing numbers) instead of B's photo cards; photos appear as small taped polaroids that peek on hover, so it stays dense. Facts verbatim from `info_for_life.md`, two grammar fixes; "15-hour" kept from the fact sheet (Stanford in summer is UTC−7, Singapore UTC+8) and flagged to Franco.
+- Map: Natural Earth 1:110m, Equal Earth projection, generated to JSON (103 KB, page lazy-loaded). Singapore is too small at this scale, so it is a pin only.
+- Photos: 16 of his ~50 picked for variety (9 countries, mostly scenery, a few with him); places from each photo's GPS; published copies are re-encoded so no location data ships. Originals moved out of the repo to `../life-photo-originals/`.
+- Board: higher prints lie on top so captions are never covered. Map pins with photos light their prints on the board.
+- Kept the Persona 5 plush at Ayutthaya as an easter egg ("with a travel companion"): passes the non-fan test.
+- Placeholder SectionPage removed (Work and Life are both real pages now).
+
