@@ -152,3 +152,9 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - Kept the Persona 5 plush at Ayutthaya as an easter egg ("with a travel companion"): passes the non-fan test.
 - Placeholder SectionPage removed (Work and Life are both real pages now).
 
+## Round 19 · Nov 4, 2026 — Life: map without pins, 30 photos, a real scatter
+- Map: pins removed; hovering a country outline shows its name (Singapore drawn from 1:50m with a bigger invisible hover target). The map no longer links to the photos.
+- Photos: 14 more of his picks (bike, Big Ben, feet in the grass, Toblerone, Montreux church, St Paul's alley, motorbike on Hải Vân Pass, upside-down capybara, pointing out to sea, Suga Shrine stairs, Shinjuku at night, Nara deer, a local train, Leblanc with the Joker plush) = 30. "Staring at the Queen's bridge" read as the Tower Bridge shot already on the board.
+- Board: no more columns. Sizes vary with each photo's shape and a seeded scale; each print drops as high as it fits, may tuck under the bottom of the print above (whose caption stays on top) and never covers a caption or more than 20% of a photo.
+- Stanford/NUS fact gets his Singapore night photo, captioned with both clocks (7:46 pm in Singapore = 4:46 am in Palo Alto, from its timestamp).
+
