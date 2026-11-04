@@ -193,13 +193,13 @@ section.wf{padding:50px 0;border-bottom:1px dashed #3a2c20}
     <button class="chip on">all</button><button class="chip">ML &amp; LLM agents</button><button class="chip">statistics</button><button class="chip">quant</button><button class="chip">health &amp; neuro</button><button class="chip">engineering</button>
   </div>
   <div id="projects"></div>
-  <div class="more"><button>+ 4 more · transitive-inference task · item response warehouse · bibliolinguist · numerosity app</button></div>
+  <div class="more"><button>show 4 more · same card format</button></div>
 
-  <div class="note">Every entry carries the four things you asked for: <b>figure</b>, <b>description of 2+ sentences</b>, <b>tools</b>, and <b>GitHub link</b> (or an honest "private repo" / "proprietary" when there isn't a public one). Flagships also get a one-line research question and three key numbers. Order is by strength for a quant / ML reader, not by date. Each card links to a case-study page later.</div>
+  <div class="note"><b>Chips highlight, they don't filter:</b> picking "quant" dims non-matching cards instead of hiding them, so nobody lands on a view missing your best work. <b>No text-only tier:</b> the 4 older projects (transitive-inference task, Item Response Warehouse, BiblioLinguist, numerosity app) use the same card when expanded, or get cut if they can't fill one honestly.<br><br>Every entry carries the four things you asked for: <b>figure</b>, <b>description of 2+ sentences</b>, <b>tools</b>, and <b>GitHub link</b> (or an honest "private repo" / "proprietary" when there isn't a public one). Flagships also get a one-line research question and three key numbers. Order is by strength for a quant / ML reader, not by date. Each card links to a case-study page later.</div>
   <div class="agents" id="agents">
-    <div><b>Reviewer 1 · recruiter</b>pending</div>
-    <div><b>Reviewer 2 · UX designer</b>pending</div>
-    <div><b>Reviewer 3 · quant hiring manager</b>pending</div>
+    <div><b>Recruiter · picks A</b>Only option that shows figures and links without clicking (30–90 s, no clicks). Drop the text archive; let chips highlight rather than hide; make flagship one-liners state the result.</div>
+    <div><b>UX designer · picks A</b>B makes people read dates first and breaks on phones; C hides the figures. One card template for every project; tiers differ in size, not in information. Phones: one column, figure on top.</div>
+    <div><b>Quant hiring manager · picks A</b>Tiers show your strongest thinking first; a table makes a hackathon look equal to a paper. Lambda stays a flagship even without results. Don't lead VeriSkeptic with p = 0.002 (that test only covers the agent's own fixes); lead with +1.3 pp and its CI. <i>Applied.</i></div>
   </div>
 </section>
 </div>
@@ -243,9 +243,9 @@ setInterval(()=>pulse((Math.random()*els.length)|0),1800);
 // ------------------------------------------------------------------ projects (all claims from the FACT_SHEET)
 const P=[
  {flag:1,title:"VeriSkeptic",status:["s-live","public repo"],meta:"Oct 2026 · solo",fig:"projects/veriskeptic-pass-vs-attempts.png",contain:1,
-  q:"Can an LLM check its own hardware code? A little, and I measured exactly how little.",
-  desc:"An LLM agent that writes Verilog from a spec, then writes and simulates its own testbench and revises before submitting. On 152 VerilogEval problems its self-checks fixed 10 of its own drafts and broke none, but against a plain single call the gain was +1.3 points and not significant. I report that null result as the headline, with the cost of every call.",
-  stats:[["0.002","McNemar p, own fixes"],["+1.3 pp","vs single call (n.s.)"],["$3.74","whole study"]],
+  q:"Letting an LLM test its own hardware code barely beats asking once: +1.3 points, not significant.",
+  desc:"An LLM agent that writes Verilog from a spec, then writes and simulates its own testbench and revises before submitting. On 152 VerilogEval problems it beat a plain single call by only +1.3 points (95% CI −3.9 to +6.6), even though its self-checks fixed 10 of its own drafts and broke none. The null result is the headline, reported with the cost of every call.",
+  stats:[["+1.3 pp","vs single call · CI −3.9 to +6.6"],["10 / 0","own drafts fixed / broken"],["$3.74","whole study"]],
   tools:["Python","Gemini API","Icarus Verilog","pytest","bootstrap CIs"],links:[["GitHub ↗","https://github.com/Funkey08/VeriSkeptic"],["case study →","#"]]},
  {flag:1,title:"λ Lambda",status:["s-prog","in progress"],meta:"Oct 2026 – · solo",fig:null,figText:"generated cover: order-book depth chart<br>(no results yet, so no result chart)",
   q:"Does order-flow imbalance predict crypto prices once you pay for it?",
