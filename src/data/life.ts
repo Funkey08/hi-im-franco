@@ -27,7 +27,8 @@ export const FACTS: Fact[] = [
   { text: "**Accidentally** hiked the most difficult trail up Seoul's tallest mountain with my mom, and survived with the help of a Korean ajumma.",
     photo: photo("facts", "seoul-summit"), caption: "The top, eventually · Seoul, 2022" },
   { text: "Recommended a book on a booktuber's YouTube channel, and it **got chosen at the very end**. [watch ↗](https://youtu.be/MPC2psjfJ0E?t=285)" },
-  { text: "Did full-time research at Stanford and NUS at the same time one summer, despite the **15-hour time difference**, by working **18 hours straight** every day." },
+  { text: "Did full-time research at Stanford and NUS at the same time one summer, despite the **15-hour time difference**, by working **18 hours straight** every day.",
+    photo: photo("facts", "singapore-night-shift"), caption: "Singapore, 7:46 pm · 4:46 am in Palo Alto" },
   { text: `**${duolingoStreak().toLocaleString("en-US")}**-day Duolingo streak (and counting).` },
   { text: "**Met Pope Leo.**", photo: photo("facts", "pope-leo"), caption: "Harvard Yard, 2026" },
   { text: "Played **both piano and guitar** with my band at my high school's graduation party." },
@@ -48,29 +49,27 @@ export interface Country {
   /** ISO 3166 numeric, as in the world-atlas map (scripts/make_world_map.py VISITED). */
   iso: string;
   continent: Continent;
-  /** Pin position: where the photos were taken, else the capital. */
-  at: [lat: number, lon: number];
   note?: string;
 }
 
 export const COUNTRIES: Country[] = [
-  { name: "Canada", iso: "124", continent: "North America", at: [43.65, -79.38], note: "home · Toronto" },
-  { name: "United States", iso: "840", continent: "North America", at: [40.71, -74.0], note: "Palo Alto · Cambridge · New York" },
-  { name: "United Kingdom", iso: "826", continent: "Europe", at: [51.51, -0.13] },
-  { name: "France", iso: "250", continent: "Europe", at: [48.86, 2.35] },
-  { name: "Switzerland", iso: "756", continent: "Europe", at: [46.2, 6.14], note: "a summer in Geneva" },
-  { name: "Italy", iso: "380", continent: "Europe", at: [45.43, 12.34] },
-  { name: "Serbia", iso: "688", continent: "Europe", at: [44.79, 20.45] },
-  { name: "Greece", iso: "300", continent: "Europe", at: [37.98, 23.73] },
-  { name: "Japan", iso: "392", continent: "Asia", at: [34.3, 132.32] },
-  { name: "South Korea", iso: "410", continent: "Asia", at: [37.57, 126.98] },
-  { name: "Taiwan", iso: "158", continent: "Asia", at: [25.03, 121.56] },
-  { name: "Philippines", iso: "608", continent: "Asia", at: [14.6, 120.98] },
-  { name: "Vietnam", iso: "704", continent: "Asia", at: [21.03, 105.84] },
-  { name: "Thailand", iso: "764", continent: "Asia", at: [13.75, 100.5] },
-  { name: "Malaysia", iso: "458", continent: "Asia", at: [3.14, 101.69] },
-  { name: "Singapore", iso: "702", continent: "Asia", at: [1.35, 103.82], note: "a summer at NUS" },
-  { name: "Indonesia", iso: "360", continent: "Asia", at: [-6.2, 106.85] },
+  { name: "Canada", iso: "124", continent: "North America", note: "home · Toronto" },
+  { name: "United States", iso: "840", continent: "North America", note: "Palo Alto · Cambridge · New York" },
+  { name: "United Kingdom", iso: "826", continent: "Europe" },
+  { name: "France", iso: "250", continent: "Europe" },
+  { name: "Switzerland", iso: "756", continent: "Europe", note: "a summer in Geneva" },
+  { name: "Italy", iso: "380", continent: "Europe" },
+  { name: "Serbia", iso: "688", continent: "Europe" },
+  { name: "Greece", iso: "300", continent: "Europe" },
+  { name: "Japan", iso: "392", continent: "Asia" },
+  { name: "South Korea", iso: "410", continent: "Asia" },
+  { name: "Taiwan", iso: "158", continent: "Asia" },
+  { name: "Philippines", iso: "608", continent: "Asia" },
+  { name: "Vietnam", iso: "704", continent: "Asia" },
+  { name: "Thailand", iso: "764", continent: "Asia" },
+  { name: "Malaysia", iso: "458", continent: "Asia" },
+  { name: "Singapore", iso: "702", continent: "Asia", note: "a summer at NUS" },
+  { name: "Indonesia", iso: "360", continent: "Asia" },
 ];
 
 /* ------------------------------------------------------------------ photos I took */
@@ -78,23 +77,37 @@ export const COUNTRIES: Country[] = [
 export interface Shot extends Photo { place: string; iso: string; year?: number }
 const shot = (slug: string, place: string, iso: string, year?: number): Shot => ({ ...photo("gallery", slug), place, iso, year });
 
-/** Order = scatter order on the board (alternate countries so neighbours differ). */
+/** Order = placement order on the board (it fills top-down, so mix countries and shapes). */
 export const GALLERY: Shot[] = [
   shot("miyajima-torii", "Itsukushima Shrine, Miyajima", "392", 2026),
+  shot("big-ben", "Looking up at Big Ben", "826", 2025),
   shot("stellisee-zermatt", "Stellisee, above Zermatt", "756", 2025),
-  shot("maeklong-railway-market", "Maeklong Railway Market", "764", 2026),
-  shot("leadenhall-market", "Leadenhall Market, London", "826", 2025),
+  shot("leblanc", "Sangen-jaya, Tokyo, with a travel companion", "392", 2026),
+  shot("hai-van-pass", "Hải Vân Pass, by motorbike", "704", 2026),
   shot("taipei-at-night", "Taipei from Elephant Mountain", "158", 2026),
+  shot("st-pauls-alley", "St Paul's, down an alley", "826", 2025),
+  shot("toblerone", "Toblerone, in its natural habitat", "756", 2025),
+  shot("suga-shrine-stairs", "The stairs at Suga Shrine, Tokyo", "392"),
   shot("ninh-binh", "Tràng An, Ninh Bình", "704", 2026),
   shot("brooklyn-bridge", "Brooklyn Bridge, New York", "840", 2024),
+  shot("feet-in-the-grass", "Grindelwald-First", "756", 2025),
+  shot("upside-down-capybara", "An upside-down capybara, Taipei", "158", 2026),
   shot("mount-fuji", "Mount Fuji", "392"),
+  shot("maeklong-railway-market", "Maeklong Railway Market", "764", 2026),
+  shot("leadenhall-market", "Leadenhall Market, London", "826", 2025),
+  shot("ninh-binh-by-bike", "Ninh Bình, by bike", "704", 2026),
+  shot("shinjuku-at-night", "Shinjuku at night", "392"),
+  shot("montreux-church", "Montreux, on Lake Geneva", "756", 2025),
   shot("st-marks-venice", "St Mark's Basilica, Venice", "380", 2025),
-  shot("hanoi-train-street", "Train Street, Hanoi", "704", 2026),
-  shot("oxford", "Oxford", "826", 2025),
-  shot("rochers-de-naye", "Rochers de Naye", "756", 2025),
-  shot("jiufen", "Jiufen", "158", 2026),
-  shot("ayutthaya", "Ayutthaya, with a travel companion", "764", 2026),
+  shot("nara-deer", "A deer in Nara", "392"),
   shot("tower-bridge", "Tower Bridge, London", "826", 2025),
+  shot("hanoi-train-street", "Train Street, Hanoi", "704", 2026),
+  shot("pointing-out-to-sea", "Over there", "392"),
+  shot("jiufen", "Jiufen", "158", 2026),
+  shot("rochers-de-naye", "Rochers de Naye", "756", 2025),
+  shot("local-train", "A local train, Japan", "392"),
+  shot("ayutthaya", "Ayutthaya, with a travel companion", "764", 2026),
+  shot("oxford", "Oxford", "826", 2025),
   shot("kamakura-daibutsu", "The Great Buddha, Kamakura", "392"),
 ];
 

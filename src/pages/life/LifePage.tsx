@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { SLOGAN } from "../../data/site";
 import { useInstrument } from "../../instrument/context";
 import { createBrain } from "../../sims/brain";
@@ -15,7 +14,6 @@ const makeBrain = (c: HTMLCanvasElement) => createBrain(c, { count: 22 });
 /** /life: the motto, then things I'm proud of → where I've been → photos from there → books. */
 export default function LifePage() {
   const { back } = useInstrument();
-  const [pick, setPick] = useState<{ iso: string; n: number } | null>(null);
   return (
     <main className="life-page">
       <div className="lwrap">
@@ -27,8 +25,8 @@ export default function LifePage() {
           <p className="lmotto">{SLOGAN.lead}<em>{SLOGAN.accent}</em>{SLOGAN.tail}</p>
         </header>
         <Facts />
-        <WorldMap onPick={(iso) => setPick((p) => ({ iso, n: (p?.n ?? 0) + 1 }))} />
-        <PhotoBoard pick={pick} />
+        <WorldMap />
+        <PhotoBoard />
         <Shelf />
       </div>
     </main>
