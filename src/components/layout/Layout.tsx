@@ -7,6 +7,7 @@ import ProbeCursor from "../fx/ProbeCursor";
 import WarpOverlay from "../fx/WarpOverlay";
 import WorldlineBoot from "../fx/WorldlineBoot";
 import Footer from "./Footer";
+import LinkIcon from "./LinkIcon";
 import NixieDock from "./NixieDock";
 import "./layout.css";
 
@@ -40,7 +41,7 @@ export default function Layout() {
         </div>
         <nav className="topbar-nav" aria-label="Elsewhere">
           {LINKS.map((l) => (
-            <a key={l.label} href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{l.label}</a>
+            <a key={l.label} href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" aria-label={l.label}><LinkIcon kind={l.label} /><span>{l.label}</span></a>
           ))}
         </nav>
       </header>

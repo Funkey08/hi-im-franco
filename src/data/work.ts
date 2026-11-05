@@ -43,7 +43,11 @@ export const STATEMENT = {
   ] as (string | { hl: string })[],
   data: "data",
   /** Leave null until Franco writes it; the page shows nothing in its place. */
-  intro: null as string | null,
+  /** Franco's own words. Paragraphs are separated by a blank line; **bold** works. */
+  intro: [
+    "I love to learn, and data is the means to do that. I started in neuroscience and psychology because I believe nothing is more complex than people, and eventually realized that what I truly enjoy is making complex things less complex. Since then, I've worked across public health research, AI in production, fintech and market data, agents for startups, and too many problems to count. **My love for the theoretical stems from my love for the applied.**",
+    "And so, I'll always love experiencing things I know nothing about. I just measure them now.",
+  ].join("\n\n") as string | null,
 };
 
 /* ------------------------------------------------------------------ institutions */
@@ -66,7 +70,7 @@ export interface Institution {
 export const INSTITUTIONS: Institution[] = [
   { name: "Harvard University", logo: harvard, plate: "bone", role: "SM Data Science", where: "Cambridge, MA · 2026 – Dec 2027", x: 15, y: 17, tilt: -2.5, roleId: "harvard" },
   { name: "MIT", logo: mit, plate: "bone", role: "Cross-enrolled (CS, Statistics)", where: "Cambridge, MA · 2026", x: 41, y: 9, tilt: 1.5, roleId: "harvard" },
-  { name: "Harvard Innovation Labs", logo: ilab, plate: "bone", role: "Founder, stealth AI startup", where: "Cambridge, MA · 2026 –", x: 70, y: 13, tilt: -1, roleId: "ilab" },
+  { name: "Harvard Innovation Labs", logo: ilab, plate: "bone", role: "Founder, stealth AI startup · also MIT Orbit", where: "Cambridge, MA · 2026 –", x: 70, y: 13, tilt: -1, roleId: "ilab" },
   { name: "Intact Financial", logo: intact, plate: "bone", role: "Data Scientist I", where: "Toronto · Jan – Apr 2026", x: 89, y: 37, tilt: 2.5, roleId: "intact" },
   { name: "EPFL", logo: epfl, plate: "walnut", role: "Quantitative Neuroscience Researcher", where: "Geneva · May – Aug 2025", x: 80, y: 71, tilt: -2, roleId: "epfl" },
   { name: "Campus Biotech", logo: campusBiotech, plate: "bone", role: "Where EPFL's LNCO lab is based", where: "Geneva · 2025", x: 59, y: 90, tilt: 1, roleId: "epfl" },
@@ -104,8 +108,8 @@ export interface Role {
 export const ROLES: Role[] = [
   { id: "harvard", when: "2026 – Dec 2027 · Cambridge, MA", org: "Harvard University", title: "SM Data Science · MIT cross-enrolled (CS, Statistics)",
     line: "Causal inference, linear models, optimization and MLOps." },
-  { id: "ilab", when: "2026 – · Cambridge, MA", org: "Harvard Innovation Labs", title: "Founder, stealth AI startup",
-    line: "Building an AI product in stealth." },
+  { id: "ilab", when: "2026 – · Cambridge, MA", org: "Harvard i-Lab + MIT Orbit", title: "Founder, stealth AI startup",
+    line: "Building an AI product in stealth, at the Harvard Innovation Labs and alongside MIT's Orbit founder community." },
   { id: "intact", when: "Jan – Apr 2026 · Toronto", org: "Intact Financial", title: "Data Scientist I",
     line: "An async LLM pipeline that recovered an inconsistently recorded underwriting variable from 2,000+ client records; profitability drivers in Airflow; a life-event detection engine with up to $300K projected annual upside." },
   { id: "epfl", when: "May – Aug 2025 · Geneva", org: "EPFL, Laboratory of Cognitive Neuroscience", title: "Quantitative Neuroscience Researcher",

@@ -35,7 +35,7 @@ export default function ContactBox() {
   return (
     <section className="contact" aria-labelledby="contact-title">
       <h2 className="contact-title" id="contact-title">// <b>open a channel</b></h2>
-      <p className="contact-lede">Hiring, collaborating, or just curious? Send me a message.</p>
+      <p className="contact-lede">Send me a message!</p>
       <form className="contact-box" onSubmit={send}>
         <span className="contact-screw tl" /><span className="contact-screw tr" />
         <div className="contact-head">

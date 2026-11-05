@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useInstrument } from "../../instrument/context";
 import { clamp, reducedMotion } from "../../lib/util";
+import { rich } from "../../lib/rich";
 import { useSeen } from "../../lib/useSeen";
 import { createNet } from "../../sims/net";
 import SimCanvas from "../../sims/SimCanvas";
@@ -23,7 +24,9 @@ function Statement() {
         {STATEMENT.parts.map((p, i) => (typeof p === "string" ? p : <span key={i} className="hl">{p.hl}</span>))}
         <span className="data">{STATEMENT.data}</span>.
       </p>
-      {STATEMENT.intro && <p className="intro">{STATEMENT.intro}</p>}
+      {STATEMENT.intro && (
+        <div className="intro">{STATEMENT.intro.split("\n\n").map((para, i) => <p key={i}>{rich(para)}</p>)}</div>
+      )}
     </section>
   );
 }

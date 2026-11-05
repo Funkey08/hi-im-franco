@@ -16,11 +16,13 @@
 .lbanner::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px); }
 .lmotto { margin: 40px 0 0; max-width: 980px; font: italic 400 clamp(30px, 3.5vw, 50px) / 1.25 var(--font-serif); color: #e9dac6; }
 .lmotto em { color: #ffcf95; text-shadow: 0 0 18px rgba(255, 140, 40, 0.35); }
+.lintro { margin: 18px 0 0; max-width: 760px; font: italic 400 clamp(20px, 1.9vw, 25px) / 1.5 var(--font-serif); color: var(--dim); }
 
 .lsec { padding: clamp(50px, 8vh, 80px) 0 0; }
 .llabel { margin: 0 0 22px; font: 400 11px var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
 .llabel b { color: var(--amber); font-weight: 400; }
 .llabel span { margin-left: 10px; color: var(--faint); letter-spacing: 0.14em; }
+.llabel .llabel-aside { margin-left: 12px; font: italic 400 18px var(--font-serif); letter-spacing: 0; text-transform: none; color: var(--dim); }
 
 /* ---------------------------------------------------------------- facts: field notebook */
 .facts {
@@ -128,6 +130,28 @@
 .book-note a { color: var(--amber); }
 @keyframes note-in { from { opacity: 0; translate: 0 6px; } }
 
+/* ---------------------------------------------------------------- off the clock */
+.interests { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.interest { display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--edge); border-radius: 12px; background: linear-gradient(170deg, #2b2119, #1f1812); transition: border-color 0.3s, translate 0.3s; }
+.interest:hover { border-color: #6b5440; translate: 0 -3px; }
+.interest-fig { all: unset; box-sizing: border-box; position: relative; display: block; aspect-ratio: 4 / 3; overflow: hidden; background: #15100b; border-bottom: 1px solid #3a2c20; cursor: pointer; }
+.interest-fig img { display: block; width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s; }
+.interest:hover .interest-fig img { transform: scale(1.04); }
+.interest-fig > span { position: absolute; left: 0; right: 0; bottom: 0; padding: 26px 12px 9px; background: linear-gradient(transparent, rgba(16, 11, 7, 0.88)); font: italic 15px / 1.25 var(--font-serif); color: #f0e2cf; }
+.interest-fig:focus-visible { outline: 2px solid var(--amber); outline-offset: -2px; }
+/* photography: a little fan of prints */
+.interest-fig.fan { background: radial-gradient(ellipse at 50% 55%, #2a1d12, #15100b); }
+.interest-fig.fan img { position: absolute; left: 50%; top: 46%; width: 46%; height: auto; aspect-ratio: 1; padding: 5px 5px 16px; background: #ece2d2; box-shadow: 0 10px 20px rgba(0, 0, 0, 0.55); translate: -50% -50%; rotate: calc((var(--k) - 1) * 13deg); transform-origin: 50% 120%; transition: rotate 0.4s cubic-bezier(0.2, 0.9, 0.3, 1); }
+.interest:hover .interest-fig.fan img { transform: none; rotate: calc((var(--k) - 1) * 22deg); }
+/* stories: two short lists */
+.interest-fig.lists { cursor: default; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-content: center; padding: 18px 20px; background: radial-gradient(ellipse at 50% 40%, #2a1b0c, #120c07); }
+.interest-fig.lists b { display: block; margin-bottom: 8px; font: 400 10.5px var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); }
+.interest-fig.lists ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.interest-fig.lists li { font: italic 16px / 1.2 var(--font-serif); color: #ffe2bd; text-shadow: 0 0 12px rgba(255, 130, 40, 0.3); }
+.interest h3 { margin: 16px 18px 4px; font: 500 21px / 1.2 var(--font-display); letter-spacing: 0.02em; color: var(--ink); }
+.interest p { margin: 0 18px 18px; font-size: 14.5px; line-height: 1.55; color: var(--color-ink-2); }
+.interest p b { color: #ffd9a8; font-weight: 600; }
+
 /* ---------------------------------------------------------------- lightbox (shared) */
 .lightbox { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 4vh 5vw; background: rgba(12, 8, 5, 0.9); backdrop-filter: blur(6px); outline: none; animation: lb-in 0.25s ease-out; }
 .lightbox-fig { margin: 0; display: flex; flex-direction: column; align-items: center; max-width: 100%; max-height: 100%; }
@@ -145,12 +169,14 @@
 
 /* ---------------------------------------------------------------- responsive */
 @media (max-width: 900px) {
+  .interests { grid-template-columns: 1fr 1fr; }
   .facts { grid-template-columns: 1fr; padding: 14px 16px 6px; background: linear-gradient(180deg, #2a2017, #221a13); }
   .fact-peek { display: none; }
   .shelf { overflow-x: auto; padding: 26px 14px 0; scroll-snap-type: x mandatory; }
   .book { flex: 0 0 110px; scroll-snap-align: start; }
 }
 @media (max-width: 600px) {
+  .interests { grid-template-columns: 1fr; }
   .fact { grid-template-columns: 34px 1fr auto; gap: 10px; }
   .fact-n { font-size: 21px; }
   .fact p { font-size: 15px; }

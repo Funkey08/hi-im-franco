@@ -95,13 +95,13 @@
 .nameplate.full .nameplate-first i { opacity: 1; transform: none; filter: none; color: #eedcc4; text-shadow: 0 0 10px rgba(255, 140, 40, 0.6); }
 .nameplate.full .nameplate-first i:last-child { margin-right: 0.55em; }
 
-.role {
+.hero-role {
   margin: 18px 0 0;
   font: 400 clamp(12px, 1.2vw, 14.5px) var(--font-mono);
   letter-spacing: 0.18em;
   color: var(--dim);
 }
-.role i { font-style: normal; color: var(--faint); margin: 0 0.7em; }
+.hero-role i { font-style: normal; color: var(--faint); margin: 0 0.7em; }
 
 /* ---------------------------------------------------------------- readings panel */
 .meter {
@@ -392,7 +392,7 @@
 }
 @media (max-width: 700px) {
   .units { display: none; }
-  .role { text-align: center; letter-spacing: 0.1em; line-height: 1.8; }
+  .hero-role { text-align: center; letter-spacing: 0.1em; line-height: 1.8; }
   .pick { text-align: center; }
   .pick::before, .pick::after { display: none; }
   .channel { grid-template-columns: 1fr 108px; height: 150px; }

@@ -100,7 +100,7 @@ export default function Hero() {
       </div>
 
       <div className="reveal" style={{ "--d": 0 } as CSSProperties}><Nameplate /></div>
-      <p className="role reveal" style={{ "--d": 1 } as CSSProperties}>
+      <p className="hero-role reveal" style={{ "--d": 1 } as CSSProperties}>
         {ROLES.map((r, i) => <span key={r}>{i > 0 && <i aria-hidden="true">·</i>}{r}</span>)}
       </p>
       <div className="reveal" style={{ "--d": 2 } as CSSProperties}><ReadingsPanel /></div>
@@ -108,7 +108,7 @@ export default function Hero() {
       <p className="pick reveal" style={{ "--d": 5 } as CSSProperties}>Click on a section to learn more about me.</p>
       <div className="channels reveal" style={{ "--d": 6 } as CSSProperties}>
         <Channel kind="work" title="WORK" kicker="artificial neurons" sub="research · industry · projects" create={makeNet} />
-        <span className="channels-vs" aria-hidden="true">vs.</span>
+        <span className="channels-vs" aria-hidden="true">and</span>
         <Channel kind="life" title="LIFE" kicker="real neurons" sub="places · photos · achievements" create={makeBrain} />
       </div>
       <div className="scrollcue reveal" style={{ "--d": 8 } as CSSProperties} aria-hidden="true">↓</div>

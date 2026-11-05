@@ -11,12 +11,15 @@ const lg = import.meta.glob<string>("../assets/life/*/*-lg.avif", { eager: true,
 const sizes = sizesJson as unknown as Record<string, [number, number]>;
 
 export interface Photo { slug: string; sm: string; lg: string; w: number; h: number }
-const photo = (group: "gallery" | "facts", slug: string): Photo => {
+const photo = (group: "gallery" | "facts" | "interests", slug: string): Photo => {
   const s = sm[`../assets/life/${group}/${slug}-sm.avif`];
   if (!s) throw new Error(`missing life photo ${group}/${slug}`);
   const [w, h] = sizes[slug];
   return { slug, sm: s, lg: lg[`../assets/life/${group}/${slug}-lg.avif`] ?? s, w, h };
 };
+
+/** Under the trailing-off slogan at the top of the page (Franco's words). */
+export const LIFE_INTRO = "…And that includes everything else I have yet to experience. Work is where I study complex systems. This is where I live in one.";
 
 /* ------------------------------------------------------------------ things I'm proud of */
 
@@ -82,12 +85,12 @@ export const GALLERY: Shot[] = [
   shot("miyajima-torii", "Itsukushima Shrine, Miyajima", "392", 2026),
   shot("big-ben", "Looking up at Big Ben", "826", 2025),
   shot("stellisee-zermatt", "Stellisee, above Zermatt", "756", 2025),
-  shot("leblanc", "Sangen-jaya, Tokyo, with a travel companion", "392", 2026),
+  shot("leblanc", "Sangen- no, Yongen-jaya, Tokyo", "392", 2026),
   shot("hai-van-pass", "Hải Vân Pass, by motorbike", "704", 2026),
   shot("taipei-at-night", "Taipei from Elephant Mountain", "158", 2026),
   shot("st-pauls-alley", "St Paul's, down an alley", "826", 2025),
   shot("toblerone", "Toblerone, in its natural habitat", "756", 2025),
-  shot("suga-shrine-stairs", "The stairs at Suga Shrine, Tokyo", "392"),
+  shot("suga-shrine-stairs", "Feels like I'm searching for something here. Suga Shrine, Tokyo", "392"),
   shot("ninh-binh", "Tràng An, Ninh Bình", "704", 2026),
   shot("brooklyn-bridge", "Brooklyn Bridge, New York", "840", 2024),
   shot("feet-in-the-grass", "Grindelwald-First", "756", 2025),
@@ -102,13 +105,41 @@ export const GALLERY: Shot[] = [
   shot("nara-deer", "A deer in Nara", "392"),
   shot("tower-bridge", "Tower Bridge, London", "826", 2025),
   shot("hanoi-train-street", "Train Street, Hanoi", "704", 2026),
-  shot("pointing-out-to-sea", "Over there", "392"),
+  shot("pointing-out-to-sea", "Freedom, across the ocean", "392"),
   shot("jiufen", "Jiufen", "158", 2026),
   shot("rochers-de-naye", "Rochers de Naye", "756", 2025),
   shot("local-train", "A local train, Japan", "392"),
   shot("ayutthaya", "Ayutthaya, with a travel companion", "764", 2026),
   shot("oxford", "Oxford", "826", 2025),
   shot("kamakura-daibutsu", "The Great Buddha, Kamakura", "392"),
+];
+
+/* ------------------------------------------------------------------ off the clock */
+
+export interface Interest {
+  title: string;
+  text: string;
+  photo?: Photo;
+  caption?: string;
+  /** "gallery": a small fan of prints from the photo board instead of one photo. */
+  visual?: "gallery";
+  /** Named lists instead of a photo (the stories card). */
+  lists?: { label: string; items: string[] }[];
+}
+
+export const INTERESTS: Interest[] = [
+  { title: "Karate", text: "International medalist in kata and kobudo: **2× silver, 2× bronze**, and **20+ medals** from local tournaments.",
+    photo: photo("interests", "karate-belts"), caption: "Every belt I've earned, hung in a circle in my room" },
+  { title: "Piano, Guitar & Music", text: "**RCM Level 9** piano, guitar in a band, and just in love with music in general.",
+    photo: photo("interests", "piano"), caption: "Morning light on the keys" },
+  { title: "Photography", text: "The gallery above is the proof. Mostly shot on my iPhone and my dad's camera.", visual: "gallery" },
+  { title: "Bouldering", text: "Trying to get better.", photo: photo("interests", "bouldering"), caption: "Does whatever a spider can" },
+  { title: "Digital art", text: "I mostly draw whatever I like, to feel cozy.", photo: photo("interests", "digital-art"), caption: "One of mine" },
+  { title: "The best stories of all time", text: "Games and anime I'd recommend to anyone.",
+    lists: [
+      { label: "games", items: ["Professor Layton", "Persona", "The Legend of Zelda", "Ace Attorney", "Return of the Obra Dinn"] },
+      { label: "anime", items: ["Steins;Gate", "Attack on Titan", "Your Name", "Violet Evergarden", "Konosuba"] },
+    ] },
 ];
 
 /* ------------------------------------------------------------------ books */

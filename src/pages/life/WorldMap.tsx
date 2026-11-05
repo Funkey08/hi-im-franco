@@ -15,7 +15,6 @@ const BY_ISO = new Map(COUNTRIES.map((c) => [c.iso, c]));
  */
 export default function WorldMap() {
   const [hot, setHot] = useState<{ iso: string; x: number; y: number } | null>(null);
-  const continents = new Set(COUNTRIES.map((c) => c.continent)).size;
 
   const at = (iso: string, e?: PointerEvent<SVGElement>) => {
     if (e) {
@@ -31,7 +30,7 @@ export default function WorldMap() {
 
   return (
     <section className="lsec" aria-labelledby="map-title">
-      <h2 className="llabel" id="map-title">// <b>where I've been</b> <span>{COUNTRIES.length} countries · {continents} continents</span></h2>
+      <h2 className="llabel" id="map-title">// <b>where I've been</b> <span className="llabel-aside">…and where I left part of myself behind</span></h2>
       <div className="map">
         <svg viewBox={`0 0 ${W.w} ${W.h}`} role="img" aria-label={`World map: ${COUNTRIES.map((x) => x.name).join(", ")}`}>
           <defs>

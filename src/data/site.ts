@@ -22,7 +22,8 @@ export const EMAIL = "francomiguel.valencia@gmail.com";
 
 export const GITHUB = { label: "github.com/Funkey08", href: "https://github.com/Funkey08" };
 
-export const LINKS: { label: string; href: string }[] = [
+export type LinkIcon = "github" | "linkedin" | "email";
+export const LINKS: { label: LinkIcon; href: string }[] = [
   { label: "github", href: GITHUB.href },
   { label: "linkedin", href: "https://www.linkedin.com/in/franco-miguel-valencia-6a650b219/" },
   { label: "email", href: `mailto:${EMAIL}` },
