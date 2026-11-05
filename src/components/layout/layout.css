@@ -44,9 +44,8 @@ body[data-docked] .topbar {
 html.probe .topbar-coords { display: inline; }
 .topbar-nav { display: flex; gap: 22px; }
 .topbar-nav a { display: inline-flex; align-items: center; gap: 8px; }
-.link-icon { width: 15px; height: 15px; flex: none; transition: filter 0.2s, transform 0.2s; }
-.link-icon.gh { color: #f0e6da; }
-.topbar-nav a:hover .link-icon { transform: translateY(-1px); filter: drop-shadow(0 0 6px rgba(255, 170, 90, 0.55)); }
+.link-icon { width: 15px; height: 15px; flex: none; color: #d9a25e; filter: drop-shadow(0 0 3px rgba(255, 140, 40, 0.35)); transition: color 0.2s, filter 0.2s, transform 0.2s; }
+.topbar-nav a:hover .link-icon, .topbar-nav a:focus-visible .link-icon { color: var(--glow); transform: translateY(-1px); filter: drop-shadow(0 0 7px rgba(255, 140, 40, 0.8)); }
 .topbar-nav a, .footer a { text-decoration: none; color: var(--dim); transition: color 0.2s, text-shadow 0.2s; }
 .topbar-nav a:hover, .footer a:hover { color: var(--glow); text-shadow: 0 0 10px rgba(255, 140, 40, 0.6); }
 
