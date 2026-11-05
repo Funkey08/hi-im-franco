@@ -165,3 +165,10 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - Brand-coloured icons in the top bar. Portrait note no longer covers the email box.
 - Bug: home.css's `.role` leaked into Work's timeline (spaced monospace text); renamed to `.hero-role`. Lesson: page CSS is global once loaded; prefix page-specific class names.
 
+## Rounds 21–23 · Nov 4–5, 2026 — intros, small copy edits, mobile grain, student IDs
+- Work intro and Life header intro in Franco's words; theme-coloured link icons (top bar + footer); "Work and Life" on Home; off-the-clock copy edits.
+- Grain: identical CSS everywhere, but a real iPhone shows it far heavier (OLED + mobile compositing; measured equal in desktop emulation). Touch devices (hover: none, pointer: coarse) now get opacity 0.025; desktop stays 0.065.
+- Student-ID fact: Franco's photo of all five cards. **Every ID number, SCIPER, card number, UTORid and barcode is pixelated before publishing** (`life-photo-originals/miscellaenous stuff/student-ids-redacted.png`; the original HEIC is never published). Keep doing this for any document-like photo.
+- Leblanc caption is now "Yongen-Jaya, Tokyo".
+- Deploys go straight from main (Franco's call, Nov 5).
+

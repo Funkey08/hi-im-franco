@@ -29,7 +29,7 @@ Legend: 🐛 bug fix · 🧱 structure · ✨ new section · 🎨 visual · ✍�
 - **Next:** Life polish (more fact photos as they arrive; maybe an "other interests" block); then case-study pages per flagship; then replace `/legacy` section by section.
 - **Intro:** the worldline boot plays on every full page load (skippable; never on in-app navigation).
 - **Footer:** rendered by `Layout` on every page: the "open a channel" compose box + links on the left, the ASCII self-portrait on the right (stacked on phones).
-- **Waiting on Franco:** more photos for the Life facts (buffet? band? student IDs?); confirm 15 vs 16 hours (Stanford PDT ↔ Singapore is 15 h; his note says 16); the Mount Fuji and Kamakura photos have no date; award years (left off until verified); confirm the Eric Jackman Scholarship is from Trinity College; the Work intro (2–3 sentences); a real Lambda figure once there is data (generated cover until then); whether the CHIS card should link a preprint; confirm the BiblioLinguist description and the Takehara title ("Research Opportunity Program"); the numerosity app was left out (stack unverified).
+- **Waiting on Franco:** more photos for the Life facts (buffet? band?); confirm 15 vs 16 hours (Stanford PDT ↔ Singapore is 15 h; his note says 16); the Mount Fuji and Kamakura photos have no date; award years (left off until verified); confirm the Eric Jackman Scholarship is from Trinity College; the Work intro (2–3 sentences); a real Lambda figure once there is data (generated cover until then); whether the CHIS card should link a preprint; confirm the BiblioLinguist description and the Takehara title ("Research Opportunity Program"); the numerosity app was left out (stack unverified).
 
 ---
 
