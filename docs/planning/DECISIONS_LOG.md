@@ -158,3 +158,10 @@ Prototype updated in place (`nixie_home.html`; round-3 backup since deleted).
 - Board: no more columns. Sizes vary with each photo's shape and a seeded scale; each print drops as high as it fits, may tuck under the bottom of the print above (whose caption stays on top) and never covers a caption or more than 20% of a photo.
 - Stanford/NUS fact gets his Singapore night photo, captioned with both clocks (7:46 pm in Singapore = 4:46 am in Palo Alto, from its timestamp).
 
+## Round 20 · Nov 4, 2026 — after the first merge to main + deploy
+- Deployed main to GitHub Pages (gh-pages @ f125228). Hosting stays on GitHub Pages for now; Cloudflare Pages / a custom domain discussed and parked.
+- Off the clock added to Life (six cards; Franco's photos for karate, piano, bouldering, digital art).
+- Captions and map subtitle rewritten in his words; contact lede is "Send me a message!"; Work: "Harvard i-Lab + MIT Orbit".
+- Brand-coloured icons in the top bar. Portrait note no longer covers the email box.
+- Bug: home.css's `.role` leaked into Work's timeline (spaced monospace text); renamed to `.hero-role`. Lesson: page CSS is global once loaded; prefix page-specific class names.
+
