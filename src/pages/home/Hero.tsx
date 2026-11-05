@@ -100,7 +100,7 @@ export default function Hero() {
       </div>
 
       <div className="reveal" style={{ "--d": 0 } as CSSProperties}><Nameplate /></div>
-      <p className="role reveal" style={{ "--d": 1 } as CSSProperties}>
+      <p className="hero-role reveal" style={{ "--d": 1 } as CSSProperties}>
         {ROLES.map((r, i) => <span key={r}>{i > 0 && <i aria-hidden="true">·</i>}{r}</span>)}
       </p>
       <div className="reveal" style={{ "--d": 2 } as CSSProperties}><ReadingsPanel /></div>
