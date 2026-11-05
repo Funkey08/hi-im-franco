@@ -3,6 +3,7 @@ import { LINKS, SIGNOFF, SIGNOFF_NOTE } from "../../data/site";
 import { useSeen } from "../../lib/useSeen";
 import AsciiArt, { type AsciiData } from "../ascii/AsciiArt";
 import ContactBox from "./ContactBox";
+import LinkIcon from "./LinkIcon";
 
 const FRANCO_ART = franco as unknown as AsciiData;
 
@@ -30,7 +31,7 @@ export default function Footer({ eot = "— end of readings —" }: { eot?: stri
           <div className="footer-eot">{eot}</div>
           <nav aria-label="Links">
             {LINKS.map((l) => (
-              <a key={l.label} href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer">{l.label}</a>
+              <a key={l.label} href={l.href} target={l.href.startsWith("http") ? "_blank" : undefined} rel="noreferrer"><LinkIcon kind={l.label} />{l.label}</a>
             ))}
           </nav>
           <div>© {new Date().getFullYear()} Franco Miguel Valencia · Lab Mem 008</div>

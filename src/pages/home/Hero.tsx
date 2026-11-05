@@ -108,7 +108,7 @@ export default function Hero() {
       <p className="pick reveal" style={{ "--d": 5 } as CSSProperties}>Click on a section to learn more about me.</p>
       <div className="channels reveal" style={{ "--d": 6 } as CSSProperties}>
         <Channel kind="work" title="WORK" kicker="artificial neurons" sub="research · industry · projects" create={makeNet} />
-        <span className="channels-vs" aria-hidden="true">vs.</span>
+        <span className="channels-vs" aria-hidden="true">and</span>
         <Channel kind="life" title="LIFE" kicker="real neurons" sub="places · photos · achievements" create={makeBrain} />
       </div>
       <div className="scrollcue reveal" style={{ "--d": 8 } as CSSProperties} aria-hidden="true">↓</div>

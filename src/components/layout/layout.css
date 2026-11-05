@@ -108,6 +108,9 @@ html.probe .topbar-coords { display: inline; }
   color: var(--faint);
 }
 .footer-links nav { display: flex; gap: 18px; }
+.footer-links nav a { display: inline-flex; align-items: center; gap: 7px; }
+.footer-links .link-icon { width: 13px; height: 13px; }
+.footer-links nav a:hover .link-icon, .footer-links nav a:focus-visible .link-icon { color: var(--glow); filter: drop-shadow(0 0 7px rgba(255, 140, 40, 0.8)); }
 .footer-eot { color: #6b5643; margin-bottom: 10px; letter-spacing: 0.2em; }
 
 /* ---------------------------------------------------------------- footer self-portrait */
