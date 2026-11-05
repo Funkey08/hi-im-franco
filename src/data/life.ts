@@ -128,12 +128,12 @@ export interface Interest {
 }
 
 export const INTERESTS: Interest[] = [
-  { title: "Karate", text: "International medalist in kata and kobudo: **2× silver, 2× bronze**.",
+  { title: "Karate", text: "International medalist in kata and kobudo: **2× silver, 2× bronze**, and **20+ medals** from local tournaments.",
     photo: photo("interests", "karate-belts"), caption: "Every belt I've earned, hung in a circle in my room" },
-  { title: "Piano, guitar & music", text: "**RCM Level 9** piano, guitar in a band, and music in general.",
+  { title: "Piano, Guitar & Music", text: "**RCM Level 9** piano, guitar in a band, and just in love with music in general.",
     photo: photo("interests", "piano"), caption: "Morning light on the keys" },
   { title: "Photography", text: "The gallery above is the proof. Mostly shot on my iPhone and my dad's camera.", visual: "gallery" },
-  { title: "Bouldering", text: "Trying to get better.", photo: photo("interests", "bouldering"), caption: "Working on it" },
+  { title: "Bouldering", text: "Trying to get better.", photo: photo("interests", "bouldering"), caption: "Does whatever a spider can" },
   { title: "Digital art", text: "I mostly draw whatever I like, to feel cozy.", photo: photo("interests", "digital-art"), caption: "One of mine" },
   { title: "The best stories of all time", text: "Games and anime I'd recommend to anyone.",
     lists: [
