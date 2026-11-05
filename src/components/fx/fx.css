@@ -33,6 +33,11 @@
   mix-blend-mode: overlay;
   animation: fx-grain 0.9s steps(1) infinite;
 }
+/* Phones and tablets: OLED screens and mobile browsers' compositing make the same grain read far
+   heavier than on a desktop monitor, so touch devices get a much lighter layer. Desktop unchanged. */
+@media (hover: none) and (pointer: coarse) {
+  .fx-grain { opacity: 0.025; }
+}
 @keyframes fx-grain {
   0% { transform: translate(0, 0); } 17% { transform: translate(-3%, 2%); } 33% { transform: translate(2%, -4%); }
   50% { transform: translate(-4%, -1%); } 67% { transform: translate(3%, 3%); } 83% { transform: translate(-1%, 4%); }
