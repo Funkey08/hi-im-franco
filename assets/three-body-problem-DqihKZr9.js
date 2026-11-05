@@ -1,0 +1,1 @@
+const s="/hi-im-franco/assets/dune-CPj4qDiX.jpg",_="/hi-im-franco/assets/exhalation-CPSRoEIw.jpg",o="/hi-im-franco/assets/kafka-on-the-shore-D_10Ar2F.jpg",a="/hi-im-franco/assets/lord-of-the-rings-DSgIm-0j.jpg",t="/hi-im-franco/assets/three-body-problem--CX21APF.jpg";export{t as _,a,o as b,_ as c,s as d};

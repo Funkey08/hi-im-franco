@@ -2,13 +2,34 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/png" href="/hi-im-franco/face_only_icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Hi, I'm Franco!</title>
-    <script type="module" crossorigin src="/hi-im-franco/assets/index-BZXq0P5b.js"></script>
-    <link rel="stylesheet" crossorigin href="/hi-im-franco/assets/index-CixH5y65.css">
+    <title>Franco Miguel Valencia · data scientist, applied researcher</title>
+    <meta name="description" content="Franco Miguel Valencia: data scientist and applied researcher. Research, industry work and side projects, measured on a nixie-tube instrument." />
+    <meta name="theme-color" content="#1c1611" />
+    <meta property="og:title" content="Franco Miguel Valencia" />
+    <meta property="og:description" content="Data scientist · applied researcher · human being." />
+    <meta property="og:type" content="website" />
+    <link rel="icon" type="image/png" href="/hi-im-franco/face-only-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;600;700;800&family=Oswald:wght@200;300;500&display=swap" rel="stylesheet" />
+    <!--
+      GitHub Pages deep links: public/404.html turns /hi-im-franco/work into /hi-im-franco/?/work.
+      This restores the real path before React Router reads it (spa-github-pages technique).
+    -->
+    <script>
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search.slice(1).split("&").map(function (s) { return s.replace(/~and~/g, "&"); }).join("?");
+          window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+        }
+      })(window.location);
+    </script>
+    <script type="module" crossorigin src="/hi-im-franco/assets/index-DMJxDlgW.js"></script>
+    <link rel="stylesheet" crossorigin href="/hi-im-franco/assets/index-DMMkG8M2.css">
   </head>
   <body>
     <div id="root"></div>
+    <noscript>Franco Miguel Valencia: data scientist and applied researcher. This site needs JavaScript for its interactive instrument.</noscript>
   </body>
 </html>
