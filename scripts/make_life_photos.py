@@ -57,6 +57,8 @@ PICKS = [
     ("interests", "piano", "other stuff/IMG_2509.HEIC"),
     ("interests", "bouldering", "other stuff/IMG_9982.jpg"),
     ("interests", "digital-art", "other stuff/Untitled_Artwork.png"),
+    # ID numbers and barcodes blurred first (see the note in docs/planning/DECISIONS_LOG.md, round 23)
+    ("facts", "student-ids", "miscellaenous stuff/student-ids-redacted.png"),
     ("facts", "uoft-graduation", "miscellaenous stuff/DSCF4330.jpg"),
     ("facts", "lost-in-japan", "miscellaenous stuff/IMG_2882.HEIC"),
     ("facts", "seoul-summit", "miscellaenous stuff/IMG_5258.heic"),

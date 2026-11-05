@@ -40,7 +40,7 @@ export const FACTS: Fact[] = [
   { text: "Made it out of the University of Toronto **alive**.", photo: photo("facts", "uoft-graduation"), caption: "Proof · Toronto, 2026" },
   { text: "Got my driver's license in **one try**." },
   { text: "Wrote a **60,000-word manuscript** on motivation, then finished it by living out the rest instead of writing it." },
-  { text: "Own **5 student ID cards**." },
+  { text: "Own **5 student ID cards**.", photo: photo("facts", "student-ids"), caption: "Harvard · MIT · EPFL · NUS · U of T" },
 ];
 export const FACTS_CODA = "…and many, many more, omitted to keep this website minimalist.";
 
@@ -85,7 +85,7 @@ export const GALLERY: Shot[] = [
   shot("miyajima-torii", "Itsukushima Shrine, Miyajima", "392", 2026),
   shot("big-ben", "Looking up at Big Ben", "826", 2025),
   shot("stellisee-zermatt", "Stellisee, above Zermatt", "756", 2025),
-  shot("leblanc", "Sangen- no, Yongen-jaya, Tokyo", "392", 2026),
+  shot("leblanc", "Yongen-Jaya, Tokyo", "392", 2026),
   shot("hai-van-pass", "Hải Vân Pass, by motorbike", "704", 2026),
   shot("taipei-at-night", "Taipei from Elephant Mountain", "158", 2026),
   shot("st-pauls-alley", "St Paul's, down an alley", "826", 2025),
