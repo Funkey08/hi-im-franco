@@ -1,3 +1,4 @@
+import { LIFE_INTRO } from "../../data/life";
 import { SLOGAN } from "../../data/site";
 import { useInstrument } from "../../instrument/context";
 import { createBrain } from "../../sims/brain";
@@ -23,7 +24,8 @@ export default function LifePage() {
           <div className="section-kicker">real neurons · places · photos · the rest of me</div>
           <h1>LIFE</h1>
           <div className="lbanner"><SimCanvas create={makeBrain} bright={0.85} /></div>
-          <p className="lmotto">{SLOGAN.lead}<em>{SLOGAN.accent}</em>{SLOGAN.tail}</p>
+          <p className="lmotto">{SLOGAN.lead}<em>{SLOGAN.accent}</em>…</p>
+          <p className="lintro">{LIFE_INTRO}</p>
         </header>
         <Facts />
         <WorldMap />

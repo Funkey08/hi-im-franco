@@ -16,6 +16,7 @@
 .lbanner::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.22) 0 1px, transparent 1px 3px); }
 .lmotto { margin: 40px 0 0; max-width: 980px; font: italic 400 clamp(30px, 3.5vw, 50px) / 1.25 var(--font-serif); color: #e9dac6; }
 .lmotto em { color: #ffcf95; text-shadow: 0 0 18px rgba(255, 140, 40, 0.35); }
+.lintro { margin: 18px 0 0; max-width: 760px; font: italic 400 clamp(20px, 1.9vw, 25px) / 1.5 var(--font-serif); color: var(--dim); }
 
 .lsec { padding: clamp(50px, 8vh, 80px) 0 0; }
 .llabel { margin: 0 0 22px; font: 400 11px var(--font-mono); letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); }
@@ -145,8 +146,8 @@
 /* stories: two short lists */
 .interest-fig.lists { cursor: default; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; align-content: center; padding: 18px 20px; background: radial-gradient(ellipse at 50% 40%, #2a1b0c, #120c07); }
 .interest-fig.lists b { display: block; margin-bottom: 8px; font: 400 10.5px var(--font-mono); letter-spacing: 0.2em; text-transform: uppercase; color: var(--amber); }
-.interest-fig.lists ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
-.interest-fig.lists li { font: italic 17px / 1.2 var(--font-serif); color: #ffe2bd; text-shadow: 0 0 12px rgba(255, 130, 40, 0.3); }
+.interest-fig.lists ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.interest-fig.lists li { font: italic 16px / 1.2 var(--font-serif); color: #ffe2bd; text-shadow: 0 0 12px rgba(255, 130, 40, 0.3); }
 .interest h3 { margin: 16px 18px 4px; font: 500 21px / 1.2 var(--font-display); letter-spacing: 0.02em; color: var(--ink); }
 .interest p { margin: 0 18px 18px; font-size: 14.5px; line-height: 1.55; color: var(--color-ink-2); }
 .interest p b { color: #ffd9a8; font-weight: 600; }

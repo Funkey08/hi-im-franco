@@ -18,6 +18,9 @@ const photo = (group: "gallery" | "facts" | "interests", slug: string): Photo =>
   return { slug, sm: s, lg: lg[`../assets/life/${group}/${slug}-lg.avif`] ?? s, w, h };
 };
 
+/** Under the trailing-off slogan at the top of the page (Franco's words). */
+export const LIFE_INTRO = "…And that includes everything else I have yet to experience. Work is where I study complex systems. This is where I live in one.";
+
 /* ------------------------------------------------------------------ things I'm proud of */
 
 export interface Fact { text: string; photo?: Photo; caption?: string }
@@ -134,8 +137,8 @@ export const INTERESTS: Interest[] = [
   { title: "Digital art", text: "I mostly draw whatever I like, to feel cozy.", photo: photo("interests", "digital-art"), caption: "One of mine" },
   { title: "The best stories of all time", text: "Games and anime I'd recommend to anyone.",
     lists: [
-      { label: "games", items: ["Professor Layton", "Persona", "The Legend of Zelda", "Ace Attorney"] },
-      { label: "anime", items: ["Attack on Titan", "Your Name", "Violet Evergarden", "Konosuba"] },
+      { label: "games", items: ["Professor Layton", "Persona", "The Legend of Zelda", "Ace Attorney", "Return of the Obra Dinn"] },
+      { label: "anime", items: ["Steins;Gate", "Attack on Titan", "Your Name", "Violet Evergarden", "Konosuba"] },
     ] },
 ];
 
