@@ -3,6 +3,7 @@ import { useInstrument } from "../../instrument/context";
 import { createBrain } from "../../sims/brain";
 import SimCanvas from "../../sims/SimCanvas";
 import Facts from "./Facts";
+import OffTheClock from "./OffTheClock";
 import PhotoBoard from "./PhotoBoard";
 import Shelf from "./Shelf";
 import WorldMap from "./WorldMap";
@@ -11,7 +12,7 @@ import "./life.css";
 
 const makeBrain = (c: HTMLCanvasElement) => createBrain(c, { count: 22 });
 
-/** /life: the motto, then things I'm proud of → where I've been → photos from there → books. */
+/** /life: the motto, then things I'm proud of → where I've been → photos from there → books → everything else. */
 export default function LifePage() {
   const { back } = useInstrument();
   return (
@@ -28,6 +29,7 @@ export default function LifePage() {
         <WorldMap />
         <PhotoBoard />
         <Shelf />
+        <OffTheClock />
       </div>
     </main>
   );

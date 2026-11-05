@@ -53,6 +53,10 @@ PICKS = [
     ("gallery", "local-train", "japan/CD2D08D0-D81E-44D8-9A0F-B188604BE440.png"),
     ("gallery", "leblanc", "japan/IMG_5869.HEIC"),
     ("facts", "singapore-night-shift", "miscellaenous stuff/IMG_1585.heic"),
+    ("interests", "karate-belts", "other stuff/IMG_5319.HEIC"),
+    ("interests", "piano", "other stuff/IMG_2509.HEIC"),
+    ("interests", "bouldering", "other stuff/IMG_9982.jpg"),
+    ("interests", "digital-art", "other stuff/Untitled_Artwork.png"),
     ("facts", "uoft-graduation", "miscellaenous stuff/DSCF4330.jpg"),
     ("facts", "lost-in-japan", "miscellaenous stuff/IMG_2882.HEIC"),
     ("facts", "seoul-summit", "miscellaenous stuff/IMG_5258.heic"),
@@ -68,7 +72,7 @@ def main(src: Path) -> None:
         im = ImageOps.exif_transpose(Image.open(src / rel)).convert("RGB")
         (OUT / group).mkdir(parents=True, exist_ok=True)
         for tag, (edge, q) in SIZES.items():
-            if group == "facts" and tag == "lg":
+            if group == "facts" and tag == "lg":  # facts open their small version
                 continue
             out = im.copy()
             out.thumbnail((edge, edge), Image.Resampling.LANCZOS)
