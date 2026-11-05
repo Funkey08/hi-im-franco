@@ -43,7 +43,11 @@ export const STATEMENT = {
   ] as (string | { hl: string })[],
   data: "data",
   /** Leave null until Franco writes it; the page shows nothing in its place. */
-  intro: null as string | null,
+  /** Franco's own words. Paragraphs are separated by a blank line; **bold** works. */
+  intro: [
+    "I love to learn, and data is the means to do that. I started in neuroscience and psychology because I believe nothing is more complex than people, and eventually realized that what I truly enjoy is making complex things less complex. Since then, I've worked across public health research, AI in production, fintech and market data, agents for startups, and too many problems to count. **My love for the theoretical stems from my love for the applied.**",
+    "And so, I'll always love experiencing things I know nothing about. I just measure them now.",
+  ].join("\n\n") as string | null,
 };
 
 /* ------------------------------------------------------------------ institutions */
